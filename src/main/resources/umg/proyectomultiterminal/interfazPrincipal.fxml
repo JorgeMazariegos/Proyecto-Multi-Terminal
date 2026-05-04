@@ -1,16 +1,257 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.proyectomultiterminal.InterfazPrincipalController">
-    <children>
-        <Label text="Secondary View" />
-        <Button fx:id="secondaryButton" onAction="#switchToPrimary" text="Switch to Primary View" />
-    </children>
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
-</VBox>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../../styles/interfazPrincipal.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.proyectomultiterminal.InterfazPrincipalController">
+   <children>
+      <Pane prefHeight="800.0" prefWidth="1200.0" styleClass="pane">
+         <children>
+              <Label fx:id="title" layoutX="25.0" layoutY="22.0" text="Servidor Principal">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../serverIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label fx:id="serverStatus" layoutX="380.0" layoutY="27.0" text="⬤ Apagado" />
+            <Button fx:id="startServer" layoutX="595.0" layoutY="26.0" mnemonicParsing="false" onAction="#startServer" prefHeight="43.0" prefWidth="178.0" text="▶ Iniciar Servidor" />
+            <Button fx:id="detenerServidor" disable="true" layoutX="803.0" layoutY="28.0" mnemonicParsing="false" onAction="#stopServer" text="■ Detener Servidor" />
+            <Pane fx:id="contentArea" layoutY="100.0" prefHeight="700.0" prefWidth="1200.0">
+               <children>
+                  <VBox fx:id="summary" alignment="TOP_CENTER" layoutX="12.0" layoutY="18.0" prefHeight="667.0" prefWidth="200.0">
+                     <children>
+                        <Label styleClass="yellowLabel" text="Resumen General" />
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="160.0" styleClass="infoPanel">
+                           <children>
+                              <ImageView fitHeight="39.0" fitWidth="44.0" layoutX="14.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../car.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="72.0" layoutY="2.0" styleClass="infoLabel" text="Normal" />
+                              <Label layoutX="74.0" layoutY="27.0" text="0">
+                                 <styleClass>
+                                    <String fx:value="infoLabel" />
+                                    <String fx:value="labelNumero" />
+                                 </styleClass>
+                              </Label>
+                              <Label layoutX="76.0" layoutY="70.0" text="en cola">
+                                 <styleClass>
+                                    <String fx:value="infoLabel" />
+                                    <String fx:value="labelCola" />
+                                 </styleClass>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="160.0" styleClass="infoPanel">
+                           <children>
+                              <ImageView fitHeight="39.0" fitWidth="44.0" layoutX="14.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../star.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="72.0" layoutY="2.0" styleClass="infoLabel" text="VIP" />
+                              <Label layoutX="74.0" layoutY="27.0" text="0">
+                                 <styleClass>
+                                    <String fx:value="infoLabel" />
+                                    <String fx:value="labelNumeroVIP" />
+                                 </styleClass>
+                              </Label>
+                              <Label layoutX="76.0" layoutY="70.0" text="en cola">
+                                 <styleClass>
+                                    <String fx:value="infoLabel" />
+                                    <String fx:value="labelCola" />
+                                 </styleClass>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="160.0" styleClass="infoPanel">
+                           <children>
+                              <ImageView fitHeight="39.0" fitWidth="44.0" layoutX="14.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../rayo.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="72.0" layoutY="2.0" styleClass="infoLabel" text="Especial" />
+                              <Label layoutX="74.0" layoutY="27.0" text="0">
+                                 <styleClass>
+                                    <String fx:value="infoLabel" />
+                                    <String fx:value="labelNumeroEspecial" />
+                                 </styleClass>
+                              </Label>
+                              <Label layoutX="76.0" layoutY="70.0" text="en cola">
+                                 <styleClass>
+                                    <String fx:value="infoLabel" />
+                                    <String fx:value="labelCola" />
+                                 </styleClass>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="157.0">
+                           <styleClass>
+                              <String fx:value="infoPanel" />
+                              <String fx:value="totalViajes" />
+                           </styleClass>
+                           <children>
+                              <Label layoutX="21.0" layoutY="14.0" styleClass="infoLabel" text="Viajes atendidos" />
+                              <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="104.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../arrow.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="21.0" layoutY="37.0" text="0">
+                                 <styleClass>
+                                    <String fx:value="infoLabel" />
+                                    <String fx:value="totalViajesLabel" />
+                                 </styleClass>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="160.0" styleClass="infoPanel">
+                           <children>
+                              <ImageView fitHeight="39.0" fitWidth="44.0" layoutX="14.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../clock.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="17.0" layoutY="2.0" prefHeight="25.0" prefWidth="135.0" styleClass="infoLabel" text="Tiempo promedio" />
+                              <Label layoutX="72.0" layoutY="40.0" text="0">
+                                 <styleClass>
+                                    <String fx:value="infoLabel" />
+                                    <String fx:value="totalViajesLabel" />
+                                 </styleClass>
+                              </Label>
+                              <Label layoutX="96.0" layoutY="53.0" text="min">
+                                 <styleClass>
+                                    <String fx:value="infoLabel" />
+                                    <String fx:value="labelCola" />
+                                 </styleClass>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </children>
+                  </VBox>
+                  <SplitPane dividerPositions="0.13" layoutX="232.0" layoutY="14.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0" styleClass="splitPanel">
+                    <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="155.0" prefWidth="177.0">
+                           <children>
+                              <ImageView fitHeight="37.0" fitWidth="39.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../car.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="65.0" layoutY="20.0" style="-fx-text-fill: #658dd5;" styleClass="infoLabel" text="NORMAL" />
+                              <Label layoutX="200.0" layoutY="15.0" text="0">
+                                 <styleClass>
+                                    <String fx:value="numberInQueue" />
+                                    <String fx:value="normalInQueue" />
+                                 </styleClass>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="28.0" prefWidth="158.0" />
+                    </items>
+                  </SplitPane>
+                  <SplitPane dividerPositions="0.13" layoutX="503.0" layoutY="14.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0">
+                     <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="28.0" prefWidth="158.0">
+                           <children>
+                              <ImageView fitHeight="37.0" fitWidth="39.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../star.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="61.0" layoutY="20.0" style="-fx-text-fill: #ddb959;" styleClass="infoLabel" text="VIP" />
+                              <Label layoutX="200.0" layoutY="15.0" text="0">
+                                 <styleClass>
+                                    <String fx:value="numberInQueue" />
+                                    <String fx:value="vipInQueue" />
+                                 </styleClass>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="155.0" prefWidth="177.0" />
+                     </items>
+                     <styleClass>
+                        <String fx:value="splitPanel" />
+                        <String fx:value="vipQueue" />
+                     </styleClass>
+                  </SplitPane>
+                  <SplitPane dividerPositions="0.13" layoutX="774.0" layoutY="14.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0">
+                     <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="28.0" prefWidth="158.0">
+                           <children>
+                              <ImageView fitHeight="37.0" fitWidth="39.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../rayo.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="51.0" layoutY="20.0" style="-fx-text-fill: #a37ad5;" styleClass="infoLabel" text="Especial" />
+                              <Label layoutX="200.0" layoutY="15.0" text="0">
+                                 <styleClass>
+                                    <String fx:value="numberInQueue" />
+                                    <String fx:value="espInQueue" />
+                                 </styleClass>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="155.0" prefWidth="177.0" />
+                     </items>
+                     <styleClass>
+                        <String fx:value="splitPanel" />
+                        <String fx:value="espQueue" />
+                     </styleClass>
+                  </SplitPane>
+                  <Pane fx:id="lastTicket" layoutX="232.0" layoutY="536.0" prefHeight="150.0" prefWidth="796.0">
+                     <children>
+                        <ImageView fitHeight="83.0" fitWidth="86.0" layoutX="26.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../wait.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="119.0" layoutY="28.0" styleClass="infoLabel" text="Esperando..." />
+                        <Label layoutX="119.0" layoutY="76.0" styleClass="infoLabel" text="Label" />
+                        <Separator layoutX="268.0" layoutY="28.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="0.0" />
+                        <Label layoutX="295.0" layoutY="23.0" prefHeight="17.0" prefWidth="135.0" styleClass="locationInfo" text="Destino:">
+                           <graphic>
+                              <ImageView fitHeight="35.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../location.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                        <Label layoutX="315.0" layoutY="75.0" styleClass="locationInfo" text="Tarifa:" />
+                     </children>
+                  </Pane>
+                  <Pane layoutX="1035.0" layoutY="14.0" prefHeight="100.0" prefWidth="157.0" styleClass="infoPanel">
+                     <children>
+                        <Label layoutX="63.0" layoutY="14.0" style="-fx-text-fill: #658dd5;" styleClass="infoLabel" text="PC 1">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="73.0" layoutY="50.0" opacity="0.5" style="-fx-text-fill: red;" text="⬤" />
+                        <Label layoutX="37.0" layoutY="50.0" opacity="0.5" style="-fx-text-fill: green;" text="⬤" />
+                        <Label layoutX="114.0" layoutY="50.0" style="-fx-text-fill: yellow;" text="⬤" />
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+              <Button fx:id="logOff" layoutX="1064.0" layoutY="28.0" onAction="#switchToPrimary" text="➜] Regresar" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
