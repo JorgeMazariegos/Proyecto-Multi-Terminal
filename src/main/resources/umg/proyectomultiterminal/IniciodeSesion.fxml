@@ -6,11 +6,14 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #070b0e;" stylesheets="@../../styles/iniciodesesion.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.proyectomultiterminal.IniciodeSesionController">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #070b0e;" styleClass="image-container" stylesheets="@../../styles/iniciodesesion.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.proyectomultiterminal.IniciodeSesionController">
    <children>
       <SplitPane dividerPositions="0.6710227272727273" layoutX="22.0" layoutY="261.0" orientation="VERTICAL" prefHeight="385.0" prefWidth="226.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Label layoutX="98.0" layoutY="120.0" text="SERVIDOR" />
+               </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
                   <Button layoutX="13.0" layoutY="32.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="198.0" text="INGRESAR">
@@ -24,12 +27,15 @@
         </items>
          <styleClass>
             <String fx:value="splitPanel" />
-            <String fx:value="split-verde" />
+            <String fx:value="button-verde" />
          </styleClass>
       </SplitPane>
       <SplitPane dividerPositions="0.6710227272727273" layoutX="255.0" layoutY="260.0" orientation="VERTICAL" prefHeight="386.0" prefWidth="226.0">
          <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Label layoutX="98.0" layoutY="120.0" text="REGISTRO" />
+               </children></AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
                   <Button layoutX="13.0" layoutY="32.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="198.0" styleClass="button-amarillo" text="INGRESAR" />
@@ -38,12 +44,15 @@
          </items>
          <styleClass>
             <String fx:value="splitPanel" />
-            <String fx:value="split-amarillo" />
+            <String fx:value="button-amarillo" />
          </styleClass>
       </SplitPane>
       <SplitPane dividerPositions="0.6695011337868482" layoutX="487.0" layoutY="260.0" orientation="VERTICAL" prefHeight="386.0" prefWidth="226.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Label layoutX="80.0" layoutY="111.0" prefHeight="34.0" prefWidth="54.0" text="GENERAL" />
+               </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
                   <Button layoutX="13.0" layoutY="33.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="198.0" styleClass="button-morado" text="INGRESAR" />
@@ -52,26 +61,37 @@
         </items>
          <styleClass>
             <String fx:value="splitPanel" />
-            <String fx:value="split-morado" />
+            <String fx:value="button-morado" />
          </styleClass>
       </SplitPane>
-      <SplitPane dividerPositions="0.6723356009070295" layoutX="720.0" layoutY="260.0" orientation="VERTICAL" prefHeight="386.0" prefWidth="226.0">
+      <Label fx:id="title" layoutX="208.0" layoutY="82.0" text="¿COMO DESEAS INGRESAR?" textFill="WHITE" />
+      <Label layoutX="435.0" layoutY="191.0" styleClass="infoLabel" text="SELECCIONA TU ROL DENTRO DEL SISTEMA" textFill="WHITE" />
+      <Label layoutX="321.0" layoutY="690.0" styleClass="infoLabel" text="TU SEGURIDAD ES IMPORTANTE. SELECCIONA TU ROL PARA CONTINUAR" textFill="WHITE" />
+      <SplitPane dividerPositions="0.6695011337868482" layoutX="721.0" layoutY="260.0" orientation="VERTICAL" prefHeight="386.0" prefWidth="226.0">
          <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Button layoutX="13.0" layoutY="32.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="198.0" styleClass="button-celeste" text="INGRESAR" />
+                  <Label layoutX="80.0" layoutY="111.0" prefHeight="34.0" prefWidth="54.0" text="VIP" />
+               </children>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Button layoutX="13.0" layoutY="33.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="198.0" styleClass="button-celeste" text="INGRESAR" />
                </children>
             </AnchorPane>
          </items>
          <styleClass>
             <String fx:value="splitPanel" />
-            <String fx:value="split-celeste" />
+            <String fx:value="button-celeste" />
          </styleClass>
       </SplitPane>
-      <SplitPane dividerPositions="0.6695011337868482" layoutX="953.0" layoutY="260.0" orientation="VERTICAL" prefHeight="386.0" prefWidth="226.0">
+      <SplitPane dividerPositions="0.6695011337868482" layoutX="959.0" layoutY="260.0" orientation="VERTICAL" prefHeight="386.0" prefWidth="226.0">
          <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Label layoutX="80.0" layoutY="111.0" prefHeight="34.0" prefWidth="54.0" text="ESPECIAL" />
+               </children>
+            </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
                   <Button layoutX="13.0" layoutY="33.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="198.0" styleClass="button-blanco" text="INGRESAR" />
@@ -80,11 +100,8 @@
          </items>
          <styleClass>
             <String fx:value="splitPanel" />
-            <String fx:value="split-blanco" />
+            <String fx:value="button-blanco" />
          </styleClass>
       </SplitPane>
-      <Label fx:id="title" layoutX="208.0" layoutY="82.0" text="¿COMO DESEAS INGRESAR?" textFill="WHITE" />
-      <Label layoutX="557.0" layoutY="196.0" text="SELECCIONA TU ROL DENTRO DEL SISTEMA" textFill="WHITE" />
-      <Label layoutX="477.0" layoutY="686.0" text="TU SEGURIDAD ES IMPORTANTE. SELECCIONA TU ROL PARA CONTINUAR" textFill="WHITE" />
    </children>
 </AnchorPane>

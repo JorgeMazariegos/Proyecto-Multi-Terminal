@@ -99,10 +99,14 @@
     -fx-font-family: "Orbitron";
     -fx-font-size: 60px;
     -fx-font-weight: bold;
-
     /* degradado dorado */
     -fx-text-fill: linear-gradient(to bottom, #FFF3B0, #FFD700, #B8860B);
-
     /* “3D” con sombras */
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.9), 6, 0.6, 3, 3);
+}
+
+.infoLabel{
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
 }
