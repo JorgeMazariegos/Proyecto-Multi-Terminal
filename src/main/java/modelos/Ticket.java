@@ -3,13 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package modelos;
-
+import java.io.Serializable;
 import java.time.LocalDate;
 /**
  *
  * @author AMD 5600G
  */
-public class Ticket {
+public class Ticket implements Serializable {
     int numTicket;
     String DPI;
     String tipo;

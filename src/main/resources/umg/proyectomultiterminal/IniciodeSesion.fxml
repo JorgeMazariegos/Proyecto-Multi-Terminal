@@ -12,7 +12,11 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Label layoutX="98.0" layoutY="120.0" text="SERVIDOR" />
+                  <Label layoutX="75.0" layoutY="118.0" text="SERVIDOR">
+                     <styleClass>
+                        <String fx:value="label-panel" />
+                        <String fx:value="label-servidor" />
+                     </styleClass></Label>
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
@@ -34,7 +38,7 @@
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Label layoutX="98.0" layoutY="120.0" text="REGISTRO" />
+                  <Label layoutX="76.0" layoutY="118.0" styleClass="label-panel" text="REGISTRO" />
                </children></AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
@@ -51,7 +55,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Label layoutX="80.0" layoutY="111.0" prefHeight="34.0" prefWidth="54.0" text="GENERAL" />
+                  <Label layoutX="80.0" layoutY="111.0" prefHeight="34.0" prefWidth="86.0" styleClass="label-panel" text="GENERAL" />
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
@@ -71,7 +75,7 @@
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Label layoutX="80.0" layoutY="111.0" prefHeight="34.0" prefWidth="54.0" text="VIP" />
+                  <Label layoutX="80.0" layoutY="111.0" prefHeight="34.0" prefWidth="54.0" styleClass="label-panel" text="VIP" />
                </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
@@ -89,7 +93,7 @@
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Label layoutX="80.0" layoutY="111.0" prefHeight="34.0" prefWidth="54.0" text="ESPECIAL" />
+                  <Label layoutX="80.0" layoutY="111.0" prefHeight="34.0" prefWidth="85.0" styleClass="label-panel" text="ESPECIAL" />
                </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">

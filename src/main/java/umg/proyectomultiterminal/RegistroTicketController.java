@@ -102,8 +102,8 @@ public class RegistroTicketController {
             in = null;
             socket = null;
         }
-        conectToServer.setDisable(true);
-        desconectar.setDisable(false);
+        conectToServer.setDisable(false);
+        desconectar.setDisable(true);
         serverStatus.pseudoClassStateChanged(on, false);
         serverStatus.setText("⬤ Desconectado");
     }
