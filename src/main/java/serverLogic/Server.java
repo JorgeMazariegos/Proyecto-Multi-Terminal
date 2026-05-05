@@ -141,6 +141,7 @@ public class Server {
                     if(obj instanceof Mensaje){
                         Mensaje mensaje = (Mensaje) obj;
                         procesarMensaje(mensaje);
+                        System.out.println(mensaje.getMensaje());
                     }
                 }
             } catch (EOFException | SocketException e) {
@@ -162,10 +163,14 @@ public class Server {
         }
         
         private void procesarMensaje(Mensaje mensaje){ 
-            if(mensaje.getMensaje().equals("Conectado Registro")){
-                interfaz = InterfazPrincipalController.getInstance(); 
-                interfaz.usuarioStatus(mensaje.getMensaje());
+            interfaz = InterfazPrincipalController.getInstance();
+                        
+            if(mensaje.isStatus()){              
+                Platform.runLater(() -> {
+                    interfaz.usuarioStatus(mensaje.getMensaje());
+                });
             }
+            
         }
     }
 }

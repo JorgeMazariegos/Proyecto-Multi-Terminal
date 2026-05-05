@@ -74,8 +74,9 @@ public class RegistroTicketController {
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
             Mensaje mensaje = new Mensaje("Conectado Registro");
-            sendMensaje(mensaje);
+            mensaje.setStatus(true);
             conectado = true;
+            sendMensaje(mensaje);
             conectToServer.setDisable(true);
             desconectar.setDisable(false);
             serverStatus.pseudoClassStateChanged(on, true);
@@ -87,6 +88,9 @@ public class RegistroTicketController {
     
     @FXML
     private void disconnect() {
+        Mensaje mensaje = new Mensaje("Desconectado Registro");
+        mensaje.setStatus(true);
+        sendMensaje(mensaje);
         conectado = false;   // Prevent further sends immediately
         try {
             if (out != null) {
