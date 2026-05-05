@@ -143,6 +143,7 @@ public class Server {
 
         private void procesarTicket(Ticket ticket) throws IOException {
             System.out.println("holaa");
+            System.out.println(ticket.getDPI());
         }
     }
 }

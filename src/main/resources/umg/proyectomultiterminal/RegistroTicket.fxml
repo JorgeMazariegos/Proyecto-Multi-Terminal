@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #070b0e;" stylesheets="@../../styles/registroticket.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.proyectomultiterminal.RegistroTicketController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #070b0e;" stylesheets="@../../styles/registroticket.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.proyectomultiterminal.RegistroTicketController">
    <children>
       <Pane layoutX="23.0" layoutY="699.0" prefHeight="86.0" prefWidth="1154.0" styleClass="infoPanel">
          <children>
@@ -35,7 +35,7 @@
             <Label layoutX="662.0" layoutY="20.0" style="-fx-text-fill: #a37ad5;" styleClass="infoLabel" text="Especial" />
             <ImageView fitHeight="38.0" fitWidth="64.0" layoutX="898.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../../Downloads/flecha.png" />
+                  <Image url="@../../../../../Downloads/flecha.png" />
                </image>
             </ImageView>
          </children></Pane>
@@ -54,10 +54,10 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
                   <Label layoutX="66.0" layoutY="33.0" prefHeight="18.0" prefWidth="231.0" styleClass="infoLabel" text="Tickets generados " />
-                  <ComboBox layoutX="471.0" layoutY="29.0" prefWidth="150.0" promptText="Todos" />
+                  <ComboBox fx:id="cbxFiltro" layoutX="471.0" layoutY="29.0" prefWidth="150.0" promptText="Todos" />
                   <ImageView fitHeight="38.0" fitWidth="49.0" layoutX="18.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../Downloads/2680534.png" />
+                        <Image url="@../../2680534.png" />
                      </image>
                   </ImageView>
                </children>
@@ -71,30 +71,30 @@
                <children>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="102.0" prefWidth="486.0">
                      <children>
-                        <Label layoutX="79.0" layoutY="33.0" styleClass="infoLabel" text="Ingresa tus datos para generar tu ticket" />
+                        <Label layoutX="79.0" layoutY="33.0" styleClass="infoLabel" text="Registro de Ticket" />
                         <ImageView fitHeight="38.0" fitWidth="49.0" layoutX="34.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../../../../Downloads/2680534.png" />
+                              <Image url="@../../2680534.png" />
                            </image>
                         </ImageView>
-                        <ComboBox layoutX="17.0" layoutY="362.0" prefHeight="26.0" prefWidth="452.0" promptText="General" />
-                        <Button layoutX="22.0" layoutY="514.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="442.0" text="Generar Ticket" />
+                        <Button fx:id="generateTicket" layoutX="22.0" layoutY="514.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="442.0" text="Generar Ticket" />
                      </children>
                   </AnchorPane>
-                  <Label layoutX="22.0" layoutY="212.0" prefHeight="18.0" prefWidth="130.0" styleClass="infoLabel" text="Usuario" />
-                  <Label layoutX="22.0" layoutY="335.0" styleClass="infoLabel" text="Prioridad" />
+                  <Label layoutX="17.0" layoutY="218.0" styleClass="infoLabel" text="Prioridad" />
                   <Label layoutX="22.0" layoutY="108.0" prefHeight="18.0" prefWidth="111.0" styleClass="infoLabel" text="DPI" />
-                  <TextField layoutX="17.0" layoutY="244.0" prefHeight="26.0" prefWidth="452.0" promptText="Nombre de usuario" styleClass="text-field" />
-                  <TextField layoutX="17.0" layoutY="138.0" prefHeight="26.0" prefWidth="452.0" promptText="Ej: 3069784512" />
+                  <TextField fx:id="txtDPI" layoutX="17.0" layoutY="138.0" prefHeight="26.0" prefWidth="452.0" promptText="Ej: 3069784512" />
+                  <ComboBox fx:id="cbxTipo" layoutX="17.0" layoutY="249.0" prefHeight="26.0" prefWidth="452.0" promptText="Elegir prioridad" />
                </children>
             </AnchorPane>
         </items>
       </SplitPane>
-      <Label fx:id="serverStatus" layoutX="531.0" layoutY="34.0" prefHeight="38.0" prefWidth="130.0" text="⬤ Apagado" />
-      <ImageView fitHeight="226.0" fitWidth="430.0" layoutX="892.0" layoutY="-61.0" pickOnBounds="true" preserveRatio="true" styleClass="combo-box">
+      <Label fx:id="serverStatus" layoutX="617.0" layoutY="32.0" prefHeight="41.0" prefWidth="168.0" text="⬤ Desconectado" />
+      <ImageView disable="true" fitHeight="226.0" fitWidth="430.0" layoutX="243.0" layoutY="-67.0" pickOnBounds="true" preserveRatio="true" styleClass="combo-box">
          <image>
-            <Image url="@../../../../../../../../../Downloads/ChatGPT%20Image%204%20may%202026,%2009_33_58%20a.m..png" />
+            <Image url="@../../ChatGPT%20Image%204%20may%202026,%2009_33_58%20a.m..png" />
          </image>
       </ImageView>
+      <Button fx:id="conectToServer" layoutX="800.0" layoutY="31.0" mnemonicParsing="false" text="▶ Conectar al Servidor" />
+      <Button fx:id="desconectar" disable="true" layoutX="1033.0" layoutY="33.0" mnemonicParsing="false" text="■ Desconectar" />
    </children>
 </AnchorPane>
