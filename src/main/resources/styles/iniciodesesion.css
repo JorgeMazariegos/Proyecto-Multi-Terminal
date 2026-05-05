@@ -1,7 +1,108 @@
-/*
- * Empty Stylesheet file.
- */
+.splitPanel{
+    -fx-background-color: #17181c;
+    -fx-background-radius: 8px;           /* rounded corners for background */
+    
+    -fx-border-color: #3a3d42;            /* thin border color (adjust as needed) */
+    -fx-border-width: 1px;                /* thin border */
+    -fx-border-radius: 8px;               /* match background radius */
+    
+    -fx-padding: 0;
+    
+}
+.splitPanel .split-pane-divider {
+    -fx-background-color: #2a2d32;        /* divider color, slightly lighter than background */
+    -fx-padding: 0 1px 0 1px;             /* thin divider width */
+}
 
-.mainFxmlClass {
+.split-verde {
+    -fx-border-color: linear-gradient(to bottom, #00ff88, #006644);
+}
+.split-amarillo {
+    -fx-border-color: linear-gradient(to bottom, #FFD700, #b38f00);
+}
+.split-morado {
+    -fx-border-color: linear-gradient(to bottom, #a855f7, #4c1d95);
+}
+.split-celeste {
+    -fx-border-color: linear-gradient(to bottom, #38bdf8, #075985);
+}
+.split-blanco {
+    -fx-border-color: linear-gradient(to bottom, #e5e7eb, #6b7280);
+}
+/*botones*/
+.button {
+    -fx-background-color: #1a1d24;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-width: 1.5;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+.button-verde {
+    -fx-border-color: #00ff88;
+}
+.button-verde:hover {
+    -fx-background-color: rgba(0,255,136,0.15);
+}
+.button-verde:pressed {
+    -fx-background-color: rgba(0,255,136,0.25);
+}
+/*---------*/
+.button-amarillo {
+    -fx-border-color: #FFD700;
+}
+.button-amarillo:hover {
+    -fx-background-color: rgba(255,215,0,0.15);
+}
+.button-amarillo:pressed {
+    -fx-background-color: rgba(255,215,0,0.25);
+}
+/*------*/
+.button-morado {
+    -fx-border-color: #a855f7;
+}
+.button-morado:hover {
+    -fx-background-color: rgba(168,85,247,0.15);
+}
+.button-morado:pressed {
+    -fx-background-color: rgba(168,85,247,0.25);
+}
+/*------*/
+.button-celeste {
+    -fx-border-color: #38bdf8;
+}
 
+.button-celeste:hover {
+    -fx-background-color: rgba(56,189,248,0.15);
+}
+
+.button-celeste:pressed {
+    -fx-background-color: rgba(56,189,248,0.25);
+}
+/*-------*/
+.button-blanco {
+    -fx-border-color: #e5e7eb;
+}
+
+.button-blanco:hover {
+    -fx-background-color: rgba(255,255,255,0.10);
+}
+
+.button-blanco:pressed {
+    -fx-background-color: rgba(255,255,255,0.18);
+}
+
+#title {
+    -fx-font-family: "Orbitron";
+    -fx-font-size: 60px;
+    -fx-font-weight: bold;
+
+    /* degradado dorado */
+    -fx-text-fill: linear-gradient(to bottom, #FFF3B0, #FFD700, #B8860B);
+
+    /* “3D” con sombras */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.9), 6, 0.6, 3, 3);
 }
