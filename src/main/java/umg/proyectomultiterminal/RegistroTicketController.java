@@ -148,13 +148,11 @@ public class RegistroTicketController {
         if(!conectado){
             return;
         }
-        new Thread(() ->{
-            try {
-                out.writeObject(mensaje);
-                out.flush();
-            } catch (IOException ex) {
-                System.getLogger(RegistroTicketController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-            }
-        }).start(); 
+        try {
+            out.writeObject(mensaje);
+            out.flush();
+        } catch (IOException ex) {
+            System.getLogger(RegistroTicketController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }
 }

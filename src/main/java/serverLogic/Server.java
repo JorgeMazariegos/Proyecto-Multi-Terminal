@@ -145,7 +145,7 @@ public class Server {
                     }
                 }
             } catch (EOFException | SocketException e) {
-                // Cliente desconectado normalmente
+
                 
             } catch (IOException | ClassNotFoundException e) {
                 System.out.println("Error con cliente: " + e.getMessage());
