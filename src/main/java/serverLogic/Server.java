@@ -15,13 +15,18 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
+import javafx.application.Platform;
+import modelos.Mensaje;
 import modelos.Ticket;
+import umg.proyectomultiterminal.InterfazPrincipalController;
 
 /**
  *
  * @author AMD 5600G
  */
 public class Server {
+    InterfazPrincipalController interfaz;
+    
     // ---------- Estructuras de datos para las colas ----------
 //    private final Queue<Usuario> colaGeneral = new LinkedList<>();
 //    private final PriorityQueue<Usuario> colaPrioritaria = new PriorityQueue<>(
@@ -72,8 +77,8 @@ public class Server {
                         Socket clientSocket = serverSocket.accept();
                         System.out.println("Nueva conexión desde " + clientSocket.getInetAddress().getHostAddress());
                         clientThreadPool.submit(new ClientHandler(clientSocket));
-                    } catch (SocketException e) {
-                        System.out.println("Socket cerrado durante accept(): " + e.getMessage());
+                    } catch (EOFException | SocketException e) {
+                        System.out.println("Cliente desconectado");
                         break;
                     } catch (IOException e) {
                         System.out.println("Error accept(): " + e.getMessage());
@@ -128,8 +133,15 @@ public class Server {
                 in = new ObjectInputStream(socket.getInputStream());
 
                 while (running) {
-                    Ticket ticket = (Ticket) in.readObject();
-                    procesarTicket(ticket);
+                    Object obj = in.readObject();
+                    if(obj instanceof Ticket){
+                        Ticket ticket = (Ticket) obj;
+                        procesarTicket(ticket);
+                    }
+                    if(obj instanceof Mensaje){
+                        Mensaje mensaje = (Mensaje) obj;
+                        procesarMensaje(mensaje);
+                    }
                 }
             } catch (EOFException | SocketException e) {
                 // Cliente desconectado normalmente
@@ -142,8 +154,18 @@ public class Server {
         }
 
         private void procesarTicket(Ticket ticket) throws IOException {
-            System.out.println("holaa");
             System.out.println(ticket.getDPI());
+            interfaz = InterfazPrincipalController.getInstance();           
+            Platform.runLater(() -> {
+                interfaz.agregarTicker(ticket);
+            });            
+        }
+        
+        private void procesarMensaje(Mensaje mensaje){ 
+            if(mensaje.getMensaje().equals("Conectado Registro")){
+                interfaz = InterfazPrincipalController.getInstance(); 
+                interfaz.usuarioStatus(mensaje.getMensaje());
+            }
         }
     }
 }

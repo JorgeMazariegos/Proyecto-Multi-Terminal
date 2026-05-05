@@ -5,7 +5,7 @@
 }
 
 .vbox{
-    -fx-background-color: #070b0e;
+    -fx-spacing: 10;
 }
 
 #title{
@@ -222,4 +222,55 @@
 .locationInfo{
     -fx-text-fill: #8c8d8f;
     -fx-font-size:18;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .content {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: #253357;
+}
+
+.scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: black;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #253357;
+}
+
+.scroll-pane .scroll-bar:vertical .increment-button,
+.scroll-pane .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical .increment-arrow,
+.scroll-pane .scroll-bar:vertical .decrement-arrow {
+    -fx-background-color: transparent;
+}
+
+
+#vipScrollPane.scroll-bar:vertical{
+    -fx-background-color:  #ddb959;
+}
+
+#vipScrollPane .scroll-bar:vertical .thumb{
+    -fx-background-color:  #ddb959;
+}
+
+#espScrollPane.scroll-bar:vertical{
+    -fx-background-color:   #a37ad5;
+}
+
+#espScrollPane .scroll-bar:vertical .thumb{
+    -fx-background-color:   #a37ad5;
 }

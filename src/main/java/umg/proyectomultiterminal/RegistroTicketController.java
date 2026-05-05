@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import modelos.Mensaje;
 import modelos.Ticket;
 
 public class RegistroTicketController {
@@ -72,6 +73,8 @@ public class RegistroTicketController {
             socket = new Socket("100.105.253.48", 1234);
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
+            Mensaje mensaje = new Mensaje("Conectado Registro");
+            sendMensaje(mensaje);
             conectado = true;
             conectToServer.setDisable(true);
             desconectar.setDisable(false);
@@ -135,5 +138,19 @@ public class RegistroTicketController {
                 System.getLogger(RegistroTicketController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             }
         }).start();                            
+    }
+    
+    private void sendMensaje(Mensaje mensaje){
+        if(!conectado){
+            return;
+        }
+        new Thread(() ->{
+            try {
+                out.writeObject(mensaje);
+                out.flush();
+            } catch (IOException ex) {
+                System.getLogger(RegistroTicketController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+        }).start(); 
     }
 }
