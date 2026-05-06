@@ -26,13 +26,13 @@
                      </styleClass></Label>
                   <ImageView fitHeight="126.0" fitWidth="211.0" layoutX="7.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../Downloads/ServerInicio.png" />
+                        <Image url="@../../ServerInicio.png" />
                      </image>
                   </ImageView>
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Button layoutX="13.0" layoutY="32.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="198.0" text="INGRESAR">
+                  <Button layoutX="13.0" layoutY="32.0" mnemonicParsing="false" onAction="#loginServidor" prefHeight="48.0" prefWidth="198.0" text="INGRESAR">
                      <styleClass>
                         <String fx:value="button" />
                         <String fx:value="button-verde" />
@@ -57,13 +57,13 @@
                      </styleClass></Label>
                   <ImageView fitHeight="200.0" fitWidth="189.0" layoutX="18.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../Downloads/usuarioregis.png" />
+                        <Image url="@../../usuarioregis.png" />
                      </image>
                   </ImageView>
                </children></AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Button layoutX="13.0" layoutY="32.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="198.0" styleClass="button-amarillo" text="INGRESAR" />
+                  <Button layoutX="13.0" layoutY="32.0" mnemonicParsing="false" onAction="#loginRegistro" prefHeight="48.0" prefWidth="198.0" styleClass="button-amarillo" text="INGRESAR" />
                </children>
             </AnchorPane>
          </items>
@@ -83,13 +83,13 @@
                      </styleClass></Label>
                   <ImageView fitHeight="200.0" fitWidth="211.0" layoutX="12.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../Downloads/carroInicio.png" />
+                        <Image url="@../../../../../Downloads/carroInicio.png" />
                      </image>
                   </ImageView>
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Button layoutX="13.0" layoutY="33.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="198.0" styleClass="button-morado" text="INGRESAR" />
+                  <Button layoutX="13.0" layoutY="33.0" mnemonicParsing="false" onAction="#loginPC1" prefHeight="48.0" prefWidth="198.0" styleClass="button-morado" text="INGRESAR" />
                </children>
             </AnchorPane>
         </items>
@@ -112,14 +112,14 @@
                      </styleClass></Label>
                   <ImageView fitHeight="163.0" fitWidth="159.0" layoutX="33.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../Downloads/Estrellap.png" />
+                        <Image url="@../../Estrellap.png" />
                      </image>
                   </ImageView>
                </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Button layoutX="13.0" layoutY="39.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="198.0" styleClass="button-celeste" text="INGRESAR" />
+                  <Button layoutX="13.0" layoutY="39.0" mnemonicParsing="false" onAction="#loginPC2" prefHeight="48.0" prefWidth="198.0" styleClass="button-celeste" text="INGRESAR" />
                </children>
             </AnchorPane>
          </items>
@@ -139,14 +139,14 @@
                      </styleClass></Label>
                   <ImageView fitHeight="142.0" fitWidth="144.0" layoutX="41.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../Downloads/rayop.png" />
+                        <Image url="@../../rayop.png" />
                      </image>
                   </ImageView>
                </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Button layoutX="13.0" layoutY="33.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="198.0" styleClass="button-blanco" text="INGRESAR" />
+                  <Button layoutX="13.0" layoutY="33.0" mnemonicParsing="false" onAction="#loginPC3" prefHeight="48.0" prefWidth="198.0" styleClass="button-blanco" text="INGRESAR" />
                </children>
             </AnchorPane>
          </items>

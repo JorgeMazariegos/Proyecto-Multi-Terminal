@@ -61,7 +61,7 @@ public class InterfazPrincipalController {
     
     @FXML
     private void switchToPrimary() throws IOException {
-        App.setRoot("menuPrincipal");
+        App.setRoot("IniciodeSesion");
     }
     
     @FXML
@@ -91,8 +91,9 @@ public class InterfazPrincipalController {
 
         TicketPanelController controller = loader.getController();
         
+        ticket.iniciarContador(controller);        
         controller.setNumTicker(tickerNum);
-        controller.setTiempoEspera("1:00 min");
+        controller.setTiempoEspera("0:00 min");
         controller.setImage(ticket.getTipo());
         
         switch (ticket.getTipo()) {

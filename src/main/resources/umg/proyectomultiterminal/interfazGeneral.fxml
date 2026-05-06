@@ -16,7 +16,7 @@
          <children>
             <Button fx:id="conectToServer" layoutX="150.0" layoutY="22.0" mnemonicParsing="false" onAction="#connect" prefHeight="44.0" prefWidth="186.0" text="▶ Conectar al Servidor" />
             <Button fx:id="desconectar" disable="true" layoutX="339.0" layoutY="25.0" mnemonicParsing="false" onAction="#disconnect" text="■ Desconectar" />
-            <ImageView fitHeight="170.0" fitWidth="254.0" layoutX="-56.0" layoutY="-42.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="170.0" fitWidth="254.0" layoutX="-56.0" layoutY="-42.0" pickOnBounds="true">
                <image>
                   <Image url="@../../ChatGPT%20Image%204%20may%202026,%2009_33_58%20a.m..png" />
                </image>

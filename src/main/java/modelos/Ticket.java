@@ -5,6 +5,7 @@
 package modelos;
 import java.io.Serializable;
 import java.time.LocalDate;
+import umg.proyectomultiterminal.TicketPanelController;
 /**
  *
  * @author AMD 5600G
@@ -21,7 +22,49 @@ public class Ticket implements Serializable {
     int duracionTotal;
     int tiempoEnCola;
     String usuarioQueAtendio;
+    String estado;
+    private volatile boolean activo;
+    Thread contador;
 
+    public void iniciarContador(TicketPanelController controller){
+        activo = true;
+        contador = new Thread(() -> {
+            try{
+                while(activo){
+                    Thread.sleep(1000);
+                    switch(estado){
+                        case "Cola":
+                            tiempoEnCola++;
+                            controller.setTiempoEspera(intAStringSegundos(tiempoEnCola));
+                            break;
+                        case "Atencion":
+                            duracionAtencion++;
+                            controller.setTiempoEspera(intAStringSegundos(duracionAtencion));
+                            break;
+                    }        
+                }
+                        
+            }catch(InterruptedException e){
+                Thread.currentThread().interrupt();
+            }
+        });        
+        contador.start();
+    }
+    
+    public void detenerContador() {
+        activo = false;
+        if (contador != null) {
+            contador.interrupt();
+        }
+    }
+    
+    private String intAStringSegundos(int tiempo){
+        int minutos = tiempo / 60;
+        int segundos = tiempo % 60;
+
+    return String.format("%d:%02d", minutos, segundos);
+    }
+    
     public int getNumTicket() {
         return numTicket;
     }
@@ -108,5 +151,21 @@ public class Ticket implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 }

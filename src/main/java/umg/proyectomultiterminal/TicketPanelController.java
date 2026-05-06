@@ -15,7 +15,7 @@ public class TicketPanelController {
 
     @FXML
     private Label numTicket;
-    
+   
     public void setNumTicker(String ticket){
         numTicket.setText("Ticket #" + ticket);
     }

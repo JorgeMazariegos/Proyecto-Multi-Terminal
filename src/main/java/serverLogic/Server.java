@@ -155,7 +155,7 @@ public class Server {
         }
 
         private void procesarTicket(Ticket ticket) throws IOException {
-            System.out.println(ticket.getDPI());
+            ticket.setEstado("Cola");
             interfaz = InterfazPrincipalController.getInstance();           
             Platform.runLater(() -> {
                 interfaz.agregarTicker(ticket);
