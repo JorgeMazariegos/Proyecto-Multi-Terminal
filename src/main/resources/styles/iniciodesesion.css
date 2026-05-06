@@ -45,30 +45,30 @@
     -fx-border-color: #00ff88;
 }
 .button-verde:hover {
-    -fx-background-color: rgba(0,255,136,0.15);
+    -fx-background-color: rgba(0,255,136,0.30);
 }
 .button-verde:pressed {
-    -fx-background-color: rgba(0,255,136,0.25);
+    -fx-background-color: rgba(0,255,136,0.55);
 }
 /*---------*/
 .button-amarillo {
     -fx-border-color: #FFD700;
 }
 .button-amarillo:hover {
-    -fx-background-color: rgba(255,215,0,0.15);
+    -fx-background-color: rgba(255,215,0,0.30);
 }
 .button-amarillo:pressed {
-    -fx-background-color: rgba(255,215,0,0.25);
+    -fx-background-color: rgba(255,215,0,0.55);
 }
 /*------*/
 .button-morado {
     -fx-border-color: #a855f7;
 }
 .button-morado:hover {
-    -fx-background-color: rgba(168,85,247,0.15);
+    -fx-background-color: rgba(168,85,247,0.30);
 }
 .button-morado:pressed {
-    -fx-background-color: rgba(168,85,247,0.25);
+    -fx-background-color: rgba(168,85,247,0.55);
 }
 /*------*/
 .button-celeste {
@@ -76,11 +76,11 @@
 }
 
 .button-celeste:hover {
-    -fx-background-color: rgba(56,189,248,0.15);
+    -fx-background-color: rgba(56,189,248,0.30);
 }
 
 .button-celeste:pressed {
-    -fx-background-color: rgba(56,189,248,0.25);
+    -fx-background-color: rgba(56,189,248,0.55);
 }
 /*-------*/
 .button-blanco {
@@ -88,11 +88,11 @@
 }
 
 .button-blanco:hover {
-    -fx-background-color: rgba(255,255,255,0.10);
+    -fx-background-color: rgba(255,255,255,0.30);
 }
 
 .button-blanco:pressed {
-    -fx-background-color: rgba(255,255,255,0.18);
+    -fx-background-color: rgba(255,255,255,0.55);
 }
 
 #title {
@@ -113,7 +113,7 @@
 
 
 .label-panel {
-    -fx-font-size: 15px;
+    -fx-font-size: 25px;
     -fx-font-weight: bold;
     -fx-letter-spacing: 1.5px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 4, 0.5, 2, 2);
@@ -126,4 +126,20 @@
 }
 .label-vip {
     -fx-text-fill: #38bdf8;
+}
+.label-registro {
+    -fx-text-fill: #FFD700;
+}
+.label-especial {
+    -fx-text-fill: #e5e7eb;
+}
+
+.root {
+    -fx-background-color:
+        linear-gradient(to bottom, #000000CC, #000000F2),
+        url("/FondoInicio.jpg");
+
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
 }
