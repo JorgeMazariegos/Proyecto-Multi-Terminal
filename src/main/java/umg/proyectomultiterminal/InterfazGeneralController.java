@@ -63,11 +63,11 @@ public class InterfazGeneralController implements Initializable {
             conectado = true;
             disponible = true;
             new Thread(this::listenServer).start();
-            new Thread(this::serverRequest).start();
             Mensaje mensaje = new Mensaje("Conectado General");
-            mensaje.setStatus(true);
-            
+            mensaje.setStatus(true);            
             sendMensaje(mensaje);
+            new Thread(this::serverRequest).start();
+            
             conectToServer.setDisable(true);
             desconectar.setDisable(false);
             serverStatus.pseudoClassStateChanged(on, true);
@@ -164,9 +164,9 @@ public class InterfazGeneralController implements Initializable {
         while(conectado){
             if(disponible){
                 try {
-                    Mensaje mensaje = new Mensaje("Request General");
-                    sendMensaje(mensaje);
                     Thread.sleep(1000);
+                    Mensaje mensaje = new Mensaje("Request General");
+                    sendMensaje(mensaje);                   
                 } catch (InterruptedException ex) {
                     break;
                 }
