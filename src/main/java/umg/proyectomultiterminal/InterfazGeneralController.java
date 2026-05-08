@@ -32,8 +32,8 @@ public class InterfazGeneralController implements Initializable {
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
-    private boolean conectado; 
-    private static final Random random = new Random();   
+    private boolean conectado;
+    private boolean disponible;
     private static Properties config = new Properties();
     String ip;
     int port;
@@ -61,8 +61,9 @@ public class InterfazGeneralController implements Initializable {
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
             conectado = true;
-            
+            disponible = true;
             new Thread(this::listenServer).start();
+            new Thread(this::serverRequest).start();
             Mensaje mensaje = new Mensaje("Conectado General");
             mensaje.setStatus(true);
             
@@ -82,6 +83,7 @@ public class InterfazGeneralController implements Initializable {
         mensaje.setStatus(true);
         sendMensaje(mensaje);
         conectado = false;   // Prevent further sends immediately
+        disponible = false;
         try {
             if (out != null) {
                 out.close();
@@ -122,10 +124,8 @@ public class InterfazGeneralController implements Initializable {
 
                 if(obj instanceof Ticket) {
                     Ticket ticket = (Ticket) obj;
-
-                    Platform.runLater(() -> {
-                        System.out.println("Ticket recibido");
-                    });
+                    disponible = false;
+                    procesarTicket(ticket);
                 }
             }
 
@@ -158,5 +158,23 @@ public class InterfazGeneralController implements Initializable {
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
+    }
+    
+    private void serverRequest(){
+        while(conectado){
+            if(disponible){
+                try {
+                    Mensaje mensaje = new Mensaje("Request General");
+                    sendMensaje(mensaje);
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    break;
+                }
+            }
+        }
+    }
+
+    private void procesarTicket(Ticket ticket) {
+        System.out.println(ticket.getDPI());
     }
 }

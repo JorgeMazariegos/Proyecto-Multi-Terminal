@@ -4,7 +4,6 @@
  */
 package serverLogic;
 
-import estructuras.Cola;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,8 +31,6 @@ import umg.proyectomultiterminal.InterfazPrincipalController;
 public class Server {
     InterfazPrincipalController interfaz;
     
-    // ---------- Estructuras de datos para las colas ----------
-    private final Cola colaGeneral = new Cola();
 //    private final PriorityQueue<Usuario> colaPrioritaria = new PriorityQueue<>()
 
     private Map<String, ClientHandler> clientes = new HashMap<>();
@@ -169,16 +166,18 @@ public class Server {
         }
 
         private void procesarTicket(Ticket ticket) throws IOException {
-            ticket.setEstado("Cola");
-            interfaz = InterfazPrincipalController.getInstance();           
-            Platform.runLater(() -> {
-                interfaz.agregarTicker(ticket);
-            });            
+            if(ticket.getEstado() == null){
+                ticket.setEstado("Cola");
+                interfaz = InterfazPrincipalController.getInstance();           
+                Platform.runLater(() -> {
+                    interfaz.agregarTicket(ticket);
+                });
+            }
         }
         
         private void procesarMensaje(Mensaje mensaje){ 
             interfaz = InterfazPrincipalController.getInstance();
-                        
+  
             if(mensaje.isStatus()){              
                 Platform.runLater(() -> {
                     interfaz.usuarioStatus(mensaje.getMensaje());

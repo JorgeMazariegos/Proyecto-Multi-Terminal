@@ -17,7 +17,7 @@
    <children>
       <Pane prefHeight="800.0" prefWidth="1200.0" styleClass="pane">
          <children>
-              <Label fx:id="title" layoutX="25.0" layoutY="22.0" text="Servidor Principal">
+              <Label fx:id="title" layoutX="14.0" layoutY="14.0" text="Servidor Principal">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -26,80 +26,15 @@
                   </ImageView>
                </graphic>
             </Label>
-            <Label fx:id="serverStatus" layoutX="380.0" layoutY="27.0" text="⬤ Apagado" />
-            <Button fx:id="startServer" layoutX="595.0" layoutY="26.0" mnemonicParsing="false" onAction="#startServer" prefHeight="43.0" prefWidth="178.0" text="▶ Iniciar Servidor" />
-            <Button fx:id="detenerServidor" disable="true" layoutX="803.0" layoutY="28.0" mnemonicParsing="false" onAction="#stopServer" text="■ Detener Servidor" />
-            <Pane fx:id="contentArea" layoutY="100.0" prefHeight="700.0" prefWidth="1200.0">
+            <Label fx:id="serverStatus" layoutX="341.0" layoutY="19.0" text="⬤ Apagado" />
+            <Button fx:id="startServer" layoutX="600.0" layoutY="18.0" mnemonicParsing="false" onAction="#startServer" prefHeight="43.0" prefWidth="178.0" text="▶ Iniciar Servidor" />
+            <Button fx:id="detenerServidor" disable="true" layoutX="791.0" layoutY="20.0" mnemonicParsing="false" onAction="#stopServer" text="■ Detener Servidor" />
+              <Button fx:id="logOff" layoutX="1058.0" layoutY="20.0" onAction="#switchToPrimary" text="➜] Regresar" />
+            <Pane fx:id="contentArea" layoutY="72.0" prefHeight="728.0" prefWidth="1200.0">
                <children>
-                  <VBox fx:id="summary" alignment="TOP_CENTER" layoutX="12.0" layoutY="18.0" prefHeight="667.0" prefWidth="200.0">
+                  <VBox fx:id="summary" alignment="TOP_CENTER" layoutX="12.0" layoutY="13.0" prefHeight="672.0" prefWidth="208.0">
                      <children>
                         <Label styleClass="yellowLabel" text="Resumen General" />
-                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="160.0" styleClass="infoPanel">
-                           <children>
-                              <ImageView fitHeight="39.0" fitWidth="44.0" layoutX="14.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../car.png" />
-                                 </image>
-                              </ImageView>
-                              <Label layoutX="72.0" layoutY="2.0" styleClass="infoLabel" text="General" />
-                              <Label layoutX="74.0" layoutY="27.0" text="0">
-                                 <styleClass>
-                                    <String fx:value="infoLabel" />
-                                    <String fx:value="labelNumero" />
-                                 </styleClass>
-                              </Label>
-                              <Label layoutX="76.0" layoutY="70.0" text="en cola">
-                                 <styleClass>
-                                    <String fx:value="infoLabel" />
-                                    <String fx:value="labelCola" />
-                                 </styleClass>
-                              </Label>
-                           </children>
-                        </Pane>
-                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="160.0" styleClass="infoPanel">
-                           <children>
-                              <ImageView fitHeight="39.0" fitWidth="44.0" layoutX="14.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../star.png" />
-                                 </image>
-                              </ImageView>
-                              <Label layoutX="72.0" layoutY="2.0" styleClass="infoLabel" text="VIP" />
-                              <Label layoutX="74.0" layoutY="27.0" text="0">
-                                 <styleClass>
-                                    <String fx:value="infoLabel" />
-                                    <String fx:value="labelNumeroVIP" />
-                                 </styleClass>
-                              </Label>
-                              <Label layoutX="76.0" layoutY="70.0" text="en cola">
-                                 <styleClass>
-                                    <String fx:value="infoLabel" />
-                                    <String fx:value="labelCola" />
-                                 </styleClass>
-                              </Label>
-                           </children>
-                        </Pane>
-                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="160.0" styleClass="infoPanel">
-                           <children>
-                              <ImageView fitHeight="39.0" fitWidth="44.0" layoutX="14.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../rayo.png" />
-                                 </image>
-                              </ImageView>
-                              <Label layoutX="72.0" layoutY="2.0" styleClass="infoLabel" text="Especial" />
-                              <Label layoutX="74.0" layoutY="27.0" text="0">
-                                 <styleClass>
-                                    <String fx:value="infoLabel" />
-                                    <String fx:value="labelNumeroEspecial" />
-                                 </styleClass>
-                              </Label>
-                              <Label layoutX="76.0" layoutY="70.0" text="en cola">
-                                 <styleClass>
-                                    <String fx:value="infoLabel" />
-                                    <String fx:value="labelCola" />
-                                 </styleClass>
-                              </Label>
-                           </children>
-                        </Pane>
                         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="157.0">
                            <styleClass>
                               <String fx:value="infoPanel" />
@@ -120,28 +55,6 @@
                               </Label>
                            </children>
                         </Pane>
-                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="160.0" styleClass="infoPanel">
-                           <children>
-                              <ImageView fitHeight="39.0" fitWidth="44.0" layoutX="14.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../clock.png" />
-                                 </image>
-                              </ImageView>
-                              <Label layoutX="17.0" layoutY="2.0" prefHeight="25.0" prefWidth="135.0" styleClass="infoLabel" text="Tiempo promedio" />
-                              <Label layoutX="72.0" layoutY="40.0" text="0">
-                                 <styleClass>
-                                    <String fx:value="infoLabel" />
-                                    <String fx:value="totalViajesLabel" />
-                                 </styleClass>
-                              </Label>
-                              <Label layoutX="96.0" layoutY="53.0" text="min">
-                                 <styleClass>
-                                    <String fx:value="infoLabel" />
-                                    <String fx:value="labelCola" />
-                                 </styleClass>
-                              </Label>
-                           </children>
-                        </Pane>
                      </children>
                   </VBox>
                   <SplitPane dividerPositions="0.13" layoutX="232.0" layoutY="14.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0" styleClass="splitPanel">
@@ -154,7 +67,7 @@
                                  </image>
                               </ImageView>
                               <Label layoutX="65.0" layoutY="20.0" style="-fx-text-fill: #658dd5;" styleClass="infoLabel" text="GENERAL" />
-                              <Label layoutX="200.0" layoutY="15.0" text="0">
+                              <Label fx:id="lblColaGeneral" layoutX="200.0" layoutY="15.0" text="0">
                                  <styleClass>
                                     <String fx:value="numberInQueue" />
                                     <String fx:value="normalInQueue" />
@@ -179,7 +92,7 @@
                                  </image>
                               </ImageView>
                               <Label layoutX="61.0" layoutY="20.0" style="-fx-text-fill: #ddb959;" styleClass="infoLabel" text="VIP" />
-                              <Label layoutX="200.0" layoutY="15.0" text="0">
+                              <Label fx:id="lblColaVip" layoutX="200.0" layoutY="15.0" text="0">
                                  <styleClass>
                                     <String fx:value="numberInQueue" />
                                     <String fx:value="vipInQueue" />
@@ -207,8 +120,8 @@
                                     <Image url="@../../rayo.png" />
                                  </image>
                               </ImageView>
-                              <Label layoutX="51.0" layoutY="20.0" style="-fx-text-fill: #a37ad5;" styleClass="infoLabel" text="Especial" />
-                              <Label layoutX="200.0" layoutY="15.0" text="0">
+                              <Label layoutX="51.0" layoutY="20.0" style="-fx-text-fill: #a37ad5;" styleClass="infoLabel" text="ENTREGAS" />
+                              <Label fx:id="lblColaEsp" layoutX="200.0" layoutY="15.0" text="0">
                                  <styleClass>
                                     <String fx:value="numberInQueue" />
                                     <String fx:value="espInQueue" />
@@ -249,41 +162,42 @@
                         <Label layoutX="315.0" layoutY="75.0" styleClass="locationInfo" text="Tarifa:" />
                      </children>
                   </Pane>
-                  <Pane layoutX="1035.0" layoutY="14.0" prefHeight="100.0" prefWidth="157.0" styleClass="infoPanel">
+                  <VBox alignment="CENTER" layoutX="1035.0" layoutY="14.0" prefHeight="100.0" prefWidth="157.0" styleClass="infoPanel">
                      <children>
-                        <Label layoutX="25.0" layoutY="14.0" style="-fx-text-fill: green;" styleClass="infoLabel" text="Registro - PC2">
+                        <Label style="-fx-text-fill: green;" styleClass="infoLabel" text="Registro - PC2">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <Label fx:id="statusRegistro" layoutX="8.0" layoutY="50.0" prefHeight="30.0" prefWidth="142.0" style="-fx-text-fill: red;" text="⬤ Desconectado">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font></Label>
-                     </children>
-                  </Pane>
-                  <Pane layoutX="1035.0" layoutY="131.0" prefHeight="100.0" prefWidth="157.0" style="-fx-background-color: #17181c; -fx-border-color: #3a3d42;" styleClass="infoPanel">
-                     <children>
-                        <Label layoutX="25.0" layoutY="14.0" style="-fx-text-fill: #658dd5;" styleClass="infoLabel" text="General - PC3">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="statusGeneral" layoutX="9.0" layoutY="50.0" style="-fx-text-fill: red;" text="⬤ Desconectado">
+                        <Label fx:id="statusRegistro" prefHeight="30.0" prefWidth="142.0" style="-fx-text-fill: red;" text="⬤ Desconectado">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
                      </children>
-                  </Pane>
-                  <Pane layoutX="1035.0" layoutY="250.0" prefHeight="100.0" prefWidth="157.0">
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="1035.0" layoutY="131.0" prefHeight="100.0" prefWidth="157.0" style="-fx-background-color: #17181c; -fx-border-color: #3a3d42;" styleClass="infoPanel">
                      <children>
-                        <Label layoutX="47.0" layoutY="14.0" style="-fx-text-fill: #ddb959;" styleClass="infoLabel" text="VIP - PC4">
+                        <Label style="-fx-text-fill: #658dd5;" styleClass="infoLabel" text="General - PC3">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <Label fx:id="statusVIP" layoutX="9.0" layoutY="50.0" style="-fx-text-fill: red;" text="⬤ Desconectado">
+                        <Label fx:id="statusGeneral" style="-fx-text-fill: red;" text="⬤ Desconectado">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="1035.0" layoutY="250.0" prefHeight="100.0" prefWidth="157.0">
+                     <children>
+                        <Label style="-fx-text-fill: gold;" styleClass="infoLabel" text="VIP - PC4">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="statusVIP" style="-fx-text-fill: red;" text="⬤ Desconectado">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -293,15 +207,15 @@
                         <String fx:value="infoPanel" />
                         <String fx:value="vipQueue" />
                      </styleClass>
-                  </Pane>
-                  <Pane layoutX="1035.0" layoutY="367.0" prefHeight="100.0" prefWidth="157.0">
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="1035.0" layoutY="367.0" prefHeight="100.0" prefWidth="157.0">
                      <children>
-                        <Label layoutX="25.0" layoutY="14.0" style="-fx-text-fill: #a37ad5;" styleClass="infoLabel" text="Especial - PC5">
+                        <Label style="-fx-text-fill: #a37ad5;" styleClass="infoLabel" text="Entregas - PC5">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <Label fx:id="statusEspecial" layoutX="9.0" layoutY="50.0" style="-fx-text-fill: red;" text="⬤ Desconectado">
+                        <Label fx:id="statusEspecial" style="-fx-text-fill: red;" text="⬤ Desconectado">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -311,10 +225,10 @@
                         <String fx:value="infoPanel" />
                         <String fx:value="espQueue" />
                      </styleClass>
-                  </Pane>
+                  </VBox>
+                  <Button layoutX="1040.0" layoutY="536.0" mnemonicParsing="false" text="Generar ticket de prueba" />
                </children>
             </Pane>
-              <Button fx:id="logOff" layoutX="1064.0" layoutY="28.0" onAction="#switchToPrimary" text="➜] Regresar" />
          </children>
       </Pane>
    </children>

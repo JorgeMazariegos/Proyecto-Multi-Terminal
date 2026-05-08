@@ -120,9 +120,10 @@
 }
 
 .yellowLabel{
-    -fx-text-fill: #ebb737;
+    -fx-text-fill: gold;
     -fx-font-size: 18;
     -fx-padding: 5;
+    -fx-font-weight: bold;
 }
 
 .infoPanel{
@@ -198,6 +199,7 @@
     -fx-font-size: 18;
     -fx-border-radius: 8px;
     -fx-padding: 4px 12px 4px 12px;
+    -fx-font-weight: bold;
 }
 
 .normalInQueue{
