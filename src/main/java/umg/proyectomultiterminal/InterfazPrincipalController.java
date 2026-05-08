@@ -222,7 +222,7 @@ public class InterfazPrincipalController {
     }
 
     private void actualizarInterfazGeneral() {
-        colaNormal.getChildren().removeFirst();
+        colaNormal.getChildren().remove(0);
         actualizarContadores("Normal");
         usuarioStatus("Procesando General");
     }

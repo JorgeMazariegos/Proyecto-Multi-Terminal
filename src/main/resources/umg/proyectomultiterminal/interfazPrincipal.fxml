@@ -226,7 +226,7 @@
                         <String fx:value="espQueue" />
                      </styleClass>
                   </VBox>
-                  <Button layoutX="1040.0" layoutY="536.0" mnemonicParsing="false" text="Generar ticket de prueba" />
+                  <Button layoutX="1040.0" layoutY="536.0" mnemonicParsing="false" onAction="#generarTicketNormal" text="Generar ticket de prueba" />
                </children>
             </Pane>
          </children>
