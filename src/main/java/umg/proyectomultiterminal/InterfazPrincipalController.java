@@ -2,6 +2,7 @@ package umg.proyectomultiterminal;
 
 import estructuras.Cola;
 import java.io.IOException;
+import javafx.application.Platform;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -205,5 +206,24 @@ public class InterfazPrincipalController {
                 //colaEsp.getChildren().add(newPanel);
                 break;
         }
+    }
+    
+    public Ticket enviarTicket(String cola){
+        switch(cola){
+            case "General":
+                Ticket ticket = colaGeneral.dequeue();
+                ticket.detenerContador();
+                Platform.runLater(() -> {
+                    actualizarInterfazGeneral();
+                });
+                return ticket;
+        }
+        return null;
+    }
+
+    private void actualizarInterfazGeneral() {
+        colaNormal.getChildren().removeFirst();
+        actualizarContadores("Normal");
+        usuarioStatus("Procesando General");
     }
 }

@@ -184,6 +184,14 @@ public class Server {
                 });
             }
             
+            if(mensaje.getMensaje().startsWith("Request ")){
+                String cliente = mensaje.getMensaje().replace("Request ", "");
+                switch(cliente){
+                    case "General":
+                        Ticket ticket = interfaz.enviarTicket(cliente);
+                        enviarACliente(cliente,ticket);                               
+                }
+            }
         }
         
         private void enviarACliente(String username, Object obj){
