@@ -4,13 +4,18 @@
  */
 package serverLogic;
 
+import estructuras.Cola;
 import java.io.EOFException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
@@ -28,16 +33,11 @@ public class Server {
     InterfazPrincipalController interfaz;
     
     // ---------- Estructuras de datos para las colas ----------
-//    private final Queue<Usuario> colaGeneral = new LinkedList<>();
-//    private final PriorityQueue<Usuario> colaPrioritaria = new PriorityQueue<>(
-//        Comparator.comparingInt(Usuario::getEdad).reversed()  // mayores primero
-//    );
+    private final Cola colaGeneral = new Cola();
+//    private final PriorityQueue<Usuario> colaPrioritaria = new PriorityQueue<>()
 
-    // Para acceso concurrente a las colas
-    private final Object lockColaGeneral = new Object();
-    private final Object lockColaPrioritaria = new Object();
-    private final Object lockColaEspecial = new Object ();
-
+    private Map<String, ClientHandler> clientes = new HashMap<>();
+    
     // Control de estaciones de atención (cada estación tiene un semáforo con 1 permiso)
     private final Semaphore estacionGeneral = new Semaphore(1);
     private final Semaphore estacionPrioritaria = new Semaphore(1);
@@ -56,14 +56,15 @@ public class Server {
     private Thread acceptThread;
     private ExecutorService clientThreadPool;
 
-    // Puerto por defecto (puede ser configurable)
-    private final int port = 1234;
+    //Config del servidor
+    private static final Properties config = new Properties();
+    private int port;
     
     public void start() {
         if (running) return;
         running = true;
 
-        // Pool de hilos para manejar clientes
+        loadProperties();
         clientThreadPool = Executors.newFixedThreadPool(4);
 
         acceptThread = new Thread(() -> {
@@ -77,10 +78,10 @@ public class Server {
                         Socket clientSocket = serverSocket.accept();
                         System.out.println("Nueva conexión desde " + clientSocket.getInetAddress().getHostAddress());
                         clientThreadPool.submit(new ClientHandler(clientSocket));
-                    } catch (EOFException | SocketException e) {
-                        System.out.println("Cliente desconectado");
+                    }/* catch (EOFException | SocketException e) {
+                        
                         break;
-                    } catch (IOException e) {
+                    }*/ catch (IOException e) {
                         System.out.println("Error accept(): " + e.getMessage());
                     }
                 }
@@ -121,6 +122,7 @@ public class Server {
         private final Socket socket;
         private ObjectInputStream in;
         private ObjectOutputStream out;
+        private String username;
 
         ClientHandler(Socket socket) {
             this.socket = socket;
@@ -140,17 +142,29 @@ public class Server {
                     }
                     if(obj instanceof Mensaje){
                         Mensaje mensaje = (Mensaje) obj;
+                        
+                        if(username == null && mensaje.isStatus()) {
+                            String texto = mensaje.getMensaje();
+                            if(texto.startsWith("Conectado ")) {
+                                username = texto.replace("Conectado ", "");
+                                clientes.put(username, this);
+                                System.out.println(username + " registrado");
+                            }
+                        }                        
                         procesarMensaje(mensaje);
-                        System.out.println(mensaje.getMensaje());
                     }
                 }
             } catch (EOFException | SocketException e) {
-
-                
+                System.out.println("Cliente desconectado");
             } catch (IOException | ClassNotFoundException e) {
                 System.out.println("Error con cliente: " + e.getMessage());
             } finally {
-                try { socket.close(); } catch (IOException ignored) {}
+                clientes.remove(username);
+                try { 
+                    socket.close(); 
+                } catch (IOException ignored) {
+                    
+                }
             }
         }
 
@@ -172,5 +186,31 @@ public class Server {
             }
             
         }
+        
+        private void enviarACliente(String username, Object obj){
+            ClientHandler cliente = clientes.get(username);
+            cliente.sendObject(obj);
+        }
+        
+        public void sendObject(Object obj) {
+            try {
+                out.writeObject(obj);
+                out.flush();
+            } catch (IOException e) {
+                System.out.println("Error enviando objeto");
+            }
+        }
     }
+
+    private void loadProperties(){
+        InputStream input;        
+        try{
+            input = getClass().getResourceAsStream("/serverConfig/config.properties");
+            config.load(input);
+            input.close();
+            this.port = Integer.parseInt(config.getProperty("port"));
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }    
 }

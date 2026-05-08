@@ -1,9 +1,11 @@
 package umg.proyectomultiterminal;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Properties;
 import java.util.Random;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
@@ -22,6 +24,9 @@ public class RegistroTicketController {
     private ObjectInputStream in;
     private boolean conectado; 
     private static final Random random = new Random();
+    private static Properties config = new Properties();
+    String ip;
+    int port;
     
     @FXML
     private ComboBox<String> cbxFiltro;
@@ -70,7 +75,8 @@ public class RegistroTicketController {
     @FXML
     private void connect(){
         try{
-            socket = new Socket("10.63.229.45", 1234);
+            loadProperties();
+            socket = new Socket(ip, port);
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
             Mensaje mensaje = new Mensaje("Conectado Registro");
@@ -153,6 +159,20 @@ public class RegistroTicketController {
             out.flush();
         } catch (IOException ex) {
             System.getLogger(RegistroTicketController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+    
+    private void loadProperties(){
+        InputStream input;
+        
+        try{
+            input = getClass().getResourceAsStream("/serverConfig/config.properties");
+            config.load(input);
+            input.close();
+            this.port = Integer.parseInt(config.getProperty("port"));
+            this.ip = config.getProperty("ip");
+        }catch(IOException e){
+            System.out.println(e.getMessage());
         }
     }
 }

@@ -90,11 +90,10 @@ public class InterfazPrincipalController {
         Pane newPanel = loader.load();
 
         TicketPanelController controller = loader.getController();
-        
-        ticket.iniciarContador(controller);        
-        controller.setNumTicker(tickerNum);
-        controller.setTiempoEspera("0:00 min");
+        controller.setTiempoEspera("0:00 min");               
+        controller.setNumTicker(tickerNum);        
         controller.setImage(ticket.getTipo());
+        ticket.iniciarContador(controller);
         
         switch (ticket.getTipo()) {
             case "Normal":
@@ -111,6 +110,7 @@ public class InterfazPrincipalController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        actualizarContadores(ticket);
     }
         
     public static InterfazPrincipalController getInstance() {
@@ -180,5 +180,9 @@ public class InterfazPrincipalController {
                 }
                 break;
         }
+    }
+
+    private void actualizarContadores(Ticket ticket) {
+        
     }
 }

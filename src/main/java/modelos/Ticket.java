@@ -5,6 +5,7 @@
 package modelos;
 import java.io.Serializable;
 import java.time.LocalDate;
+import javafx.application.Platform;
 import umg.proyectomultiterminal.TicketPanelController;
 /**
  *
@@ -14,7 +15,7 @@ public class Ticket implements Serializable {
     int numTicket;
     String DPI;
     String tipo;
-    LocalDate fecha_hora_atencion;    
+    LocalDate fecha_hora_atencion;
     String nombre;
     String apellido;
     String motivoAtencion;
@@ -35,11 +36,17 @@ public class Ticket implements Serializable {
                     switch(estado){
                         case "Cola":
                             tiempoEnCola++;
-                            controller.setTiempoEspera(intAStringSegundos(tiempoEnCola));
+                            Platform.runLater(() -> {
+                                controller.setTiempoEspera(intAStringSegundos(tiempoEnCola) + " min");
+                            });
+                            
                             break;
                         case "Atencion":
                             duracionAtencion++;
-                            controller.setTiempoEspera(intAStringSegundos(duracionAtencion));
+                            Platform.runLater(() -> {
+                                controller.setTiempoEspera(intAStringSegundos(duracionAtencion) + " min");
+                            });
+                            
                             break;
                     }        
                 }

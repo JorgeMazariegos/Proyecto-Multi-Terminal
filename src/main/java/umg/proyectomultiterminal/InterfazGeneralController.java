@@ -5,18 +5,22 @@
 package umg.proyectomultiterminal;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.URL;
+import java.util.Properties;
 import java.util.Random;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import modelos.Mensaje;
+import modelos.Ticket;
 
 /**
  * FXML Controller class
@@ -29,7 +33,10 @@ public class InterfazGeneralController implements Initializable {
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private boolean conectado; 
-    private static final Random random = new Random();
+    private static final Random random = new Random();   
+    private static Properties config = new Properties();
+    String ip;
+    int port;
     
     @FXML
     private Label serverStatus;
@@ -46,17 +53,19 @@ public class InterfazGeneralController implements Initializable {
         // TODO
     }    
     
-    
-    
     @FXML
-     private void connect(){
+    private void connect(){
         try{
-            socket = new Socket("10.63.229.45", 1234);
+            loadProperties();
+            socket = new Socket(ip, port);
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
+            conectado = true;
+            
+            new Thread(this::listenServer).start();
             Mensaje mensaje = new Mensaje("Conectado General");
             mensaje.setStatus(true);
-            conectado = true;
+            
             sendMensaje(mensaje);
             conectToServer.setDisable(true);
             desconectar.setDisable(false);
@@ -96,6 +105,35 @@ public class InterfazGeneralController implements Initializable {
         serverStatus.setText("⬤ Desconectado");
     }
     
+    private void listenServer() {
+        try {
+            while (conectado) {
+
+                Object obj = in.readObject();
+
+                if(obj instanceof Mensaje) {
+                    Mensaje mensaje = (Mensaje) obj;
+
+                    Platform.runLater(() -> {
+                        System.out.println("Mensaje del servidor: "
+                                + mensaje.getMensaje());
+                    });
+                }
+
+                if(obj instanceof Ticket) {
+                    Ticket ticket = (Ticket) obj;
+
+                    Platform.runLater(() -> {
+                        System.out.println("Ticket recibido");
+                    });
+                }
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Servidor desconectado");
+        }
+    }
+    
     private void sendMensaje(Mensaje mensaje){
         if(!conectado){
             return;
@@ -105,6 +143,20 @@ public class InterfazGeneralController implements Initializable {
             out.flush();
         } catch (IOException ex) {
             System.getLogger(InterfazGeneralController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+    
+    private void loadProperties(){
+        InputStream input;
+        
+        try{
+            input = getClass().getResourceAsStream("/serverConfig/config.properties");
+            config.load(input);
+            input.close();
+            this.port = Integer.parseInt(config.getProperty("port"));
+            this.ip = config.getProperty("ip");
+        }catch(IOException e){
+            System.out.println(e.getMessage());
         }
     }
 }
