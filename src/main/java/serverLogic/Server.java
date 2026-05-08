@@ -155,6 +155,7 @@ public class Server {
                 System.out.println("Cliente desconectado");
             } catch (IOException | ClassNotFoundException e) {
                 System.out.println("Error con cliente: " + e.getMessage());
+                e.printStackTrace();
             } finally {
                 clientes.remove(username);
                 try { 

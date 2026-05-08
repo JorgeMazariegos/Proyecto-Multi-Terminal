@@ -129,7 +129,7 @@
                   </GridPane>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Realizar Viaje" />
+                        <Button mnemonicParsing="false" onAction="#generarTicket" text="Realizar Viaje" />
                      </children>
                   </HBox>
                </children>

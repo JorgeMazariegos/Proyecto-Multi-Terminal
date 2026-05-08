@@ -180,7 +180,8 @@ public class RegistroTicketController {
                 out.writeObject(ticket);
                 out.flush();
             } catch (IOException ex) {
-                System.getLogger(RegistroTicketController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                System.out.println("Error : ");
+                ex.printStackTrace();
             }
         }).start();                            
     }
@@ -193,7 +194,7 @@ public class RegistroTicketController {
             out.writeObject(mensaje);
             out.flush();
         } catch (IOException ex) {
-            System.getLogger(RegistroTicketController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            System.out.println("Error : " + ex.getMessage());
         }
     }
     
