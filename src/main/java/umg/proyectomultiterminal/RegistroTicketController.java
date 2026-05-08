@@ -100,7 +100,8 @@ public class RegistroTicketController {
         ticket.setPrecio(precio);
         ticket.setOrigen(cbxOrigen.getValue());
         ticket.setDestino(cbxDestino.getValue());
-
+        ticket.setEstado("Solicitado");
+        
         sendTicket(ticket);
     }
     
@@ -159,16 +160,31 @@ public class RegistroTicketController {
     }
     
     private boolean camposVacios(){
-        if (txtDPI.getText().equals("")){
-            return true;
-        }
-        if(cbxTipo.getValue().equals("Elegir prioridad")){
-            return true;
-        }
-        if(txtNombre.getText().equals("Nombre")){
-            return true;
-        }
-        return false;
+        if(txtDPI.getText().isBlank()){
+        return true;
+    }
+
+    if(txtNombre.getText().isBlank()){
+        return true;
+    }
+
+    if(txtApellido.getText().isBlank()){
+        return true;
+    }
+
+    if(txtPrecio.getText().isBlank()){
+        return true;
+    }
+
+    if(cbxTipo.getValue() == null){
+        return true;
+    }
+
+    if(cbxOrigen.getValue() == null){
+        return true;
+    }
+
+    return cbxDestino.getValue() == null;
     }
     
     private void sendTicket(Ticket ticket){
