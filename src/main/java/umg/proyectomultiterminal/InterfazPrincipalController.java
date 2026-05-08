@@ -2,6 +2,8 @@ package umg.proyectomultiterminal;
 
 import estructuras.Cola;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.application.Platform;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
@@ -19,6 +21,7 @@ public class InterfazPrincipalController {
     // ---------- Estructuras de datos para las colas ----------
     private final Cola colaGeneral = new Cola();
     
+    private Map<Ticket, Thread> contadores = new HashMap<>();
     PseudoClass on = PseudoClass.getPseudoClass("activo");
     Server server = new Server();
        
@@ -87,7 +90,7 @@ public class InterfazPrincipalController {
     private void generarTicketNormal(){
         Ticket ticket = new Ticket();
         ticket.setNumTicket(123);
-        ticket.setDPI("8917263");
+        ticket.setDPI(3453456);
         ticket.setTipo("Normal");
         ticket.setEstado("Cola");
         agregarTicket(ticket);
@@ -104,7 +107,7 @@ public class InterfazPrincipalController {
         controller.setTiempoEspera("0:00 min");               
         controller.setNumTicker(tickerNum);        
         controller.setImage(ticket.getTipo());
-        ticket.iniciarContador(controller);
+        iniciarContador(controller, ticket);
         
         switch (ticket.getTipo()) {
             case "Normal":
@@ -212,7 +215,7 @@ public class InterfazPrincipalController {
         switch(cola){
             case "General":
                 Ticket ticket = colaGeneral.dequeue();
-                ticket.detenerContador();
+                detenerContador(ticket);
                 Platform.runLater(() -> {
                     actualizarInterfazGeneral();
                 });
@@ -225,5 +228,48 @@ public class InterfazPrincipalController {
         colaNormal.getChildren().remove(0);
         actualizarContadores("Normal");
         usuarioStatus("Procesando General");
+    }
+    
+    public void iniciarContador(TicketPanelController controller , Ticket ticket){
+        Thread contador = new Thread(() -> {
+            try{
+                while(!Thread.currentThread().isInterrupted()){
+                    Thread.sleep(1000);
+                    switch(ticket.getEstado()){
+                        case "Cola":
+                            ticket.setTiempoEnCola(ticket.getTiempoEnCola() + 1);
+                            Platform.runLater(() -> {
+                                controller.setTiempoEspera(intAStringSegundos(ticket.getTiempoEnCola()) + " min");
+                            });
+                            
+                            break;
+                        case "Atencion":
+                            ticket.setDuracionAtencion(ticket.getDuracionAtencion() + 1);
+                            //TODO                            
+                            break;
+                    }        
+                }
+                        
+            }catch(InterruptedException e){
+                Thread.currentThread().interrupt();
+            }
+        });
+        contador.setDaemon(true);
+        contadores.put(ticket, contador);
+        contador.start();
+    }
+       
+    public void detenerContador(Ticket ticket) {
+        Thread contador = contadores.get(ticket);
+        if (contador != null) {
+            contador.interrupt();
+            contadores.remove(ticket);
+        }
+    }
+    
+    private String intAStringSegundos(int tiempo){
+        int minutos = tiempo / 60;
+        int segundos = tiempo % 60;
+        return String.format("%d:%02d", minutos, segundos);
     }
 }

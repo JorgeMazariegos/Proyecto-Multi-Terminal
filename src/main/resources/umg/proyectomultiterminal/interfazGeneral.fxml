@@ -9,13 +9,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #070b0e;" stylesheets="@../../styles/interfazgeneral.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.proyectomultiterminal.InterfazGeneralController">
    <children>
       <Pane layoutX="14.0" layoutY="14.0" prefHeight="88.0" prefWidth="488.0" styleClass="infoPanel">
          <children>
-            <Button fx:id="conectToServer" layoutX="150.0" layoutY="22.0" mnemonicParsing="false" onAction="#connect" prefHeight="44.0" prefWidth="186.0" text="▶ Conectar al Servidor" />
-            <Button fx:id="desconectar" disable="true" layoutX="339.0" layoutY="25.0" mnemonicParsing="false" onAction="#disconnect" text="■ Desconectar" />
+            <Button fx:id="conectToServer" layoutX="145.0" layoutY="21.0" mnemonicParsing="false" onAction="#connect" prefHeight="44.0" prefWidth="186.0" text="▶ Conectar al Servidor" />
+            <Button fx:id="desconectar" disable="true" layoutX="338.0" layoutY="22.0" mnemonicParsing="false" onAction="#disconnect" prefHeight="42.0" prefWidth="142.0" text="■ Desconectar" />
             <ImageView fitHeight="170.0" fitWidth="254.0" layoutX="-56.0" layoutY="-42.0" pickOnBounds="true">
                <image>
                   <Image url="@../../ChatGPT%20Image%204%20may%202026,%2009_33_58%20a.m..png" />
@@ -31,8 +32,8 @@
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="178.0" prefWidth="376.0">
                <children>
-                  <TextField layoutX="14.0" layoutY="27.0" prefHeight="25.0" prefWidth="324.0" />
-                  <TextField layoutX="14.0" layoutY="77.0" prefHeight="25.0" prefWidth="324.0" />
+                  <TextField editable="false" layoutX="14.0" layoutY="27.0" prefHeight="25.0" prefWidth="324.0" />
+                  <TextField editable="false" layoutX="14.0" layoutY="77.0" prefHeight="25.0" prefWidth="324.0" />
                </children></AnchorPane>
         </items>
       </SplitPane>
@@ -55,10 +56,12 @@
       </SplitPane>
       <Pane layoutX="512.0" layoutY="13.0" prefHeight="146.0" prefWidth="671.0" styleClass="infoPanel">
          <children>
-            <Pane layoutX="14.0" layoutY="11.0" prefHeight="125.0" prefWidth="152.0" styleClass="infoPanel">
+            <VBox alignment="CENTER" layoutX="14.0" layoutY="11.0" prefHeight="125.0" prefWidth="152.0" styleClass="infoPanel">
                <children>
-                  <Label fx:id="serverStatus" layoutX="9.0" layoutY="70.0" prefHeight="41.0" prefWidth="135.0" text="⬤ Desconectado" />
-               </children></Pane>
+                  <Label style="-fx-text-fill: #658dd5;" styleClass="infoLabel" text="General - PC3" />
+                  <Label fx:id="serverStatus" prefHeight="41.0" prefWidth="135.0" text="⬤ Desconectado" />
+               </children>
+            </VBox>
             <Pane layoutX="178.0" layoutY="11.0" prefHeight="125.0" prefWidth="152.0" styleClass="infoPanel" />
             <Pane layoutX="342.0" layoutY="11.0" prefHeight="125.0" prefWidth="152.0" styleClass="infoPanel" />
             <Pane layoutX="505.0" layoutY="11.0" prefHeight="125.0" prefWidth="152.0" styleClass="infoPanel" />

@@ -11,7 +11,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.URL;
 import java.util.Properties;
-import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.css.PseudoClass;
@@ -123,14 +122,18 @@ public class InterfazGeneralController implements Initializable {
                 }
 
                 if(obj instanceof Ticket) {
-                    Ticket ticket = (Ticket) obj;
-                    disponible = false;
+                    Ticket ticket = (Ticket) obj; 
                     procesarTicket(ticket);
                 }
             }
 
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Servidor desconectado");
+            conectado = false;
+            conectToServer.setDisable(false);
+            desconectar.setDisable(true);
+            serverStatus.pseudoClassStateChanged(on, false);
+            serverStatus.setText("⬤ Desconectado");
         }
     }
     
@@ -166,7 +169,8 @@ public class InterfazGeneralController implements Initializable {
                 try {
                     Thread.sleep(1000);
                     Mensaje mensaje = new Mensaje("Request General");
-                    sendMensaje(mensaje);                   
+                    sendMensaje(mensaje);
+                    disponible = false;
                 } catch (InterruptedException ex) {
                     break;
                 }

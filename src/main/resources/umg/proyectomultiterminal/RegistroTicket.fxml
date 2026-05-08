@@ -8,43 +8,64 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #070b0e;" stylesheets="@../../styles/registroticket.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.proyectomultiterminal.RegistroTicketController">
    <children>
-      <Pane layoutX="23.0" layoutY="699.0" prefHeight="86.0" prefWidth="1154.0" styleClass="infoPanel">
+      <GridPane alignment="CENTER" layoutX="532.0" layoutY="700.0" prefHeight="86.0" prefWidth="486.0" styleClass="infoPanel">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <Label layoutX="200.0" layoutY="20.0" style="-fx-text-fill: #658dd5;" styleClass="infoLabel" text="NORMAL" />
-            <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="165.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../car.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="424.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../star.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="461.0" layoutY="22.0" style="-fx-text-fill: #ddb959;" styleClass="infoLabel" text="VIP" />
-            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="628.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../rayo.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="662.0" layoutY="20.0" style="-fx-text-fill: #a37ad5;" styleClass="infoLabel" text="Especial" />
-            <ImageView fitHeight="38.0" fitWidth="64.0" layoutX="898.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../Downloads/flecha.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-      <Label fx:id="title" layoutX="26.0" layoutY="14.0" text="Registro de Tickets" textFill="WHITE">
+            <Label style="-fx-text-fill: #658dd5;" styleClass="infoLabel" text="NORMAL">
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../car.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label style="-fx-text-fill: #ddb959;" styleClass="infoLabel" text="VIP" GridPane.columnIndex="1">
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../star.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label style="-fx-text-fill: #a37ad5;" styleClass="infoLabel" text="Entregas" GridPane.columnIndex="2">
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../rayo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label styleClass="infoLabel" text="Q0 - Q50" GridPane.rowIndex="1" />
+            <Label styleClass="infoLabel" text="Q50+ " GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label styleClass="infoLabel" text="Q0+" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <Label fx:id="title" layoutX="26.0" layoutY="14.0" text="Agendar viaje" textFill="WHITE">
          <font>
             <Font name="Agency FB Bold" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="28.0" layoutY="55.0" styleClass="infoLabel" text="Crea y Gestiona tickets para el servidor" textFill="WHITE">
+      <Label layoutX="28.0" layoutY="55.0" styleClass="infoLabel" text="Solicita un viaje" textFill="WHITE">
          <font>
             <Font name="Agency FB" size="21.0" />
          </font>
@@ -53,11 +74,11 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Label layoutX="66.0" layoutY="33.0" prefHeight="18.0" prefWidth="231.0" styleClass="infoLabel" text="Tickets generados " />
+                  <Label layoutX="61.0" layoutY="33.0" prefHeight="18.0" prefWidth="231.0" styleClass="infoLabel" text="Viajes Generados" />
                   <ComboBox fx:id="cbxFiltro" layoutX="471.0" layoutY="29.0" prefWidth="150.0" promptText="Todos" />
-                  <ImageView fitHeight="38.0" fitWidth="49.0" layoutX="18.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="38.0" fitWidth="49.0" layoutX="14.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../2680534.png" />
+                        <Image url="@../../car.png" />
                      </image>
                   </ImageView>
                </children>
@@ -65,31 +86,58 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="splitPanel" />
         </items>
       </SplitPane>
-      <SplitPane layoutX="26.0" layoutY="95.0" orientation="VERTICAL" prefHeight="591.0" prefWidth="488.0" styleClass="splitPanel">
+      <SplitPane dividerPositions="0.1" layoutX="26.0" layoutY="95.0" orientation="VERTICAL" prefHeight="687.0" prefWidth="488.0" styleClass="splitPanel">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="590.0" prefWidth="473.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="92.0" prefWidth="486.0">
                <children>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="102.0" prefWidth="486.0">
-                     <children>
-                        <Label layoutX="79.0" layoutY="33.0" styleClass="infoLabel" text="Registro de Ticket" />
-                        <ImageView fitHeight="38.0" fitWidth="49.0" layoutX="34.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../2680534.png" />
-                           </image>
-                        </ImageView>
-                        <Button fx:id="generateTicket" layoutX="22.0" layoutY="514.0" mnemonicParsing="false" onAction="#generarTicket" prefHeight="52.0" prefWidth="442.0" text="Generar Ticket" />
-                     </children>
-                  </AnchorPane>
-                  <Label layoutX="17.0" layoutY="218.0" styleClass="infoLabel" text="Prioridad" />
-                  <Label layoutX="22.0" layoutY="108.0" prefHeight="18.0" prefWidth="111.0" styleClass="infoLabel" text="DPI" />
-                  <TextField fx:id="txtDPI" layoutX="17.0" layoutY="138.0" prefHeight="26.0" prefWidth="452.0" promptText="Ej: 3069784512" />
-                  <ComboBox fx:id="cbxTipo" layoutX="17.0" layoutY="249.0" prefHeight="26.0" prefWidth="452.0" promptText="Elegir prioridad" />
+                  <Label layoutX="60.0" layoutY="17.0" styleClass="infoLabel" text="Información Personal" />
+                  <ImageView fitHeight="38.0" fitWidth="49.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../car.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="generateTicket" layoutX="22.0" layoutY="514.0" mnemonicParsing="false" onAction="#generarTicket" prefHeight="52.0" prefWidth="442.0" text="Generar Ticket" />
                </children>
             </AnchorPane>
+            <VBox prefHeight="566.0" prefWidth="486.0" style="-fx-padding: 10; -fx-spacing: 10;">
+               <children>
+                  <Label styleClass="infoLabel" text="Tipo de Viaje" />
+                  <ComboBox fx:id="cbxTipo" prefHeight="32.0" prefWidth="472.0" promptText="Elegir tipo de viaje" />
+                  <Label prefHeight="25.0" prefWidth="38.0" styleClass="infoLabel" text="DPI" />
+                  <TextField fx:id="txtDPI" prefHeight="42.0" prefWidth="355.0" promptText="Ej: 3069784512" />
+                  <Label prefHeight="25.0" prefWidth="154.0" styleClass="infoLabel" text="Nombre" />
+                  <TextField fx:id="txtNombre" prefHeight="26.0" prefWidth="452.0" promptText="Nombre" />
+                  <Label styleClass="infoLabel" text="Apellido" />
+                  <TextField fx:id="txtApellido" promptText="Apellido" />
+                  <Label styleClass="infoLabel" text="Precio" />
+                  <TextField fx:id="txtPrecio" promptText="Ingrese Precio" />
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label styleClass="infoLabel" text="Origen" />
+                        <Label styleClass="infoLabel" text="Destino" GridPane.columnIndex="1" />
+                        <ComboBox fx:id="cbxOrigen" prefWidth="150.0" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="cbxDestino" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Realizar Viaje" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
         </items>
       </SplitPane>
       <Label fx:id="serverStatus" layoutX="617.0" layoutY="32.0" prefHeight="41.0" prefWidth="168.0" text="⬤ Desconectado" />
-      <ImageView disable="true" fitHeight="226.0" fitWidth="430.0" layoutX="243.0" layoutY="-67.0" pickOnBounds="true" preserveRatio="true" styleClass="combo-box">
+      <ImageView disable="true" fitHeight="226.0" fitWidth="430.0" layoutX="211.0" layoutY="-67.0" pickOnBounds="true" preserveRatio="true" styleClass="combo-box">
          <image>
             <Image url="@../../ChatGPT%20Image%204%20may%202026,%2009_33_58%20a.m..png" />
          </image>

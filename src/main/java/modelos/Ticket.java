@@ -4,74 +4,38 @@
  */
 package modelos;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import javafx.application.Platform;
-import umg.proyectomultiterminal.TicketPanelController;
 /**
  *
  * @author AMD 5600G
  */
 public class Ticket implements Serializable {
     int numTicket;
-    String DPI;
-    String tipo;
-    LocalDate fecha_hora_atencion;
-    String nombre;
-    String apellido;
-    String motivoAtencion;
-    int duracionAtencion;
-    int duracionTotal;
-    int tiempoEnCola;
-    String usuarioQueAtendio;
-    String estado;
-    private volatile boolean activo;
-    Thread contador;
+    
+    // User/request data
+    private int DPI;
+    private String nombre;
+    private String apellido;
+    
+    // viaje data
+    private String origen;
+    private String destino;
+    private String tipo;
+    private BigDecimal precio;
+    
+    // Simulation data
+    private int tiempoEnCola;
+    private int duracionAtencion;
+    private int duracionTotal;
 
-    public void iniciarContador(TicketPanelController controller){
-        activo = true;
-        contador = new Thread(() -> {
-            try{
-                while(activo){
-                    Thread.sleep(1000);
-                    switch(estado){
-                        case "Cola":
-                            tiempoEnCola++;
-                            Platform.runLater(() -> {
-                                controller.setTiempoEspera(intAStringSegundos(tiempoEnCola) + " min");
-                            });
-                            
-                            break;
-                        case "Atencion":
-                            duracionAtencion++;
-                            Platform.runLater(() -> {
-                                controller.setTiempoEspera(intAStringSegundos(duracionAtencion) + " min");
-                            });
-                            
-                            break;
-                    }        
-                }
-                        
-            }catch(InterruptedException e){
-                Thread.currentThread().interrupt();
-            }
-        });        
-        contador.start();
-    }
+    String motivoAtencion; //??? No se que hacer con ese campo
     
-    public void detenerContador() {
-        activo = false;
-        if (contador != null) {
-            contador.interrupt();
-        }
-    }
-    
-    private String intAStringSegundos(int tiempo){
-        int minutos = tiempo / 60;
-        int segundos = tiempo % 60;
+    //Metadata        
+    private LocalDate fechaCreacion; //fecha en la que se pidio el viaje
+    private String usuarioQueAtendio;
+    private String estado;
 
-    return String.format("%d:%02d", minutos, segundos);
-    }
-    
     public int getNumTicket() {
         return numTicket;
     }
@@ -80,20 +44,12 @@ public class Ticket implements Serializable {
         this.numTicket = numTicket;
     }
 
-    public String getDPI() {
+    public int getDPI() {
         return DPI;
     }
 
-    public void setDPI(String DPI) {
+    public void setDPI(int DPI) {
         this.DPI = DPI;
-    }
-
-    public LocalDate getFecha_hora_atencion() {
-        return fecha_hora_atencion;
-    }
-
-    public void setFecha_hora_atencion(LocalDate fecha_hora_atencion) {
-        this.fecha_hora_atencion = fecha_hora_atencion;
     }
 
     public String getNombre() {
@@ -112,12 +68,44 @@ public class Ticket implements Serializable {
         this.apellido = apellido;
     }
 
-    public String getMotivoAtencion() {
-        return motivoAtencion;
+    public String getOrigen() {
+        return origen;
     }
 
-    public void setMotivoAtencion(String motivoAtencion) {
-        this.motivoAtencion = motivoAtencion;
+    public void setOrigen(String origen) {
+        this.origen = origen;
+    }
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public BigDecimal getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
+    }
+
+    public int getTiempoEnCola() {
+        return tiempoEnCola;
+    }
+
+    public void setTiempoEnCola(int tiempoEnCola) {
+        this.tiempoEnCola = tiempoEnCola;
     }
 
     public int getDuracionAtencion() {
@@ -136,12 +124,20 @@ public class Ticket implements Serializable {
         this.duracionTotal = duracionTotal;
     }
 
-    public int getTiempoEnCola() {
-        return tiempoEnCola;
+    public String getMotivoAtencion() {
+        return motivoAtencion;
     }
 
-    public void setTiempoEnCola(int tiempoEnCola) {
-        this.tiempoEnCola = tiempoEnCola;
+    public void setMotivoAtencion(String motivoAtencion) {
+        this.motivoAtencion = motivoAtencion;
+    }
+
+    public LocalDate getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(LocalDate fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
     public String getUsuarioQueAtendio() {
@@ -152,14 +148,6 @@ public class Ticket implements Serializable {
         this.usuarioQueAtendio = usuarioQueAtendio;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
     public String getEstado() {
         return estado;
     }
@@ -167,12 +155,6 @@ public class Ticket implements Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
-    public boolean isActivo() {
-        return activo;
-    }
-
-    public void setActivo(boolean activo) {
-        this.activo = activo;
-    }
+    
+    
 }

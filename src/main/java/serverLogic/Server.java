@@ -166,7 +166,7 @@ public class Server {
         }
 
         private void procesarTicket(Ticket ticket) throws IOException {
-            if(ticket.getEstado() == null){
+            if(ticket.getEstado().equals("Solicitado")){
                 ticket.setEstado("Cola");
                 interfaz = InterfazPrincipalController.getInstance();           
                 Platform.runLater(() -> {
@@ -205,6 +205,7 @@ public class Server {
                 out.flush();
             } catch (IOException e) {
                 System.out.println("Error enviando objeto");
+                e.printStackTrace();
             }
         }
     }
