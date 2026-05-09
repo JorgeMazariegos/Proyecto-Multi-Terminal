@@ -108,7 +108,8 @@ public class RegistroTicketController {
     @FXML
     private void connect(){
         try{
-            socket = new Socket("100.105.253.48", 1234);
+            loadProperties();
+            socket = new Socket(ip, port);
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
             Mensaje mensaje = new Mensaje("Conectado Registro");
