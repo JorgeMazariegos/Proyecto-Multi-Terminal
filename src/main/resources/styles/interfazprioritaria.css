@@ -97,7 +97,7 @@
     
     /* Optional padding and font */
     -fx-padding: 6px 12px;
-    -fx-font-size: 15px;
+    -fx-font-size: 12px;
     -fx-background-color: transparent;
     -fx-font-weight: bold;
 }
@@ -132,7 +132,7 @@
     -fx-padding: 6px 12px;
     
     /* Optional: font styling */
-    -fx-font-size: 16px;
+    -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-effect: null;
 }
@@ -144,24 +144,22 @@
 }
 
 .button {
-    -fx-background-color: linear-gradient(to right, #FFD700, #ffcc00);
-    -fx-text-fill: #000000;
-
+    -fx-background-color: linear-gradient(to right, #ff3b3b, #cc0000);
+    -fx-text-fill: #ffffff;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-
     -fx-background-radius: 12;
     -fx-padding: 12 20;
-
-    -fx-effect: dropshadow(gaussian, rgba(255,215,0,0.3), 10, 0.3, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(255,0,0,0.3), 10, 0.3, 0, 2);
 }
 .button:hover {
-    -fx-background-color: #ffdf33;
+    -fx-background-color: #ff5c5c;
     -fx-cursor: hand;
 }
 .button:pressed {
-    -fx-background-color: #e6c200;
+    -fx-background-color: #990000;
 }
+
 .splitPanel{
     -fx-background-color: #17181c;
     -fx-background-radius: 8px;           /* rounded corners for background */
@@ -239,4 +237,38 @@
 .combo-box-popup .list-cell:selected {
     -fx-background-color: #FFD700;
     -fx-text-fill: black;
+}
+
+.infoLabel-Rojo{
+    -fx-text-fill: red;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+.textfield-rojo {
+    -fx-background-color: linear-gradient(to bottom right, #7a0000, #b30000);
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: #ffb3b3;
+
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+
+    -fx-border-color: #ff1a1a;
+    -fx-border-width: 1.5;
+
+    -fx-padding: 10 12;
+
+    -fx-font-size: 14px;
+
+    -fx-effect: dropshadow(gaussian, rgba(255,0,0,0.35), 8, 0.2, 0, 2);
+}
+
+.textfield-rojo:focused {
+    -fx-background-color: linear-gradient(to bottom right, #990000, #ff1a1a);
+    -fx-border-color: #ff4d4d;
+}
+
+.textfield-rojo:hover {
+    -fx-background-color: linear-gradient(to bottom right, #8a0000, #cc0000);
+    -fx-border-color: #ff3333;
 }

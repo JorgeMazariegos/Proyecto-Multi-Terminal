@@ -97,7 +97,7 @@
     
     /* Optional padding and font */
     -fx-padding: 6px 12px;
-    -fx-font-size: 15px;
+    -fx-font-size: 12px;
     -fx-background-color: transparent;
     -fx-font-weight: bold;
 }
@@ -132,7 +132,7 @@
     -fx-padding: 6px 12px;
     
     /* Optional: font styling */
-    -fx-font-size: 16px;
+    -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-effect: null;
 }
@@ -239,4 +239,10 @@
 .combo-box-popup .list-cell:selected {
     -fx-background-color: #FFD700;
     -fx-text-fill: black;
+}
+
+.infoLabel-amarillo{
+    -fx-text-fill: yellow;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
 }
