@@ -9,9 +9,11 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.web.WebView?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #070b0e;" stylesheets="@../../styles/interfazprioritaria.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.proyectomultiterminal.InterfazPrioritariaController">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #070b0e;" stylesheets="@../../styles/interfazprioritaria.css" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.proyectomultiterminal.InterfazPrioritariaController">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true">
          <image>
@@ -23,13 +25,16 @@
          <children>
             <Button fx:id="conectToServer" layoutX="150.0" layoutY="14.0" mnemonicParsing="false" onAction="#connect" prefHeight="31.0" prefWidth="160.0" text="▶ Conectar al Servidor" />
             <Button fx:id="desconectar" disable="true" layoutX="319.0" layoutY="16.0" mnemonicParsing="false" onAction="#disconnect" text="■ Desconectar" />
-            <ImageView fitHeight="170.0" fitWidth="254.0" layoutX="-57.0" layoutY="-54.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="170.0" fitWidth="254.0" layoutX="-66.0" layoutY="-55.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../ChatGPT%20Image%204%20may%202026,%2009_33_58%20a.m..png" />
                </image>
             </ImageView>
          </children>
       </Pane>
+      <HBox alignment="CENTER_LEFT" layoutX="696.0" layoutY="586.0" spacing="10" />
+
+<Label fx:id="lblEstadoBusqueda" layoutX="878.0" layoutY="674.0" prefHeight="16.0" prefWidth="138.0" styleClass="lbl-estado" text="" />
       <Pane layoutX="473.0" layoutY="14.0" prefHeight="59.0" prefWidth="722.0" styleClass="infoPanel">
          <children>
             <Label fx:id="serverStatus" layoutX="14.0" layoutY="9.0" prefHeight="41.0" prefWidth="135.0" text="⬤ Desconectado" />
@@ -120,7 +125,7 @@
                   <Label layoutX="14.0" layoutY="94.0" styleClass="infoLabel" text="DIRECCION DE DESTINO" />
                   <TextField layoutX="9.0" layoutY="40.0" prefHeight="42.0" prefWidth="442.0" promptText="New York, NY 10001, Estados Unidos" />
                   <Label layoutX="18.0" layoutY="14.0" styleClass="infoLabel" text="DIRECCION DE ORIGEN" />
-                  <TextField layoutX="328.0" layoutY="203.0" prefHeight="42.0" prefWidth="100.0" styleClass="textfield-rojo" />
+                  <TextField layoutX="328.0" layoutY="202.0" prefHeight="42.0" prefWidth="100.0" styleClass="textfield-rojo" />
                   <Label layoutX="334.0" layoutY="177.0" styleClass="infoLabel" text="PRIORIDAD" />
                   <Label layoutX="9.0" layoutY="328.0" styleClass="infoLabel" text="MONTO A PAGAR" />
                   <TextField layoutX="9.0" layoutY="354.0" prefHeight="42.0" prefWidth="138.0" promptText="150.00" />
@@ -128,7 +133,15 @@
             </AnchorPane>
          </items>
       </SplitPane>
-      <Pane layoutX="834.0" layoutY="92.0" prefHeight="414.0" prefWidth="366.0" styleClass="infoPanel" />
+      <Pane layoutX="828.0" layoutY="84.0" prefHeight="404.0" prefWidth="362.0" styleClass="infoPanel">
+         <children>
+      
+      <!-- Tu panel del mapa -->
+      <Pane fx:id="pane" layoutX="15.0" layoutY="19.0" prefHeight="367.0" prefWidth="333.0" styleClass="infoPanel">
+          <WebView fx:id="webView" layoutX="0.0" layoutY="0.0" prefHeight="367.0" prefWidth="333.0"/>
+      </Pane>
+         </children>
+      </Pane>
       <SplitPane dividerPositions="0.11347197106690779" layoutX="26.0" layoutY="409.0" opacity="0.8" orientation="VERTICAL" prefHeight="340.0" prefWidth="324.0" styleClass="splitPanel">
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
@@ -139,5 +152,7 @@
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="411.0" prefWidth="468.0" />
          </items>
       </SplitPane>
+ <TextField fx:id="txtBusqueda" layoutX="851.0" layoutY="579.0" prefHeight="37.0" prefWidth="243.0" promptText="Ej: Aeropuerto La Aurora, Guatemala" styleClass="input-busqueda" />
+ <Button layoutX="863.0" layoutY="627.0" onAction="#buscarDireccion" prefHeight="36.0" prefWidth="249.0" styleClass="btn-buscar" text="🔍 Buscar" />
    </children>
 </AnchorPane>

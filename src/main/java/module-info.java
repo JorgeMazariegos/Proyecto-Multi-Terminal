@@ -5,6 +5,9 @@ module umg.proyectomultiterminal {
     requires java.logging;
     requires java.base;
 
+    requires org.json;
+    requires javafx.web;
+    
     opens umg.proyectomultiterminal to javafx.fxml;
     exports umg.proyectomultiterminal;
 }

@@ -272,3 +272,46 @@
     -fx-background-color: linear-gradient(to bottom right, #8a0000, #cc0000);
     -fx-border-color: #ff3333;
 }
+
+.input-busqueda {
+    -fx-background-color: #132337;
+    -fx-border-color: #1E3A5F;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: #E8F4FD;
+    -fx-prompt-text-fill: #3A6080;
+    -fx-padding: 8 12 8 12;
+    -fx-font-size: 13px;
+}
+
+
+.web-view {
+    -fx-background-color: transparent;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+
+    -fx-border-color: #2a2f3a;
+    -fx-border-width: 2;
+
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 20, 0.2, 0, 8);
+}
+.input-busqueda:focused {
+    -fx-border-color: #00C2E0;
+}
+
+.btn-buscar {
+    -fx-background-color: #00C2E0;
+    -fx-text-fill: #0A1520;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+}
+.btn-buscar:hover {
+    -fx-background-color: #00D4F5;
+}
+
+.lbl-estado {
+    -fx-text-fill: #00E676;
+    -fx-font-size: 11px;
+}

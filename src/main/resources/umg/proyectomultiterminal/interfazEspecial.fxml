@@ -64,14 +64,14 @@
                   <Image url="@../../2680534.png" />
                </image>
             </ImageView>
-            <TextField layoutX="9.0" layoutY="51.0" prefHeight="59.0" prefWidth="300.0" />
+            <TextField editable="false" layoutX="9.0" layoutY="51.0" prefHeight="59.0" prefWidth="300.0" />
             <Label layoutX="17.0" layoutY="138.0" styleClass="infoLabel" text="DPI" />
-            <TextField layoutX="69.0" layoutY="129.0" prefHeight="30.0" prefWidth="241.0" />
-            <TextField layoutX="136.0" layoutY="186.0" prefHeight="42.0" prefWidth="174.0" />
+            <TextField editable="false" layoutX="69.0" layoutY="129.0" prefHeight="30.0" prefWidth="241.0" />
+            <TextField editable="false" layoutX="136.0" layoutY="186.0" prefHeight="42.0" prefWidth="174.0" />
             <Label layoutX="12.0" layoutY="195.0" styleClass="infoLabel" text="MOTIVO" />
-            <TextField layoutX="136.0" layoutY="239.0" prefHeight="42.0" prefWidth="174.0" />
+            <TextField editable="false" layoutX="136.0" layoutY="239.0" prefHeight="42.0" prefWidth="174.0" />
             <Label layoutX="21.0" layoutY="248.0" styleClass="infoLabel" text="HORA" />
-            <TextField layoutX="136.0" layoutY="289.0" prefHeight="42.0" prefWidth="174.0" />
+            <TextField editable="false" layoutX="136.0" layoutY="289.0" prefHeight="42.0" prefWidth="174.0" />
             <Label layoutX="17.0" layoutY="298.0" styleClass="infoLabel" text="ASIGNACION" />
          </children>
       </Pane>

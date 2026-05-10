@@ -55,7 +55,7 @@
                   </ImageView>
                </graphic>
             </Label>
-            <Label styleClass="infoLabel" text="Q0 - Q50" GridPane.rowIndex="1" />
+            <Label styleClass="infoLabel" text="Q0 - Q49" GridPane.rowIndex="1" />
             <Label styleClass="infoLabel" text="Q50+ " GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label styleClass="infoLabel" text="Q0+" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
