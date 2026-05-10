@@ -214,6 +214,9 @@ public class InterfazPrincipalController {
     public Ticket enviarTicket(String cola){
         switch(cola){
             case "General":
+                if(colaGeneral.isEmpty()){
+                    return null;
+                }
                 Ticket ticket = colaGeneral.dequeue();
                 detenerContador(ticket);
                 Platform.runLater(() -> {
@@ -234,20 +237,11 @@ public class InterfazPrincipalController {
         Thread contador = new Thread(() -> {
             try{
                 while(!Thread.currentThread().isInterrupted()){
-                    Thread.sleep(1000);
-                    switch(ticket.getEstado()){
-                        case "Cola":
-                            ticket.setTiempoEnCola(ticket.getTiempoEnCola() + 1);
-                            Platform.runLater(() -> {
-                                controller.setTiempoEspera(intAStringSegundos(ticket.getTiempoEnCola()) + " min");
-                            });
-                            
-                            break;
-                        case "Atencion":
-                            ticket.setDuracionAtencion(ticket.getDuracionAtencion() + 1);
-                            //TODO                            
-                            break;
-                    }        
+                    Thread.sleep(1000);                   
+                    ticket.setTiempoEnCola(ticket.getTiempoEnCola() + 1);
+                    Platform.runLater(() -> {
+                    controller.setTiempoEspera(intAStringSegundos(ticket.getTiempoEnCola()) + " min");
+                    });     
                 }
                         
             }catch(InterruptedException e){

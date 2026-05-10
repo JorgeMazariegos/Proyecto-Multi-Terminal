@@ -31,7 +31,7 @@ public class TicketPanelController {
                 url = "star";
                 break;
             case "Entrega":
-                url = "rayo";
+                url = "paquete";
                 break;
             default:
                 url = "car";

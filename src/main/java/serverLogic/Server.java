@@ -12,12 +12,11 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 import javafx.application.Platform;
 import modelos.Mensaje;
@@ -28,17 +27,9 @@ import umg.proyectomultiterminal.InterfazPrincipalController;
  *
  * @author AMD 5600G
  */
-public class Server {
+public class Server {    
     InterfazPrincipalController interfaz;
-    
-//    private final PriorityQueue<Usuario> colaPrioritaria = new PriorityQueue<>()
-
-    private Map<String, ClientHandler> clientes = new HashMap<>();
-    
-    // Control de estaciones de atención (cada estación tiene un semáforo con 1 permiso)
-    private final Semaphore estacionGeneral = new Semaphore(1);
-    private final Semaphore estacionPrioritaria = new Semaphore(1);
-    private final Semaphore estacionEspecial = new Semaphore(1);
+    private Map<String, ClientHandler> clientes = new ConcurrentHashMap<>();;
 
     // Contador para tickets
     private final AtomicInteger contadorTickets = new AtomicInteger(1);
@@ -120,6 +111,7 @@ public class Server {
         private ObjectInputStream in;
         private ObjectOutputStream out;
         private String username;
+        private boolean disponible;
 
         ClientHandler(Socket socket) {
             this.socket = socket;
@@ -173,13 +165,19 @@ public class Server {
                 Platform.runLater(() -> {
                     interfaz.agregarTicket(ticket);
                 });
+                if(ticket.getTipo().equals("Normal")){
+                    enviarACliente("General",ticket);
+                }               
+            }
+            if(ticket.getEstado().equals("Finalizado")){
+                System.out.println(ticket.getUsuarioQueAtendio());
             }
         }
         
         private void procesarMensaje(Mensaje mensaje){ 
             interfaz = InterfazPrincipalController.getInstance();
   
-            if(mensaje.isStatus()){              
+            if(mensaje.isStatus()){            
                 Platform.runLater(() -> {
                     interfaz.usuarioStatus(mensaje.getMensaje());
                 });
@@ -187,9 +185,13 @@ public class Server {
             
             if(mensaje.getMensaje().startsWith("Request ")){
                 String cliente = mensaje.getMensaje().replace("Request ", "");
+                clientes.get(cliente).disponible = true;
                 switch(cliente){
                     case "General":
                         Ticket ticket = interfaz.enviarTicket(cliente);
+                        if(ticket == null){                            
+                            return;
+                        }
                         enviarACliente(cliente,ticket);                               
                 }
             }
@@ -197,7 +199,10 @@ public class Server {
         
         private void enviarACliente(String username, Object obj){
             ClientHandler cliente = clientes.get(username);
-            cliente.sendObject(obj);
+            if(cliente != null && cliente.disponible){
+                cliente.disponible = false;
+                cliente.sendObject(obj);
+            }           
         }
         
         public void sendObject(Object obj) {

@@ -3,157 +3,191 @@
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../../styles/iniciodesesion.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.proyectomultiterminal.IniciodeSesionController">
    <children>
-      <ImageView disable="true" fitHeight="800.0" fitWidth="1200.0" opacity="0.9" pickOnBounds="true">
-         <image>
-            <Image url="@../../ChatGPT%20Image%205%20may%202026,%2022_50_23.png" />
-         </image>
-      </ImageView>
-      <SplitPane dividerPositions="0.6710227272727273" layoutX="14.0" layoutY="260.0" opacity="0.9" orientation="VERTICAL" prefHeight="385.0" prefWidth="226.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+      <Pane prefHeight="800.0" prefWidth="1200.0" styleClass="pane">
+         <children>
+            <HBox alignment="CENTER" layoutY="259.0" prefHeight="386.0" prefWidth="1200.0" styleClass="hbox">
                <children>
-                  <Label layoutX="51.0" layoutY="41.0" text="SERVIDOR">
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../serverIcon.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="SERVIDOR">
+                           <styleClass>
+                              <String fx:value="label-servidor" />
+                              <String fx:value="label-panel" />
+                           </styleClass>
+                        </Label>
+                        <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="50.0" styleClass="separator-yellow" />
+                        <Label styleClass="infoLabel" text="Servidor Principal" />
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#loginServidor" prefHeight="48.0" prefWidth="198.0" styleClass="button-amarillo" text="Ingresar">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../arrow-yellow.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
                      <styleClass>
-                        <String fx:value="label-panel" />
-                        <String fx:value="label-servidor" />
-                     </styleClass></Label>
-                  <ImageView fitHeight="126.0" fitWidth="211.0" layoutX="7.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../ServerInicio.png" />
-                     </image>
-                  </ImageView>
-               </children></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <Button layoutX="13.0" layoutY="32.0" mnemonicParsing="false" onAction="#loginServidor" prefHeight="48.0" prefWidth="198.0" text="INGRESAR">
-                     <styleClass>
-                        <String fx:value="button" />
-                        <String fx:value="button-verde" />
+                        <String fx:value="splitPanel" />
+                        <String fx:value="split-amarillo" />
+                        <String fx:value="vbox" />
                      </styleClass>
-                  </Button>
-               </children>
-            </AnchorPane>
-        </items>
-         <styleClass>
-            <String fx:value="splitPanel" />
-            <String fx:value="button-verde" />
-         </styleClass>
-      </SplitPane>
-      <SplitPane dividerPositions="0.6710227272727273" layoutX="251.0" layoutY="260.0" opacity="0.9" orientation="VERTICAL" prefHeight="386.0" prefWidth="226.0">
-         <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <Label layoutX="52.0" layoutY="41.0" text="REGISTRO">
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../registro.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="REGISTRO">
+                           <styleClass>
+                              <String fx:value="label-panel" />
+                              <String fx:value="label-registro" />
+                           </styleClass>
+                        </Label>
+                        <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0">
+                           <styleClass>
+                              <String fx:value="separator-green" />
+                              <String fx:value="separator" />
+                           </styleClass>
+                        </Separator>
+                        <Label styleClass="infoLabel" text="Registra Viajes" />
+                        <Button mnemonicParsing="false" onAction="#loginRegistro" prefHeight="48.0" prefWidth="198.0" styleClass="button-verde" text="Ingresar">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../arrow-green.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
                      <styleClass>
-                        <String fx:value="label-panel" />
-                        <String fx:value="label-registro" />
-                     </styleClass></Label>
-                  <ImageView fitHeight="200.0" fitWidth="189.0" layoutX="18.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../usuarioregis.png" />
-                     </image>
-                  </ImageView>
-               </children></AnchorPane>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <Button layoutX="13.0" layoutY="32.0" mnemonicParsing="false" onAction="#loginRegistro" prefHeight="48.0" prefWidth="198.0" styleClass="button-amarillo" text="INGRESAR" />
-               </children>
-            </AnchorPane>
-         </items>
-         <styleClass>
-            <String fx:value="splitPanel" />
-            <String fx:value="button-amarillo" />
-         </styleClass>
-      </SplitPane>
-      <SplitPane dividerPositions="0.6695011337868482" layoutX="487.0" layoutY="260.0" opacity="0.9" orientation="VERTICAL" prefHeight="386.0" prefWidth="226.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <Label layoutX="51.0" layoutY="35.0" prefHeight="36.0" prefWidth="122.0" text="GENERAL">
+                        <String fx:value="splitPanel" />
+                        <String fx:value="vbox" />
+                        <String fx:value="split-verde" />
+                     </styleClass>
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../car.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="36.0" prefWidth="122.0" text="GENERAL">
+                           <styleClass>
+                              <String fx:value="label-panel" />
+                              <String fx:value="label-general" />
+                           </styleClass>
+                        </Label>
+                        <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" styleClass="separator-celeste" />
+                        <Label styleClass="infoLabel" text="Gestiona la Cola General" />
+                        <Button mnemonicParsing="false" onAction="#loginPC1" prefHeight="48.0" prefWidth="198.0" styleClass="button-celeste" text="Ingresar">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../arrow-blue.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
                      <styleClass>
-                        <String fx:value="label-panel" />
-                        <String fx:value="label-general" />
-                     </styleClass></Label>
-                  <ImageView fitHeight="200.0" fitWidth="211.0" layoutX="12.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../carroInicio.png" />
-                     </image>
-                  </ImageView>
-               </children></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <Button layoutX="13.0" layoutY="33.0" mnemonicParsing="false" onAction="#loginPC1" prefHeight="48.0" prefWidth="198.0" styleClass="button-morado" text="INGRESAR" />
-               </children>
-            </AnchorPane>
-        </items>
-         <styleClass>
-            <String fx:value="splitPanel" />
-            <String fx:value="button-morado" />
-         </styleClass>
-      </SplitPane>
-      <Label fx:id="title" layoutX="208.0" layoutY="82.0" text="¿COMO DESEAS INGRESAR?" textFill="WHITE" />
-      <Label layoutX="435.0" layoutY="191.0" styleClass="infoLabel" text="SELECCIONA TU ROL DENTRO DEL SISTEMA" textFill="WHITE" />
-      <Label layoutX="321.0" layoutY="690.0" styleClass="infoLabel" text="TU SEGURIDAD ES IMPORTANTE. SELECCIONA TU ROL PARA CONTINUAR" textFill="WHITE" />
-      <SplitPane dividerPositions="0.6695011337868482" layoutX="723.0" layoutY="259.0" opacity="0.9" orientation="VERTICAL" prefHeight="386.0" prefWidth="226.0">
-         <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <Label layoutX="85.0" layoutY="38.0" prefHeight="34.0" prefWidth="54.0" text="VIP">
+                        <String fx:value="vbox" />
+                        <String fx:value="splitPanel" />
+                        <String fx:value="split-celeste" />
+                     </styleClass>
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../star.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="34.0" prefWidth="54.0" text="VIP">
+                           <styleClass>
+                              <String fx:value="label-panel" />
+                              <String fx:value="label-vip" />
+                           </styleClass>
+                        </Label>
+                        <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" styleClass="separator-yellow" />
+                        <Label styleClass="infoLabel" text="Gestiona la Cola VIP" />
+                        <Button mnemonicParsing="false" onAction="#loginPC2" prefHeight="48.0" prefWidth="198.0" styleClass="button-amarillo" text="Ingresar">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../arrow-yellow.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
                      <styleClass>
-                        <String fx:value="label-panel" />
-                        <String fx:value="label-vip" />
-                     </styleClass></Label>
-                  <ImageView fitHeight="163.0" fitWidth="159.0" layoutX="33.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Estrellap.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <Button layoutX="13.0" layoutY="39.0" mnemonicParsing="false" onAction="#loginPC2" prefHeight="48.0" prefWidth="198.0" styleClass="button-celeste" text="INGRESAR" />
-               </children>
-            </AnchorPane>
-         </items>
-         <styleClass>
-            <String fx:value="splitPanel" />
-            <String fx:value="button-celeste" />
-         </styleClass>
-      </SplitPane>
-      <SplitPane dividerPositions="0.6695011337868482" layoutX="959.0" layoutY="260.0" opacity="0.9" orientation="VERTICAL" prefHeight="386.0" prefWidth="226.0">
-         <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <Label layoutX="51.0" layoutY="35.0" prefHeight="36.0" prefWidth="122.0" text="ESPECIAL">
+                        <String fx:value="vbox" />
+                        <String fx:value="splitPanel" />
+                        <String fx:value="split-amarillo" />
+                     </styleClass>
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../paquete.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="36.0" prefWidth="134.0" text="ENTREGAS">
+                           <styleClass>
+                              <String fx:value="label-panel" />
+                              <String fx:value="label-especial" />
+                           </styleClass>
+                        </Label>
+                        <Separator maxWidth="-Infinity" prefWidth="200.0" styleClass="separator-morado" />
+                        <Label styleClass="infoLabel" text="Gestiona la Cola de Pedidos" />
+                        <Button mnemonicParsing="false" onAction="#loginPC3" prefHeight="48.0" prefWidth="198.0" styleClass="button-morado" text="Ingresar">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../arrow-purple.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
                      <styleClass>
-                        <String fx:value="label-panel" />
-                        <String fx:value="label-especial" />
-                     </styleClass></Label>
-                  <ImageView fitHeight="142.0" fitWidth="144.0" layoutX="41.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../rayop.png" />
-                     </image>
-                  </ImageView>
+                        <String fx:value="splitPanel" />
+                        <String fx:value="vbox" />
+                        <String fx:value="split-morado" />
+                     </styleClass>
+                  </VBox>
                </children>
-            </AnchorPane>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <Button layoutX="13.0" layoutY="33.0" mnemonicParsing="false" onAction="#loginPC3" prefHeight="48.0" prefWidth="198.0" styleClass="button-blanco" text="INGRESAR" />
-               </children>
-            </AnchorPane>
-         </items>
-         <styleClass>
-            <String fx:value="splitPanel" />
-            <String fx:value="button-blanco" />
-         </styleClass>
-      </SplitPane>
+            </HBox>
+            <Label fx:id="title" layoutX="339.0" layoutY="154.0" text="¿COMO DESEAS INGRESAR?" textFill="WHITE" />
+            <Label layoutX="433.0" layoutY="212.0" prefHeight="25.0" prefWidth="335.0" styleClass="infoLabel" text="SELECCIONA TU ROL DENTRO DEL SISTEMA" textFill="WHITE" />
+            <Label layoutX="481.0" layoutY="751.0" prefHeight="25.0" prefWidth="241.0" styleClass="infoLabel" text="Selecciona tu rol para continuar" textFill="WHITE" />
+            <ImageView fx:id="logo" disable="true" fitHeight="150.0" fitWidth="200.0" layoutX="501.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../ChatGPT%20Image%204%20may%202026,%2009_33_58%20a.m..png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

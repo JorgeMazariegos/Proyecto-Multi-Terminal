@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.net.Socket;
+import java.time.LocalDate;
 import java.util.Properties;
 import java.util.Random;
 import javafx.css.PseudoClass;
@@ -101,6 +102,7 @@ public class RegistroTicketController {
         ticket.setOrigen(cbxOrigen.getValue());
         ticket.setDestino(cbxDestino.getValue());
         ticket.setEstado("Solicitado");
+        ticket.setFechaCreacion(LocalDate.now());
         
         sendTicket(ticket);
     }
@@ -130,7 +132,7 @@ public class RegistroTicketController {
         Mensaje mensaje = new Mensaje("Desconectado Registro");
         mensaje.setStatus(true);
         sendMensaje(mensaje);
-        conectado = false;   // Prevent further sends immediately
+        conectado = false;
         try {
             if (out != null) {
                 out.close();

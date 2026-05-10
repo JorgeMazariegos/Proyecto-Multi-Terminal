@@ -42,12 +42,12 @@ public class IniciodeSesionController implements Initializable {
     
     @FXML
     private void loginPC2() throws IOException {
-        App.setRoot("menuPrincipal");
+        App.setRoot("interfazPrioritaria");
     }
     
     @FXML
     private void loginPC3() throws IOException {
-        App.setRoot("menuPrincipal");
+        App.setRoot("interfazEspecial");
     }
     
 }

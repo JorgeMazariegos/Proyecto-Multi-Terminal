@@ -21,20 +21,18 @@ public class Ticket implements Serializable {
     // viaje data
     private String origen;
     private String destino;
-    private String tipo;
+    private String tipo;  // Normal, Prioridad, Entrega
     private BigDecimal precio;
     
     // Simulation data
     private int tiempoEnCola;
     private int duracionAtencion;
     private int duracionTotal;
-
-    String motivoAtencion; //??? No se que hacer con ese campo
     
     //Metadata        
     private LocalDate fechaCreacion; //fecha en la que se pidio el viaje
     private String usuarioQueAtendio;
-    private String estado;
+    private String estado; //Solicitado, Cola, Finalizado
 
     public int getNumTicket() {
         return numTicket;
@@ -122,14 +120,6 @@ public class Ticket implements Serializable {
 
     public void setDuracionTotal(int duracionTotal) {
         this.duracionTotal = duracionTotal;
-    }
-
-    public String getMotivoAtencion() {
-        return motivoAtencion;
-    }
-
-    public void setMotivoAtencion(String motivoAtencion) {
-        this.motivoAtencion = motivoAtencion;
     }
 
     public LocalDate getFechaCreacion() {

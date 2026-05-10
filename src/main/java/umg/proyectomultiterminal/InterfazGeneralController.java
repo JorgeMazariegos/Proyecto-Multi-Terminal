@@ -11,13 +11,21 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.URL;
 import java.util.Properties;
+import java.util.Random;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 import modelos.Mensaje;
 import modelos.Ticket;
 
@@ -32,24 +40,42 @@ public class InterfazGeneralController implements Initializable {
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private boolean conectado;
-    private boolean disponible;
-    private static Properties config = new Properties();
-    String ip;
-    int port;
+    private static final Properties config = new Properties();
+    private String ip;
+    private int port;
+    private Ticket ticketActual;
+    private Thread contador;
     
     @FXML
-    private Label serverStatus;
+    private Label serverStatus,entregasStatus,registroStatus,vipStatus, tiempoOrigen, tiempoDestino;
 
     @FXML
-    private Button conectToServer;
-
-    @FXML
-    private Button desconectar;
+    private Button conectToServer, desconectar, doViaje, finishViaje;
     
+    @FXML
+    private ImageView car, car2;
+     
+    @FXML
+    private ProgressBar progressOrigen, progressDestino;
+    
+    @FXML
+    private TextField txtDPI, txtDestino, txtNTicket, txtNombre, txtOrigen, txtPago;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        car.layoutXProperty().bind(
+            progressOrigen.layoutXProperty().add(
+            progressOrigen.progressProperty()
+            .multiply(progressOrigen.getPrefWidth() - car.getFitWidth())
+            )
+        );
+        
+        car2.layoutXProperty().bind(
+            progressDestino.layoutXProperty().add(
+            progressDestino.progressProperty()
+            .multiply(progressDestino.getPrefWidth() - car2.getFitWidth())
+            )
+        );
     }    
     
     @FXML
@@ -60,12 +86,11 @@ public class InterfazGeneralController implements Initializable {
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
             conectado = true;
-            disponible = true;
             new Thread(this::listenServer).start();
             Mensaje mensaje = new Mensaje("Conectado General");
             mensaje.setStatus(true);            
             sendMensaje(mensaje);
-            new Thread(this::serverRequest).start();
+            solicitarTicket();
             
             conectToServer.setDisable(true);
             desconectar.setDisable(false);
@@ -81,8 +106,7 @@ public class InterfazGeneralController implements Initializable {
         Mensaje mensaje = new Mensaje("Desconectado General");
         mensaje.setStatus(true);
         sendMensaje(mensaje);
-        conectado = false;   // Prevent further sends immediately
-        disponible = false;
+        conectado = false;
         try {
             if (out != null) {
                 out.close();
@@ -100,10 +124,29 @@ public class InterfazGeneralController implements Initializable {
             in = null;
             socket = null;
         }
+        detenerContador();
         conectToServer.setDisable(false);
         desconectar.setDisable(true);
         serverStatus.pseudoClassStateChanged(on, false);
         serverStatus.setText("⬤ Desconectado");
+    }
+    
+    @FXML
+    private void simulation(){
+        Random random = new Random();
+        int origen = random.nextInt(26) + 5;
+        int destino = random.nextInt(26) + 5;
+        
+        animacion(origen , destino);
+    }
+    
+    @FXML 
+    private void viajeTerminado(){
+        ticketActual.setUsuarioQueAtendio("General");
+        ticketActual.setEstado("Finalizado");
+        detenerContador();
+        sendTicket(ticketActual);
+        solicitarTicket();
     }
     
     private void listenServer() {
@@ -123,7 +166,9 @@ public class InterfazGeneralController implements Initializable {
 
                 if(obj instanceof Ticket) {
                     Ticket ticket = (Ticket) obj; 
-                    procesarTicket(ticket);
+                    Platform.runLater(() -> {
+                        procesarTicket(ticket);
+                    });
                 }
             }
 
@@ -145,7 +190,21 @@ public class InterfazGeneralController implements Initializable {
             out.writeObject(mensaje);
             out.flush();
         } catch (IOException ex) {
-            System.getLogger(InterfazGeneralController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            System.out.println("Error al enviar mensaje");
+            ex.printStackTrace();
+        }
+    }
+    
+    private void sendTicket(Ticket ticket){
+        if(!conectado){
+            return;
+        }
+        try{
+            out.writeObject(ticket);
+            out.flush();
+        }catch(IOException ex){
+            System.out.println("Error al enviar ticket");
+            ex.printStackTrace();
         }
     }
     
@@ -163,22 +222,103 @@ public class InterfazGeneralController implements Initializable {
         }
     }
     
-    private void serverRequest(){
-        while(conectado){
-            if(disponible){
-                try {
-                    Thread.sleep(1000);
-                    Mensaje mensaje = new Mensaje("Request General");
-                    sendMensaje(mensaje);
-                    disponible = false;
-                } catch (InterruptedException ex) {
-                    break;
-                }
-            }
+    private void solicitarTicket(){
+        if(conectado) {
+            Mensaje mensaje = new Mensaje("Request General");
+            sendMensaje(mensaje);
         }
     }
 
     private void procesarTicket(Ticket ticket) {
-        System.out.println(ticket.getDPI());
+        resetFields();
+        ticketActual = ticket;
+        txtDPI.setText(String.valueOf(ticket.getDPI()));
+        txtNTicket.setText("#"+String.valueOf(ticket.getNumTicket()));
+        txtNombre.setText(ticket.getNombre() + " " + ticket.getApellido());
+        txtOrigen.setText(ticket.getOrigen());
+        txtDestino.setText(ticket.getDestino());
+        txtPago.setText(String.valueOf(ticket.getPrecio()));
+        iniciarContador(ticketActual);
+        doViaje.setDisable(false);
+    }
+    
+    private void animacion(int segundosOrigen , int segundosDestino){
+        Timeline timeline = new Timeline(
+            new KeyFrame(
+            Duration.ZERO,
+            new KeyValue(progressOrigen.progressProperty(), 0)
+        ),
+            new KeyFrame(
+            Duration.seconds(segundosOrigen),
+            new KeyValue(progressOrigen.progressProperty(), 1)
+        ));
+                
+        timeline.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+            double seconds = newTime.toMillis() / 1000.0;
+            tiempoOrigen.setText(String.format("%.2f seg", seconds));
+
+        });
+        
+        timeline.setOnFinished(e ->{
+            animacionFinal(segundosDestino);
+        });
+        
+        timeline.play();
+    }
+
+    private void animacionFinal(int segundosDestino) {
+        Timeline timeline = new Timeline(
+            new KeyFrame(
+            Duration.ZERO,
+            new KeyValue(progressDestino.progressProperty(), 0)
+        ),
+            new KeyFrame(
+            Duration.seconds(segundosDestino),
+            new KeyValue(progressDestino.progressProperty(), 1)
+        ));
+        
+        timeline.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+            double seconds = newTime.toMillis() / 1000.0;
+            tiempoDestino.setText(String.format("%.2f seg", seconds));
+
+        });
+        
+        timeline.setOnFinished(e ->{
+            finishViaje.setDisable(false);
+        });
+        
+        timeline.play();
+    }
+    
+    private void iniciarContador(Ticket ticket){
+        contador = new Thread(() -> {
+            try{
+                while(!Thread.currentThread().isInterrupted()){
+                    Thread.sleep(1000);                   
+                    ticket.setDuracionAtencion(ticket.getDuracionAtencion()+ 1);    
+                }
+                        
+            }catch(InterruptedException e){
+                Thread.currentThread().interrupt();
+            }
+        });
+        contador.setDaemon(true);
+        contador.start();
+    }
+    
+    private void detenerContador(){
+        if(contador != null && contador.isAlive()){
+            contador.interrupt();
+            contador = null;
+        }
+    }
+    
+    private void resetFields(){
+        doViaje.setDisable(true);
+        finishViaje.setDisable(true);
+        progressDestino.setProgress(0);
+        progressOrigen.setProgress(0);
+        tiempoOrigen.setText("0.00 seg");
+        tiempoDestino.setText("0.00 seg");
     }
 }
