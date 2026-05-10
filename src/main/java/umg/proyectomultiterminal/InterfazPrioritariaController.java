@@ -47,10 +47,6 @@ public class InterfazPrioritariaController implements Initializable {
    
     
 
-
-
-
-
 @FXML
 private void buscarDireccion() {
     String lugar = txtBusqueda.getText().trim();
