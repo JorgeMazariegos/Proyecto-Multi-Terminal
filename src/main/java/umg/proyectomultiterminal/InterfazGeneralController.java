@@ -87,7 +87,7 @@ public class InterfazGeneralController implements Initializable {
             in = new ObjectInputStream(socket.getInputStream());
             conectado = true;
             new Thread(this::listenServer).start();
-            Mensaje mensaje = new Mensaje("Conectado General");
+            Mensaje mensaje = new Mensaje("Disponible General");
             mensaje.setStatus(true);            
             sendMensaje(mensaje);
             solicitarTicket();
@@ -95,7 +95,7 @@ public class InterfazGeneralController implements Initializable {
             conectToServer.setDisable(true);
             desconectar.setDisable(false);
             serverStatus.pseudoClassStateChanged(on, true);
-            serverStatus.setText("⬤ Conectado");
+            serverStatus.setText("⬤ Disponible");
         }catch (IOException ex) {
             System.getLogger(InterfazGeneralController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }

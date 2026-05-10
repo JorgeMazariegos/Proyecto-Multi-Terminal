@@ -138,22 +138,22 @@ public class InterfazPrincipalController {
         String second = partes[1];
         
         switch(first){
-            case "Conectado":
+            case "Disponible":
                 switch (second) {
                     case "Registro":
-                        statusRegistro.setText("⬤ Conectado");
+                        statusRegistro.setText("⬤ Disponible");
                         statusRegistro.setTextFill(Color.web("#52b047"));
                         break;
                     case "General":
-                        statusGeneral.setText("⬤ Conectado");
+                        statusGeneral.setText("⬤ Disponible");
                         statusGeneral.setTextFill(Color.web("#52b047"));
                         break;
                     case "VIP":
-                        statusVIP.setText("⬤ Conectado");
+                        statusVIP.setText("⬤ Disponible");
                         statusVIP.setTextFill(Color.web("#52b047"));
                         break;
                     case "Especial":
-                        statusEspecial.setText("⬤ Conectado");
+                        statusEspecial.setText("⬤ Disponible");
                         statusEspecial.setTextFill(Color.web("#52b047"));
                         break;
                 }
@@ -220,6 +220,7 @@ public class InterfazPrincipalController {
                 Ticket ticket = colaGeneral.dequeue();
                 detenerContador(ticket);
                 Platform.runLater(() -> {
+                    System.out.println(colaGeneral.size());
                     actualizarInterfazGeneral();
                 });
                 return ticket;

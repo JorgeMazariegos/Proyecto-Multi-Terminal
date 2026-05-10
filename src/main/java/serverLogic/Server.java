@@ -102,7 +102,7 @@ public class Server {
         System.out.println("Servidor detenido.");
     }
 
-        /**
+    /*
      * Manejador de cada cliente conectado.
      * Espera un objeto Mensaje y actúa según el tipo.
      */
@@ -161,13 +161,17 @@ public class Server {
         private void procesarTicket(Ticket ticket) throws IOException {
             if(ticket.getEstado().equals("Solicitado")){
                 ticket.setEstado("Cola");
-                interfaz = InterfazPrincipalController.getInstance();           
-                Platform.runLater(() -> {
-                    interfaz.agregarTicket(ticket);
-                });
+                interfaz = InterfazPrincipalController.getInstance();                
                 if(ticket.getTipo().equals("Normal")){
-                    enviarACliente("General",ticket);
-                }               
+                    ClientHandler general = clientes.get("General");
+                    if(general != null && general.disponible){
+                        enviarACliente("General", ticket);
+                    }else{
+                        Platform.runLater(() -> {
+                            interfaz.agregarTicket(ticket);
+                        });
+                    }
+                }              
             }
             if(ticket.getEstado().equals("Finalizado")){
                 System.out.println(ticket.getUsuarioQueAtendio());
@@ -186,6 +190,9 @@ public class Server {
             if(mensaje.getMensaje().startsWith("Request ")){
                 String cliente = mensaje.getMensaje().replace("Request ", "");
                 clientes.get(cliente).disponible = true;
+                Platform.runLater(() -> {
+                    interfaz.usuarioStatus("Disponible General");
+                });             
                 switch(cliente){
                     case "General":
                         Ticket ticket = interfaz.enviarTicket(cliente);

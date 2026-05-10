@@ -114,14 +114,14 @@ public class RegistroTicketController {
             socket = new Socket(ip, port);
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
-            Mensaje mensaje = new Mensaje("Conectado Registro");
+            Mensaje mensaje = new Mensaje("Disponible Registro");
             mensaje.setStatus(true);
             conectado = true;
             sendMensaje(mensaje);
             conectToServer.setDisable(true);
             desconectar.setDisable(false);
             serverStatus.pseudoClassStateChanged(on, true);
-            serverStatus.setText("⬤ Conectado");
+            serverStatus.setText("⬤ Disponible");
         }catch (IOException ex) {
             System.getLogger(RegistroTicketController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
