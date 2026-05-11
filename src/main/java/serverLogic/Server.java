@@ -134,8 +134,8 @@ public class Server {
                         
                         if(username == null && mensaje.isStatus()) {
                             String texto = mensaje.getMensaje();
-                            if(texto.startsWith("Conectado ")) {
-                                username = texto.replace("Conectado ", "");
+                            if(texto.startsWith("Disponible ")) {
+                                username = texto.replace("Disponible ", "");
                                 clientes.put(username, this);
                                 System.out.println(username + " registrado");
                             }
@@ -161,24 +161,29 @@ public class Server {
         private void procesarTicket(Ticket ticket) throws IOException {
             if(ticket.getEstado().equals("Solicitado")){
                 ticket.setEstado("Cola");
-                interfaz = InterfazPrincipalController.getInstance();     
+                interfaz = InterfazPrincipalController.getInstance();
+                boolean ticketEnviado = false;
                 switch(ticket.getTipo()){
                     case "Normal":
                         ClientHandler general = clientes.get("General");
                         if(general != null && general.disponible){
                             enviarACliente("General", ticket);
+                            ticketEnviado = true;
                         }
                         break;
                     case "Prioridad":
                         ClientHandler vip = clientes.get("Prioridad");
                         if(vip != null && vip.disponible){
                             enviarACliente("Prioridad", ticket);
+                            ticketEnviado = true;
                         }
                         break;
-                    default:
-                        Platform.runLater(() -> {
-                            interfaz.agregarTicket(ticket);
-                        });
+                    default:                      
+                }
+                if(!ticketEnviado){
+                    Platform.runLater(() -> {
+                        interfaz.agregarTicket(ticket);
+                    });
                 }
             }
             if(ticket.getEstado().equals("Finalizado")){
