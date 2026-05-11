@@ -1,12 +1,13 @@
 package estructuras;
 
+import java.io.Serializable;
 import modelos.Ticket;
 
 /**
  *
  * @author AMD 5600G
  */
-public class Cola {
+public class Cola implements Serializable{
     private Ticket[] cola;
     private int inicio;
     private int fin;
