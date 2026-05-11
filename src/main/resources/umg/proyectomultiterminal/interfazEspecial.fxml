@@ -8,8 +8,10 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #070b0e;" stylesheets="@../../styles/interfazespecial.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.proyectomultiterminal.InterfazEspecialController">
    <children>
@@ -117,7 +119,7 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
                   <TextField layoutX="10.0" layoutY="151.0" prefHeight="42.0" prefWidth="442.0" promptText="FRAGIL POR DENTRO" />
-                  <TextField layoutX="14.0" layoutY="55.0" prefHeight="42.0" prefWidth="234.0" promptText="JORGE FERNANDO MARTINEZ" />
+                  <TextField editable="false" layoutX="14.0" layoutY="55.0" prefHeight="42.0" prefWidth="234.0" />
                   <TextField layoutX="261.0" layoutY="55.0" prefHeight="42.0" prefWidth="186.0" promptText="4578-1298" />
                   <Label layoutX="14.0" layoutY="116.0" styleClass="infoLabel" text="OBSERVACIONES" />
                   <Label layoutX="14.0" layoutY="20.0" styleClass="infoLabel" text="NOMBRE COMPLETO" />
@@ -145,7 +147,18 @@
                </children></AnchorPane>
          </items>
       </SplitPane>
-      <Pane layoutX="824.0" layoutY="157.0" prefHeight="414.0" prefWidth="366.0" styleClass="infoPanel" />
+      
+      <HBox alignment="CENTER_LEFT" layoutX="696.0" layoutY="586.0" spacing="10" />
+<Label fx:id="lblEstadoBusqueda" layoutX="939.0" layoutY="682.0" prefHeight="16.0" prefWidth="138.0" styleClass="lbl-estado" text="" />
+<TextField fx:id="txtOrigen" layoutX="885.0" layoutY="586.0" prefHeight="37.0" prefWidth="243.0" promptText="Origen" styleClass="input-busqueda" />
+ <TextField fx:id="txtDestino" layoutX="885.0" layoutY="635.0" prefHeight="37.0" prefWidth="243.0" promptText="Destino" styleClass="input-busqueda" />
+ <Button layoutX="883.0" layoutY="709.0" onAction="#buscarDireccion" prefHeight="36.0" prefWidth="249.0" styleClass="btn-buscar" text="🔍 Buscar" />
+      <Pane layoutX="824.0" layoutY="157.0" prefHeight="414.0" prefWidth="366.0" styleClass="infoPanel">
+         <children>
+             <WebView fx:id="webView" layoutX="17.0" layoutY="24.0" prefHeight="367.0" prefWidth="333.0" />
+            <!-- Tu panel del mapa -->
+            <Pane fx:id="pane" layoutX="17.0" layoutY="24.0" prefHeight="367.0" prefWidth="333.0" styleClass="infoPanel" />
+         </children></Pane>
       <Pane layoutX="16.0" layoutY="649.0" prefHeight="42.0" prefWidth="268.0" styleClass="infoPanel">
          <children>
             <Label layoutX="8.0" layoutY="9.0" styleClass="infoLabel" text="COLA ACTUAL:" />

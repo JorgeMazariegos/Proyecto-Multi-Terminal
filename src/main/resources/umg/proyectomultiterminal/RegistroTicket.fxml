@@ -17,6 +17,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #070b0e;" stylesheets="@../../styles/registroticket.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.proyectomultiterminal.RegistroTicketController">
    <children>
+      <ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../pruebafondo20.png" />
+         </image>
+      </ImageView>
       <GridPane alignment="CENTER" layoutX="532.0" layoutY="700.0" prefHeight="86.0" prefWidth="486.0" styleClass="infoPanel">
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -70,7 +75,7 @@
             <Font name="Agency FB" size="21.0" />
          </font>
       </Label>
-      <SplitPane dividerPositions="0.1478968792401628" layoutX="532.0" layoutY="95.0" orientation="VERTICAL" prefHeight="591.0" prefWidth="646.0" styleClass="splitPanel">
+      <SplitPane dividerPositions="0.1478968792401628" layoutX="532.0" layoutY="95.0" opacity="0.72" orientation="VERTICAL" prefHeight="591.0" prefWidth="646.0" styleClass="splitPanel">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
@@ -86,7 +91,7 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="splitPanel" />
         </items>
       </SplitPane>
-      <SplitPane dividerPositions="0.1" layoutX="26.0" layoutY="95.0" orientation="VERTICAL" prefHeight="687.0" prefWidth="488.0" styleClass="splitPanel">
+      <SplitPane dividerPositions="0.1" layoutX="26.0" layoutY="95.0" opacity="0.67" orientation="VERTICAL" prefHeight="687.0" prefWidth="488.0" styleClass="splitPanel">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="92.0" prefWidth="486.0">
                <children>

@@ -10,12 +10,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #070b0e;" stylesheets="@../../styles/interfazprioritaria.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.proyectomultiterminal.InterfazPrioritariaController">
    <children>
-      <ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true" />
+      <ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../pruebafondo21.png" />
+         </image></ImageView>
       <Button layoutX="362.0" layoutY="705.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="463.0" text="Finalizar Atencion Prioritaria" />
       <Pane layoutX="26.0" layoutY="14.0" prefHeight="59.0" prefWidth="442.0" styleClass="infoPanel">
          <children>
@@ -29,25 +33,7 @@
          </children>
       </Pane>
       <HBox alignment="CENTER_LEFT" layoutX="696.0" layoutY="586.0" spacing="10" />
-
-<Label fx:id="lblEstadoBusqueda" layoutX="878.0" layoutY="674.0" prefHeight="16.0" prefWidth="138.0" styleClass="lbl-estado" text="" />
-      <Pane layoutX="473.0" layoutY="14.0" prefHeight="111.0" prefWidth="722.0" styleClass="infoPanel">
-         <children>
-            <Label fx:id="serverStatus" layoutX="14.0" layoutY="9.0" prefHeight="41.0" prefWidth="135.0" text="⬤ Desconectado" />
-            <Pane layoutX="158.0" layoutY="9.0" prefHeight="42.0" prefWidth="268.0" styleClass="infoPanel">
-               <children>
-                  <Label layoutX="8.0" layoutY="9.0" styleClass="infoLabel" text="COLA ACTUAL:" />
-                  <Label layoutX="135.0" layoutY="9.0" prefHeight="8.0" prefWidth="120.0" text="PRIORITARIA">
-                     <styleClass>
-                        <String fx:value="infoLabel" />
-                        <String fx:value="infoLabel-Rojo" />
-                     </styleClass>
-                  </Label>
-               </children>
-            </Pane>
-            <Pane layoutX="500.0" layoutY="9.0" prefHeight="42.0" prefWidth="214.0" styleClass="infoPanel" />
-         </children>
-      </Pane>
+<Label fx:id="lblEstadoBusqueda" layoutX="939.0" layoutY="682.0" prefHeight="16.0" prefWidth="138.0" styleClass="lbl-estado" text="" />
       <Pane layoutX="26.0" layoutY="81.0" prefHeight="282.0" prefWidth="324.0" styleClass="infoPanel">
          <children>
             <Label layoutX="44.0" layoutY="14.0" prefHeight="25.0" prefWidth="186.0" text="TICKET ACTUAL">
@@ -61,12 +47,12 @@
                   <Image url="@../../2680534.png" />
                </image>
             </ImageView>
-            <TextField layoutX="9.0" layoutY="51.0" prefHeight="59.0" prefWidth="300.0" />
+            <TextField editable="false" layoutX="9.0" layoutY="51.0" prefHeight="59.0" prefWidth="300.0" />
             <Label layoutX="17.0" layoutY="138.0" styleClass="infoLabel" text="DPI" />
-            <TextField layoutX="67.0" layoutY="120.0" prefHeight="30.0" prefWidth="241.0" />
-            <TextField layoutX="136.0" layoutY="174.0" prefHeight="42.0" prefWidth="174.0" />
+            <TextField editable="false" layoutX="67.0" layoutY="120.0" prefHeight="30.0" prefWidth="241.0" />
+            <TextField editable="false" layoutX="136.0" layoutY="174.0" prefHeight="42.0" prefWidth="174.0" />
             <Label layoutX="17.0" layoutY="183.0" styleClass="infoLabel" text="MOTIVO" />
-            <TextField layoutX="136.0" layoutY="220.0" prefHeight="42.0" prefWidth="174.0" />
+            <TextField editable="false" layoutX="136.0" layoutY="220.0" prefHeight="42.0" prefWidth="174.0" />
             <Label layoutX="17.0" layoutY="229.0" styleClass="infoLabel" text="HORA" />
             <TextField editable="false" layoutX="198.0" layoutY="59.0" prefHeight="42.0" prefWidth="100.0" promptText="ALTA" styleClass="textfield-rojo">
                <font>
@@ -74,7 +60,7 @@
                </font></TextField>
          </children>
       </Pane>
-      <SplitPane dividerPositions="0.16583333333333333" layoutX="362.0" layoutY="131.0" opacity="0.8" orientation="VERTICAL" prefHeight="241.0" prefWidth="463.0" styleClass="splitPanel">
+      <SplitPane dividerPositions="0.16583333333333333" layoutX="362.0" layoutY="159.0" opacity="0.8" orientation="VERTICAL" prefHeight="241.0" prefWidth="463.0" styleClass="splitPanel">
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
@@ -89,7 +75,7 @@
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
                   <TextField layoutX="10.0" layoutY="151.0" prefHeight="42.0" prefWidth="442.0" promptText="CLIENTE NECESITA TRASLADO URGENTE" />
-                  <TextField layoutX="14.0" layoutY="55.0" prefHeight="42.0" prefWidth="234.0" promptText="JORGE FERNANDO MARTINEZ" />
+                  <TextField editable="false" layoutX="14.0" layoutY="55.0" prefHeight="42.0" prefWidth="234.0" />
                   <TextField layoutX="261.0" layoutY="55.0" prefHeight="42.0" prefWidth="186.0" promptText="4578-1298" />
                   <Label layoutX="14.0" layoutY="116.0" styleClass="infoLabel" text="OBSERVACIONES" />
                   <Label layoutX="14.0" layoutY="20.0" styleClass="infoLabel" text="NOMBRE COMPLETO" />
@@ -98,7 +84,7 @@
             </AnchorPane>
          </items>
       </SplitPane>
-      <SplitPane dividerPositions="0.11313131313131312" layoutX="361.0" layoutY="378.0" opacity="0.8" orientation="VERTICAL" prefHeight="321.0" prefWidth="463.0" styleClass="splitPanel">
+      <SplitPane dividerPositions="0.11313131313131312" layoutX="361.0" layoutY="402.0" opacity="0.8" orientation="VERTICAL" prefHeight="297.0" prefWidth="463.0" styleClass="splitPanel">
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
@@ -119,7 +105,7 @@
                   <TextField editable="false" layoutX="328.0" layoutY="202.0" prefHeight="42.0" prefWidth="100.0" promptText="ALTA" styleClass="textfield-rojo" />
                   <Label layoutX="334.0" layoutY="177.0" styleClass="infoLabel" text="PRIORIDAD" />
                   <Label layoutX="18.0" layoutY="177.0" styleClass="infoLabel" text="MONTO A PAGAR" />
-                  <TextField layoutX="17.0" layoutY="203.0" prefHeight="42.0" prefWidth="138.0" promptText="150.00" />
+                  <TextField editable="false" layoutX="17.0" layoutY="203.0" prefHeight="42.0" prefWidth="138.0" />
                </children>
             </AnchorPane>
          </items>
@@ -133,7 +119,7 @@
       </Pane>
          </children>
       </Pane>
-      <SplitPane dividerPositions="0.11347197106690779" layoutX="26.0" layoutY="372.0" opacity="0.8" orientation="VERTICAL" prefHeight="367.0" prefWidth="324.0" styleClass="splitPanel">
+      <SplitPane dividerPositions="0.175" layoutX="26.0" layoutY="372.0" opacity="0.8" orientation="VERTICAL" prefHeight="282.0" prefWidth="324.0" styleClass="splitPanel">
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
@@ -143,7 +129,63 @@
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="411.0" prefWidth="468.0" />
          </items>
       </SplitPane>
- <TextField fx:id="txtBusqueda" layoutX="851.0" layoutY="579.0" prefHeight="37.0" prefWidth="243.0" promptText="Ej: Aeropuerto La Aurora, Guatemala" styleClass="input-busqueda" />
- <Button layoutX="863.0" layoutY="627.0" onAction="#buscarDireccion" prefHeight="36.0" prefWidth="249.0" styleClass="btn-buscar" text="🔍 Buscar" />
+      <TextField fx:id="txtOrigen" layoutX="885.0" layoutY="586.0" prefHeight="37.0" prefWidth="243.0" promptText="Origen" styleClass="input-busqueda" />
+ <TextField fx:id="txtDestino" layoutX="885.0" layoutY="635.0" prefHeight="37.0" prefWidth="243.0" promptText="Destino" styleClass="input-busqueda" />
+ <Button layoutX="883.0" layoutY="709.0" onAction="#buscarDireccion" prefHeight="36.0" prefWidth="249.0" styleClass="btn-buscar" text="🔍 Buscar" />
+      <Pane layoutX="26.0" layoutY="661.0" prefHeight="42.0" prefWidth="268.0" styleClass="infoPanel">
+         <children>
+            <Label layoutX="8.0" layoutY="9.0" styleClass="infoLabel" text="COLA ACTUAL:" />
+            <Label layoutX="135.0" layoutY="9.0" prefHeight="8.0" prefWidth="120.0" text="PRIORITARIA">
+               <styleClass>
+                  <String fx:value="infoLabel" />
+                  <String fx:value="infoLabel-Rojo" />
+               </styleClass>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="538.0" layoutY="16.0" prefHeight="130.0" prefWidth="648.0" styleClass="infoPanel">
+         <children>
+            <VBox alignment="CENTER" layoutX="491.0" layoutY="10.0" prefHeight="111.0" prefWidth="135.0">
+               <children>
+                  <Label style="-fx-text-fill: #a37ad5;" styleClass="infoLabel" text="Entregas - PC5" />
+                  <Label fx:id="entregasStatus" text="⬤ Desconectado" />
+               </children>
+               <styleClass>
+                  <String fx:value="infoPanel" />
+                  <String fx:value="vbox" />
+               </styleClass>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="335.0" layoutY="10.0" prefHeight="111.0" prefWidth="135.0">
+               <children>
+                  <Label style="-fx-text-fill: gold;" styleClass="infoLabel" text="VIP - PC4" />
+                  <Label fx:id="vipStatus" text="⬤ Desconectado" />
+               </children>
+               <styleClass>
+                  <String fx:value="infoPanel" />
+                  <String fx:value="vbox" />
+               </styleClass>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="178.0" layoutY="10.0" prefHeight="111.0" prefWidth="147.0">
+               <children>
+                  <Label prefHeight="18.0" prefWidth="108.0" style="-fx-text-fill: green;" styleClass="infoLabel" text="Registro - PC2" />
+                  <Label fx:id="registroStatus" text="⬤ Desconectado" />
+               </children>
+               <styleClass>
+                  <String fx:value="infoPanel" />
+                  <String fx:value="vbox" />
+               </styleClass>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="14.0" layoutY="10.0" prefHeight="111.0" prefWidth="147.0">
+               <children>
+                  <Label style="-fx-text-fill: #658dd5;" styleClass="infoLabel" text="General - PC3" />
+                  <Label fx:id="serverStatus1" prefHeight="16.0" prefWidth="135.0" text="⬤ Desconectado" />
+               </children>
+               <styleClass>
+                  <String fx:value="infoPanel" />
+                  <String fx:value="vbox" />
+               </styleClass>
+            </VBox>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
