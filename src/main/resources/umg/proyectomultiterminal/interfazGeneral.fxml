@@ -66,49 +66,46 @@
             </VBox>
         </items>
       </SplitPane>
-      <Pane layoutX="512.0" layoutY="13.0" prefHeight="146.0" prefWidth="671.0" styleClass="infoPanel">
+      <VBox alignment="CENTER" layoutX="526.0" layoutY="14.0" prefHeight="125.0" prefWidth="152.0">
          <children>
-            <VBox alignment="CENTER" layoutX="14.0" layoutY="11.0" prefHeight="125.0" prefWidth="152.0">
-               <children>
-                  <Label style="-fx-text-fill: #658dd5;" styleClass="infoLabel" text="General - PC3" />
-                  <Label fx:id="serverStatus" prefHeight="16.0" prefWidth="135.0" text="⬤ Desconectado" />
-               </children>
-               <styleClass>
-                  <String fx:value="infoPanel" />
-                  <String fx:value="vbox" />
-               </styleClass>
-            </VBox>
-            <VBox alignment="CENTER" layoutX="178.0" layoutY="11.0" prefHeight="125.0" prefWidth="152.0">
-               <children>
-                  <Label prefHeight="18.0" prefWidth="108.0" style="-fx-text-fill: green;" styleClass="infoLabel" text="Registro - PC2" />
-                  <Label fx:id="registroStatus" text="⬤ Desconectado" />
-               </children>
-               <styleClass>
-                  <String fx:value="infoPanel" />
-                  <String fx:value="vbox" />
-               </styleClass>
-            </VBox>
-            <VBox alignment="CENTER" layoutX="342.0" layoutY="11.0" prefHeight="125.0" prefWidth="152.0">
-               <children>
-                  <Label style="-fx-text-fill: gold;" styleClass="infoLabel" text="VIP - PC4" />
-                  <Label fx:id="vipStatus" text="⬤ Desconectado" />
-               </children>
-               <styleClass>
-                  <String fx:value="infoPanel" />
-                  <String fx:value="vbox" />
-               </styleClass>
-            </VBox>
-            <VBox alignment="CENTER" layoutX="505.0" layoutY="11.0" prefHeight="125.0" prefWidth="152.0">
-               <children>
-                  <Label style="-fx-text-fill: #a37ad5;" styleClass="infoLabel" text="Entregas - PC5" />
-                  <Label fx:id="entregasStatus" text="⬤ Desconectado" />
-               </children>
-               <styleClass>
-                  <String fx:value="infoPanel" />
-                  <String fx:value="vbox" />
-               </styleClass>
-            </VBox>
-         </children></Pane>
+            <Label style="-fx-text-fill: #658dd5;" styleClass="infoLabel" text="General - PC3" />
+            <Label fx:id="serverStatus" prefHeight="16.0" prefWidth="135.0" text="⬤ Desconectado" />
+         </children>
+         <styleClass>
+            <String fx:value="infoPanel" />
+            <String fx:value="vbox" />
+         </styleClass>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="690.0" layoutY="14.0" prefHeight="125.0" prefWidth="152.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="108.0" style="-fx-text-fill: green;" styleClass="infoLabel" text="Registro - PC2" />
+            <Label fx:id="registroStatus" text="⬤ Desconectado" />
+         </children>
+         <styleClass>
+            <String fx:value="infoPanel" />
+            <String fx:value="vbox" />
+         </styleClass>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="854.0" layoutY="14.0" prefHeight="125.0" prefWidth="152.0">
+         <children>
+            <Label style="-fx-text-fill: gold;" styleClass="infoLabel" text="VIP - PC4" />
+            <Label fx:id="vipStatus" text="⬤ Desconectado" />
+         </children>
+         <styleClass>
+            <String fx:value="infoPanel" />
+            <String fx:value="vbox" />
+         </styleClass>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="1017.0" layoutY="14.0" prefHeight="125.0" prefWidth="152.0">
+         <children>
+            <Label style="-fx-text-fill: #a37ad5;" styleClass="infoLabel" text="Entregas - PC5" />
+            <Label fx:id="entregasStatus" text="⬤ Desconectado" />
+         </children>
+         <styleClass>
+            <String fx:value="infoPanel" />
+            <String fx:value="vbox" />
+         </styleClass>
+      </VBox>
       <Pane layoutX="512.0" layoutY="172.0" prefHeight="386.0" prefWidth="671.0" style="-fx-background-color: black;">
          <children>
             <ProgressBar fx:id="progressOrigen" layoutX="40.0" layoutY="59.0" prefWidth="605.0" progress="0.0" styleClass="progress" />
@@ -129,5 +126,6 @@
             </ImageView>
             <Button fx:id="finishViaje" disable="true" layoutX="268.0" layoutY="225.0" mnemonicParsing="false" onAction="#viajeTerminado" text="Terminar Viaje" />
          </children></Pane>
+      <Button fx:id="logOff" layoutX="1065.0" layoutY="742.0" onAction="#switchToPrimary" text="➜] Regresar" />
    </children>
 </AnchorPane>

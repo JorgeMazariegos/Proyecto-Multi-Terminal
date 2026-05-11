@@ -2,6 +2,7 @@ package umg.proyectomultiterminal;
 
 import estructuras.ArchivoTickets;
 import estructuras.Cola;
+import estructuras.ColaPrioritaria;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -21,9 +24,12 @@ public class InterfazPrincipalController {
     private static InterfazPrincipalController instance;
     // ---------- Estructuras de datos para las colas ----------
     private final Cola colaGeneral = new Cola();
+    private final ColaPrioritaria colaPrioritaria = new ColaPrioritaria();
+    private final Cola colaEntregas = new Cola();
     private final Cola colaTicketsFinalizados = new Cola();
     
-    private Map<Ticket, Thread> contadores = new HashMap<>();
+    private final Map<Ticket, Pane> ticketPanels = new HashMap<>();
+    private final Map<Ticket, Thread> contadores = new HashMap<>();
     PseudoClass on = PseudoClass.getPseudoClass("activo");
     Server server = new Server();
        
@@ -49,7 +55,7 @@ public class InterfazPrincipalController {
     private VBox summary;
 
     @FXML
-    private Label title;
+    private Label viajesAtendidos;
     
     @FXML
     private VBox colaEsp, colaNormal, colaVIP;
@@ -61,6 +67,15 @@ public class InterfazPrincipalController {
     private Label lblColaEsp, lblColaGeneral, lblColaVip;
     
     @FXML
+    private Label destinoNormal, destinoVIP, destinoEntregas;
+    
+    @FXML
+    private Label precioNormal, precioVIP, precioEntregas, ticketCompletadoNormal, ticketCompletadoVIP, ticketCompletadoEntrega;
+    
+    @FXML
+    private ImageView imgEntrega, imgGeneral, imgVIP;
+
+    @FXML
     public void initialize(){
         instance = this;
     }
@@ -68,6 +83,11 @@ public class InterfazPrincipalController {
     @FXML
     private void switchToPrimary() throws IOException {
         App.setRoot("IniciodeSesion");
+    }
+    
+    @FXML
+    private void switchToInterfazCargar() throws IOException{
+        App.setRoot("buscarTicket");
     }
     
     @FXML
@@ -130,10 +150,13 @@ public class InterfazPrincipalController {
                 colaGeneral.enqueue(ticket);
                 break;
             case "Prioridad":
-                colaVIP.getChildren().add(newPanel);
+                colaPrioritaria.insert(ticket);
+                ticketPanels.put(ticket, newPanel);
+                actualizarVBoxVIP();
                 break;
-            default:
+            case "Entrega":
                 colaEsp.getChildren().add(newPanel);
+                colaEntregas.enqueue(ticket);
                 break;
         }
         
@@ -167,7 +190,7 @@ public class InterfazPrincipalController {
                         statusVIP.setText("⬤ Disponible");
                         statusVIP.setTextFill(Color.web("#52b047"));
                         break;
-                    case "Especial":
+                    case "Entrega":
                         statusEspecial.setText("⬤ Disponible");
                         statusEspecial.setTextFill(Color.web("#52b047"));
                         break;
@@ -187,7 +210,7 @@ public class InterfazPrincipalController {
                         statusVIP.setText("⬤ Desconectado");
                         statusVIP.setTextFill(Color.RED);
                         break;
-                    case "Especial":
+                    case "Entrega":
                         statusEspecial.setText("⬤ Desconectado");
                         statusEspecial.setTextFill(Color.RED);
                         break;
@@ -203,7 +226,7 @@ public class InterfazPrincipalController {
                         statusVIP.setText("⬤ Procesando");
                         statusVIP.setTextFill(Color.YELLOW);
                         break;
-                    case "Especial":
+                    case "Entrega":
                         statusEspecial.setText("⬤ Procesando");
                         statusEspecial.setTextFill(Color.YELLOW);
                         break;
@@ -218,35 +241,67 @@ public class InterfazPrincipalController {
                 lblColaGeneral.setText(String.valueOf(colaGeneral.size()));
                 break;
             case "Prioridad":
-                //colaVIP.getChildren().add(newPanel);
+                lblColaVip.setText(String.valueOf(colaPrioritaria.size()));
                 break;
-            default:
-                //colaEsp.getChildren().add(newPanel);
+            case "Entrega":
+                lblColaEsp.setText(String.valueOf(colaEntregas.size()));
                 break;
         }
     }
     
     public Ticket enviarTicket(String cola){
+        Ticket ticket = null;
         switch(cola){
             case "General":
                 if(colaGeneral.isEmpty()){
                     return null;
                 }
-                Ticket ticket = colaGeneral.dequeue();
+                ticket = colaGeneral.dequeue();
                 detenerContador(ticket);
                 Platform.runLater(() -> {
-                    System.out.println(colaGeneral.size());
                     actualizarInterfazGeneral();
                 });
-                return ticket;
+                break;
+            case "VIP":
+                if(colaPrioritaria.isEmpty()){
+                    return null;
+                }
+                ticket = colaPrioritaria.extractMax();
+                detenerContador(ticket);
+                Platform.runLater(() -> {
+                    actualizarInterfazVIP();
+                });
+                break;
+            case "Entrega":
+                if(colaEntregas.isEmpty()){
+                    return null;
+                }
+                ticket = colaEntregas.dequeue();
+                detenerContador(ticket);
+                Platform.runLater(() -> {
+                    actualizarInterfazEntregas();
+                });
+                break;
         }
-        return null;
+        return ticket;
     }
 
     private void actualizarInterfazGeneral() {
         colaNormal.getChildren().remove(0);
         actualizarContadores("Normal");
         usuarioStatus("Procesando General");
+    }
+    
+    private void actualizarInterfazVIP() {
+        colaVIP.getChildren().remove(0);
+        actualizarContadores("Prioridad");
+        usuarioStatus("Procesando VIP");
+    }
+    
+    private void actualizarInterfazEntregas() {
+        colaEsp.getChildren().remove(0);
+        actualizarContadores("Entrega");
+        usuarioStatus("Procesando Entrega");
     }
     
     public void iniciarContador(TicketPanelController controller , Ticket ticket){
@@ -285,6 +340,57 @@ public class InterfazPrincipalController {
     
     public void guardarTicket(Ticket ticket){
         colaTicketsFinalizados.enqueue(ticket);
+        int viajesTotales = Integer.parseInt(viajesAtendidos.getText());
+        viajesAtendidos.setText(String.valueOf(viajesTotales + 1));
+        Image image = new Image(getClass().getResource("/check.png").toExternalForm());
+        switch(ticket.getTipo()){
+            case "Normal":
+                ticketCompletadoNormal.setText("Viaje completado");
+                destinoNormal.setText("Destino:" + ticket.getDestino());
+                precioNormal.setText( "💸 Tarifa:" + ticket.getPrecio());
+                imgGeneral.setImage(image);
+                break;
+            case "Prioridad":
+                ticketCompletadoVIP.setText("Viaje completado");
+                destinoVIP.setText("Destino:" + ticket.getDestino());
+                precioVIP.setText( "💸 Tarifa:" + ticket.getPrecio());
+                imgVIP.setImage(image);
+                break;
+            case "Entrega":
+                ticketCompletadoEntrega.setText("Viaje completado");
+                destinoEntregas.setText("Destino:" + ticket.getDestino());
+                precioEntregas.setText( "💸 Tarifa:" + ticket.getPrecio());
+                imgEntrega.setImage(image);
+                break;                
+        }
+    }
+
+    private void actualizarVBoxVIP() {
+        colaVIP.getChildren().clear();
+        Ticket[] tickets = colaPrioritaria.toArray();
+        for (int i = 0; i < tickets.length - 1; i++) {
+
+            for (int j = i + 1; j < tickets.length; j++) {
+
+                if (
+                    tickets[j].getPrecio().compareTo(
+                        tickets[i].getPrecio()
+                    ) > 0
+                ) {
+
+                    Ticket temp = tickets[i];
+                    tickets[i] = tickets[j];
+                    tickets[j] = temp;
+                }
+            }
+        }
+        
+        for (Ticket t : tickets) {
+            Pane p = ticketPanels.get(t);
+            if (p != null) {
+                colaVIP.getChildren().add(p);
+            }
+        }
     }
     
 }

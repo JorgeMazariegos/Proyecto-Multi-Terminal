@@ -72,6 +72,11 @@ PseudoClass on = PseudoClass.getPseudoClass("activo");
 }
     //-------------------------------------------------------------------------------------------------//
     @FXML
+    private void switchToPrimary() throws IOException {
+        App.setRoot("IniciodeSesion");
+    }
+    
+    @FXML
 private void buscarDireccion() {
     String origenTexto = txtOrigen.getText().trim();
     String destinoTexto = txtDestino.getText().trim();
@@ -228,7 +233,7 @@ try{
             in = new ObjectInputStream(socket.getInputStream());
             conectado = true;
             new Thread(this::listenServer).start();
-            Mensaje mensaje = new Mensaje("Disponible General");
+            Mensaje mensaje = new Mensaje("Disponible Entrega");
             mensaje.setStatus(true);            
             sendMensaje(mensaje);
             solicitarTicket();
@@ -244,7 +249,7 @@ try{
 
 @FXML
 private void disconnect() {
-Mensaje mensaje = new Mensaje("Desconectado General");
+Mensaje mensaje = new Mensaje("Desconectado Entrega");
         mensaje.setStatus(true);
         sendMensaje(mensaje);
         conectado = false;
@@ -352,7 +357,7 @@ Mensaje mensaje = new Mensaje("Desconectado General");
     }
     private void solicitarTicket(){
         if(conectado) {
-            Mensaje mensaje = new Mensaje("Request General");
+            Mensaje mensaje = new Mensaje("Request Entrega");
             mensaje.setStatus(true);
             sendMensaje(mensaje);
         }

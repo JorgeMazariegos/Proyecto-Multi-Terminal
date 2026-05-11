@@ -10,8 +10,8 @@ public class ColaPrioritaria {
 
     private int currentHeapSize;
 
-    public ColaPrioritaria(int n) {
-        capacity = n;
+    public ColaPrioritaria() {
+        capacity = 10;
         valor = new Ticket[capacity];
         currentHeapSize = 0;
     }
@@ -132,12 +132,15 @@ public class ColaPrioritaria {
     }
     
     private void resize() {
-
-    Ticket[] nuevo = new Ticket[capacity * 2];
-
-    System.arraycopy(valor, 0, nuevo, 0, currentHeapSize);
-
-    valor = nuevo;
-    capacity = nuevo.length;
-}
+        Ticket[] nuevo = new Ticket[capacity * 2];
+        System.arraycopy(valor, 0, nuevo, 0, currentHeapSize);
+        valor = nuevo;
+        capacity = nuevo.length;
+    }
+    
+    public Ticket[] toArray() {
+        Ticket[] copia = new Ticket[currentHeapSize];
+        System.arraycopy(valor, 0, copia, 0, currentHeapSize);
+        return copia;
+    }
 }

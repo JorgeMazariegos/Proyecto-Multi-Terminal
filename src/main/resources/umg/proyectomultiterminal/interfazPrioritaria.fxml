@@ -21,15 +21,16 @@
             <Image url="@../../pruebafondo21.png" />
          </image></ImageView>
       <Button layoutX="362.0" layoutY="705.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="463.0" text="Finalizar Atencion Prioritaria" />
-      <Pane layoutX="26.0" layoutY="14.0" prefHeight="59.0" prefWidth="442.0" styleClass="infoPanel">
+      <Pane layoutX="26.0" layoutY="14.0" prefHeight="59.0" prefWidth="524.0" styleClass="infoPanel">
          <children>
-            <Button fx:id="conectToServer" layoutX="150.0" layoutY="14.0" mnemonicParsing="false" onAction="#connect" prefHeight="31.0" prefWidth="160.0" text="▶ Conectar al Servidor" />
-            <Button fx:id="desconectar" disable="true" layoutX="319.0" layoutY="16.0" mnemonicParsing="false" onAction="#disconnect" text="■ Desconectar" />
+            <Button fx:id="conectToServer" layoutX="138.0" layoutY="15.0" mnemonicParsing="false" onAction="#connect" prefHeight="31.0" prefWidth="160.0" text="▶ Conectar al Servidor" />
+            <Button fx:id="desconectar" disable="true" layoutX="309.0" layoutY="17.0" mnemonicParsing="false" onAction="#disconnect" text="■ Desconectar" />
             <ImageView fitHeight="170.0" fitWidth="254.0" layoutX="-66.0" layoutY="-55.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../ChatGPT%20Image%204%20may%202026,%2009_33_58%20a.m..png" />
                </image>
             </ImageView>
+            <Button fx:id="logOff" layoutX="411.0" layoutY="12.0" onAction="#switchToPrimary" text="➜] Regresar" />
          </children>
       </Pane>
       <HBox alignment="CENTER_LEFT" layoutX="696.0" layoutY="586.0" spacing="10" />
@@ -143,49 +144,45 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="538.0" layoutY="16.0" prefHeight="130.0" prefWidth="648.0" styleClass="infoPanel">
+      <VBox alignment="CENTER" layoutX="1039.0" layoutY="18.0" prefHeight="111.0" prefWidth="147.0">
          <children>
-            <VBox alignment="CENTER" layoutX="491.0" layoutY="10.0" prefHeight="111.0" prefWidth="135.0">
-               <children>
-                  <Label style="-fx-text-fill: #a37ad5;" styleClass="infoLabel" text="Entregas - PC5" />
-                  <Label fx:id="entregasStatus" text="⬤ Desconectado" />
-               </children>
-               <styleClass>
-                  <String fx:value="infoPanel" />
-                  <String fx:value="vbox" />
-               </styleClass>
-            </VBox>
-            <VBox alignment="CENTER" layoutX="335.0" layoutY="10.0" prefHeight="111.0" prefWidth="135.0">
-               <children>
-                  <Label style="-fx-text-fill: gold;" styleClass="infoLabel" text="VIP - PC4" />
-                  <Label fx:id="vipStatus" text="⬤ Desconectado" />
-               </children>
-               <styleClass>
-                  <String fx:value="infoPanel" />
-                  <String fx:value="vbox" />
-               </styleClass>
-            </VBox>
-            <VBox alignment="CENTER" layoutX="178.0" layoutY="10.0" prefHeight="111.0" prefWidth="147.0">
-               <children>
-                  <Label prefHeight="18.0" prefWidth="108.0" style="-fx-text-fill: green;" styleClass="infoLabel" text="Registro - PC2" />
-                  <Label fx:id="registroStatus" text="⬤ Desconectado" />
-               </children>
-               <styleClass>
-                  <String fx:value="infoPanel" />
-                  <String fx:value="vbox" />
-               </styleClass>
-            </VBox>
-            <VBox alignment="CENTER" layoutX="14.0" layoutY="10.0" prefHeight="111.0" prefWidth="147.0">
-               <children>
-                  <Label style="-fx-text-fill: #658dd5;" styleClass="infoLabel" text="General - PC3" />
-                  <Label fx:id="serverStatus1" prefHeight="16.0" prefWidth="135.0" text="⬤ Desconectado" />
-               </children>
-               <styleClass>
-                  <String fx:value="infoPanel" />
-                  <String fx:value="vbox" />
-               </styleClass>
-            </VBox>
+            <Label style="-fx-text-fill: #a37ad5;" styleClass="infoLabel" text="Entregas - PC5" />
+            <Label fx:id="entregasStatus" text="⬤ Desconectado" />
          </children>
-      </Pane>
+         <styleClass>
+            <String fx:value="infoPanel" />
+            <String fx:value="vbox" />
+         </styleClass>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="883.0" layoutY="18.0" prefHeight="111.0" prefWidth="147.0">
+         <children>
+            <Label style="-fx-text-fill: gold;" styleClass="infoLabel" text="VIP - PC4" />
+            <Label fx:id="vipStatus" text="⬤ Desconectado" />
+         </children>
+         <styleClass>
+            <String fx:value="infoPanel" />
+            <String fx:value="vbox" />
+         </styleClass>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="726.0" layoutY="18.0" prefHeight="111.0" prefWidth="147.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="108.0" style="-fx-text-fill: green;" styleClass="infoLabel" text="Registro - PC2" />
+            <Label fx:id="registroStatus" text="⬤ Desconectado" />
+         </children>
+         <styleClass>
+            <String fx:value="infoPanel" />
+            <String fx:value="vbox" />
+         </styleClass>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="562.0" layoutY="18.0" prefHeight="111.0" prefWidth="147.0">
+         <children>
+            <Label style="-fx-text-fill: #658dd5;" styleClass="infoLabel" text="General - PC3" />
+            <Label fx:id="serverStatus1" prefHeight="16.0" prefWidth="135.0" text="⬤ Desconectado" />
+         </children>
+         <styleClass>
+            <String fx:value="infoPanel" />
+            <String fx:value="vbox" />
+         </styleClass>
+      </VBox>
    </children>
 </AnchorPane>

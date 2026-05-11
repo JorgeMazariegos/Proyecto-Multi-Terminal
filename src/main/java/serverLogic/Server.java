@@ -31,13 +31,6 @@ public class Server {
     InterfazPrincipalController interfaz;
     private final Map<String, ClientHandler> clientes = new ConcurrentHashMap<>();;
 
-    // Contador para tickets
-    private final AtomicInteger contadorTickets = new AtomicInteger(1);
-
-    // Archivo para persistencia
-    private static final String ARCHIVO_ATENDIDOS = "atendidos.csv";
-    private final Object lockArchivo = new Object();
-
     // Control del servidor
     private volatile boolean running = false;
     private ServerSocket serverSocket;
@@ -111,7 +104,7 @@ public class Server {
         private ObjectInputStream in;
         private ObjectOutputStream out;
         private String username;
-        private boolean disponible;
+        private volatile boolean disponible;
 
         ClientHandler(Socket socket) {
             this.socket = socket;
@@ -130,8 +123,7 @@ public class Server {
                         procesarTicket(ticket);
                     }
                     if(obj instanceof Mensaje){
-                        Mensaje mensaje = (Mensaje) obj;
-                        
+                        Mensaje mensaje = (Mensaje) obj;                        
                         if(username == null && mensaje.isStatus()) {
                             String texto = mensaje.getMensaje();
                             if(texto.startsWith("Disponible ")) {
@@ -150,11 +142,13 @@ public class Server {
                 e.printStackTrace();
             } finally {
                 clientes.remove(username);
-                try { 
+                try {
                     socket.close(); 
-                } catch (IOException ignored) {
+                    in.close();
+                    out.close();
+                } catch (IOException ex) {
                     
-                }
+                }         
             }
         }
 
@@ -172,13 +166,20 @@ public class Server {
                         }
                         break;
                     case "Prioridad":
-                        ClientHandler vip = clientes.get("Prioridad");
+                        ClientHandler vip = clientes.get("VIP");
                         if(vip != null && vip.disponible){
-                            enviarACliente("Prioridad", ticket);
+                            enviarACliente("VIP", ticket);
                             ticketEnviado = true;
                         }
                         break;
-                    default:                      
+                    case "Entrega":{
+                        ClientHandler entrega = clientes.get("Entrega");
+                        if(entrega != null && entrega.disponible){
+                            enviarACliente("Entrega", ticket);
+                            ticketEnviado = true;
+                        }
+                        break;
+                    }                      
                 }
                 if(!ticketEnviado){
                     Platform.runLater(() -> {
@@ -202,17 +203,11 @@ public class Server {
                     Platform.runLater(() -> {
                         interfaz.usuarioStatus("Disponible " + cliente);
                     });
-                    switch(cliente){
-                        case "General": 
-                            Ticket ticket = interfaz.enviarTicket(cliente);
-                            if(ticket == null){                            
-                                return;
-                            } 
-                            enviarACliente(cliente,ticket);
-                            break;
-                        case "Prioridad":
-       
-                    }                                    
+                    Ticket ticket = interfaz.enviarTicket(cliente);
+                    if(ticket == null){                            
+                        return;
+                    } 
+                    enviarACliente(cliente,ticket);  
                 }else{
                     Platform.runLater(() -> {
                         interfaz.usuarioStatus(mensaje.getMensaje());
@@ -229,10 +224,11 @@ public class Server {
             }           
         }
         
-        public void sendObject(Object obj) {
+        public synchronized void sendObject(Object obj) {
             try {
                 out.writeObject(obj);
                 out.flush();
+                out.reset();
             } catch (IOException e) {
                 System.out.println("Error enviando objeto");
                 e.printStackTrace();

@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.time.LocalDate;
 import java.util.Properties;
 import java.util.Random;
+import javafx.application.Platform;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -77,6 +78,11 @@ public class RegistroTicketController {
     }
     
     @FXML
+    private void switchToPrimary() throws IOException {
+        App.setRoot("IniciodeSesion");
+    }
+    
+    @FXML
     private void generarTicket(){
         if(camposVacios()){
             return;
@@ -114,9 +120,10 @@ public class RegistroTicketController {
             socket = new Socket(ip, port);
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
-            Mensaje mensaje = new Mensaje("Disponible Registro");
-            mensaje.setStatus(true);
             conectado = true;
+            new Thread(this::listenServer).start();
+            Mensaje mensaje = new Mensaje("Disponible Registro");
+            mensaje.setStatus(true);          
             sendMensaje(mensaje);
             conectToServer.setDisable(true);
             desconectar.setDisable(false);
@@ -229,6 +236,32 @@ public class RegistroTicketController {
             System.out.println(e.getMessage());
         }
     }
+    
+    private void listenServer() {
+        try {
+            while (conectado) {
+
+                Object obj = in.readObject();
+
+                if(obj instanceof Mensaje) {
+                    Mensaje mensaje = (Mensaje) obj;
+
+                    Platform.runLater(() -> {
+                        System.out.println("Mensaje del servidor: "
+                                + mensaje.getMensaje());
+                    });
+                }
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Servidor desconectado");
+            conectado = false;
+            conectToServer.setDisable(false);
+            desconectar.setDisable(true);
+            serverStatus.pseudoClassStateChanged(on, false);
+            serverStatus.setText("⬤ Desconectado");
+        }
+    }    
     
     private void setupDoubleFormatter() {
         TextFormatter<String> formatter = new TextFormatter<>(change -> {

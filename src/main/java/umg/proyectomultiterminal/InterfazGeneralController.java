@@ -79,6 +79,11 @@ public class InterfazGeneralController implements Initializable {
     }    
     
     @FXML
+    private void switchToPrimary() throws IOException {
+        App.setRoot("IniciodeSesion");
+    }
+    
+    @FXML
     private void connect(){
         try{
             loadProperties();
