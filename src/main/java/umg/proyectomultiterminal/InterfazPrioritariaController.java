@@ -27,7 +27,6 @@ import java.util.Properties;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.web.WebView;
 import modelos.Mensaje;
 import modelos.Ticket;
@@ -256,8 +255,8 @@ try{
             
             conectToServer.setDisable(true);
             desconectar.setDisable(false);
-            serverStatus.pseudoClassStateChanged(on, true);
-            serverStatus.setText("⬤ Disponible");
+            vipStatus.pseudoClassStateChanged(on, true);
+            vipStatus.setText("⬤ Disponible");
         }catch (IOException ex) {
             System.getLogger(InterfazEspecialController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }

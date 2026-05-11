@@ -169,7 +169,7 @@
       <VBox alignment="CENTER" layoutX="562.0" layoutY="18.0" prefHeight="111.0" prefWidth="147.0">
          <children>
             <Label style="-fx-text-fill: #658dd5;" styleClass="infoLabel" text="General - PC3" />
-            <Label fx:id="serverStatus1" prefHeight="16.0" prefWidth="135.0" text="⬤ Desconectado" />
+            <Label fx:id="serverStatus" prefHeight="16.0" prefWidth="135.0" text="⬤ Desconectado" />
          </children>
          <styleClass>
             <String fx:value="infoPanel" />

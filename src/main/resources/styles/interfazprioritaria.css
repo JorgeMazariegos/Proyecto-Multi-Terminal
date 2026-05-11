@@ -1,4 +1,4 @@
-#serverStatus1{
+#serverStatus{
     -fx-background-radius: 10px;
     -fx-border-radius: 10px;
     -fx-background-color: #2e1a1a;
@@ -10,7 +10,7 @@
     -fx-font-weight: bold;
 }
 
-#serverStatus1:activo {
+#serverStatus:activo {
     
     /* Background: dark green */
     -fx-background-color: #101612;
