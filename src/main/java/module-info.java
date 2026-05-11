@@ -4,7 +4,7 @@ module umg.proyectomultiterminal {
     requires java.desktop;
     requires java.logging;
     requires java.base;
-
+    requires jdk.jsobject;
     requires org.json;
     requires javafx.web;
     

@@ -52,22 +52,21 @@ PseudoClass on = PseudoClass.getPseudoClass("activo");
     private Ticket ticketActual;
     private Thread contador;
     
-    @FXML private ProgressBar progressOrigen, progressDestino;
     @FXML private TextField txtDPI,txtNTicket, txtNombre, txtPago;
     @FXML private Button conectToServer, desconectar, doViaje, finishViaje;
     @FXML private Label serverStatus,entregasStatus,registroStatus,vipStatus, tiempoOrigen, tiempoDestino;
     
     
-    @FXML private TextField txtOrigen;
-    @FXML private TextField txtDestino;
-    @FXML private Label     lblEstadoBusqueda;
+    @FXML private TextField txtOrigen, txtOrigenBoleto;
+    @FXML private TextField txtDestino, txtDestinoBoleto;
+    @FXML private Label lblEstadoBusqueda;
     @FXML private WebView webView;
+
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
+    public void initialize(URL url, ResourceBundle rb) {        
           webView.setZoom(1.15);
 
     mostrarRuta(
@@ -217,8 +216,11 @@ private void mostrarRuta(
 "   lon += deltaLon;" +
 "   carro.setLatLng([lat, lon]);" +
 "   contador++;" +
-"   if(contador >= pasos) {" +
+"if(contador >= pasos) {" +
 "       clearInterval(animacion);" +
+"       if(window.javaApp) {" +
+"           window.javaApp.simulacionTerminada();" +
+"       }" +
 "   }" +
 "}, 100);" +
         "</script>" +
@@ -226,6 +228,16 @@ private void mostrarRuta(
         "</html>";
     
     webView.getEngine().loadContent(html);
+    webView.getEngine().loadContent(html);
+    webView.getEngine().getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+        if (newState == javafx.concurrent.Worker.State.SUCCEEDED) {
+
+            netscape.javascript.JSObject window =
+                (netscape.javascript.JSObject) webView.getEngine().executeScript("window");
+
+            window.setMember("javaApp", new JSBridge());
+        }
+    });
 }
 
 @FXML
@@ -280,6 +292,19 @@ Mensaje mensaje = new Mensaje("Desconectado VIP");
         serverStatus.pseudoClassStateChanged(on, false);
         serverStatus.setText("⬤ Desconectado");
 }
+
+    @FXML
+    private void finalizarViaje() {
+        ticketActual.setUsuarioQueAtendio("VIP");
+        ticketActual.setEstado("Finalizado");
+        detenerContador();
+        if(ticketActual != null) {
+            sendTicket(ticketActual);
+        }
+        resetFields();
+        solicitarTicket();
+    }
+
     private void sendMensaje(Mensaje mensaje){
         if(!conectado){
             return;
@@ -292,11 +317,25 @@ Mensaje mensaje = new Mensaje("Desconectado VIP");
             ex.printStackTrace();
         }
     }
+    
+    private void sendTicket(Ticket ticket){
+        if(!conectado){
+            return;
+        }
+        try{
+            out.writeObject(ticket);
+            out.flush();
+        }catch(IOException ex){
+            System.out.println("Error al enviar ticket");
+            ex.printStackTrace();
+        }
+    }
+    
     private void iniciarContador(Ticket ticket){
         contador = new Thread(() -> {
             try{
                 while(!Thread.currentThread().isInterrupted()){
-                    Thread.sleep(1000);                   
+                    Thread.sleep(1000);
                     ticket.setDuracionAtencion(ticket.getDuracionAtencion()+ 1);    
                 }
                         
@@ -372,8 +411,8 @@ Mensaje mensaje = new Mensaje("Desconectado VIP");
         txtDPI.setText(String.valueOf(ticket.getDPI()));
         txtNTicket.setText("#"+String.valueOf(ticket.getNumTicket()));
         txtNombre.setText(ticket.getNombre() + " " + ticket.getApellido());
-        txtOrigen.setText(ticket.getOrigen());
-        txtDestino.setText(ticket.getDestino());
+        txtOrigenBoleto.setText(ticket.getOrigen());
+        txtDestinoBoleto.setText(ticket.getDestino());
         txtPago.setText(String.valueOf(ticket.getPrecio()));
         iniciarContador(ticketActual);
         doViaje.setDisable(false);
@@ -381,16 +420,19 @@ Mensaje mensaje = new Mensaje("Desconectado VIP");
     private void resetFields(){
         doViaje.setDisable(true);
         finishViaje.setDisable(true);
-        progressDestino.setProgress(0);
-        progressOrigen.setProgress(0);
-        tiempoOrigen.setText("0.00 seg");
-        tiempoDestino.setText("0.00 seg");
         txtDPI.setText("");
         txtNTicket.setText("");
         txtNombre.setText("");
-        txtOrigen.setText("");
-        txtDestino.setText("");
+        txtOrigenBoleto.setText("");
+        txtDestinoBoleto.setText("");
         txtPago.setText("");
     }
     
+    public class JSBridge {
+        public void simulacionTerminada() {
+            Platform.runLater(() -> {
+                finishViaje.setDisable(false);
+            });
+        }
+    }
 }

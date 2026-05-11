@@ -20,7 +20,7 @@
          <image>
             <Image url="@../../pruebafondo21.png" />
          </image></ImageView>
-      <Button layoutX="362.0" layoutY="705.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="463.0" text="Finalizar Atencion Prioritaria" />
+      <Button fx:id="finishViaje" disable="true" layoutX="362.0" layoutY="705.0" mnemonicParsing="false" onAction="#finalizarViaje" prefHeight="44.0" prefWidth="463.0" text="Finalizar Atencion Prioritaria" />
       <Pane layoutX="26.0" layoutY="14.0" prefHeight="59.0" prefWidth="524.0" styleClass="infoPanel">
          <children>
             <Button fx:id="conectToServer" layoutX="138.0" layoutY="15.0" mnemonicParsing="false" onAction="#connect" prefHeight="31.0" prefWidth="160.0" text="▶ Conectar al Servidor" />
@@ -35,7 +35,7 @@
       </Pane>
       <HBox alignment="CENTER_LEFT" layoutX="696.0" layoutY="586.0" spacing="10" />
 <Label fx:id="lblEstadoBusqueda" layoutX="939.0" layoutY="682.0" prefHeight="16.0" prefWidth="138.0" styleClass="lbl-estado" text="" />
-      <Pane layoutX="26.0" layoutY="81.0" prefHeight="282.0" prefWidth="324.0" styleClass="infoPanel">
+      <Pane layoutX="26.0" layoutY="81.0" prefHeight="198.0" prefWidth="324.0" styleClass="infoPanel">
          <children>
             <Label layoutX="44.0" layoutY="14.0" prefHeight="25.0" prefWidth="186.0" text="TICKET ACTUAL">
                <styleClass>
@@ -48,24 +48,20 @@
                   <Image url="@../../2680534.png" />
                </image>
             </ImageView>
-            <TextField editable="false" layoutX="9.0" layoutY="51.0" prefHeight="59.0" prefWidth="300.0" />
+            <TextField fx:id="txtNTicket" editable="false" layoutX="9.0" layoutY="51.0" prefHeight="59.0" prefWidth="300.0" />
             <Label layoutX="17.0" layoutY="138.0" styleClass="infoLabel" text="DPI" />
-            <TextField editable="false" layoutX="67.0" layoutY="120.0" prefHeight="30.0" prefWidth="241.0" />
-            <TextField editable="false" layoutX="136.0" layoutY="174.0" prefHeight="42.0" prefWidth="174.0" />
-            <Label layoutX="17.0" layoutY="183.0" styleClass="infoLabel" text="MOTIVO" />
-            <TextField editable="false" layoutX="136.0" layoutY="220.0" prefHeight="42.0" prefWidth="174.0" />
-            <Label layoutX="17.0" layoutY="229.0" styleClass="infoLabel" text="HORA" />
+            <TextField fx:id="txtDPI" editable="false" layoutX="69.0" layoutY="117.0" prefHeight="30.0" prefWidth="241.0" />
             <TextField editable="false" layoutX="198.0" layoutY="59.0" prefHeight="42.0" prefWidth="100.0" promptText="ALTA" styleClass="textfield-rojo">
                <font>
                   <Font name="Arial Black" size="24.0" />
                </font></TextField>
          </children>
       </Pane>
-      <SplitPane dividerPositions="0.16583333333333333" layoutX="362.0" layoutY="159.0" opacity="0.8" orientation="VERTICAL" prefHeight="241.0" prefWidth="463.0" styleClass="splitPanel">
+      <SplitPane dividerPositions="0.2874251497005988" layoutX="362.0" layoutY="159.0" opacity="0.8" orientation="VERTICAL" prefHeight="169.0" prefWidth="463.0" styleClass="splitPanel">
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Label layoutX="31.0" layoutY="7.0" prefHeight="26.0" prefWidth="234.0" text="INFORMACION DEL CLIENTE">
+                  <Label layoutX="14.0" layoutY="11.0" prefHeight="26.0" prefWidth="234.0" text="INFORMACION DEL CLIENTE">
                      <styleClass>
                         <String fx:value="infoLabel" />
                         <String fx:value="infoLabel-Rojo" />
@@ -73,23 +69,19 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="142.0" prefWidth="461.0">
                <children>
-                  <TextField layoutX="10.0" layoutY="151.0" prefHeight="42.0" prefWidth="442.0" promptText="CLIENTE NECESITA TRASLADO URGENTE" />
-                  <TextField editable="false" layoutX="14.0" layoutY="55.0" prefHeight="42.0" prefWidth="234.0" />
-                  <TextField layoutX="261.0" layoutY="55.0" prefHeight="42.0" prefWidth="186.0" promptText="4578-1298" />
-                  <Label layoutX="14.0" layoutY="116.0" styleClass="infoLabel" text="OBSERVACIONES" />
+                  <TextField fx:id="txtNombre" editable="false" layoutX="14.0" layoutY="55.0" prefHeight="42.0" prefWidth="442.0" />
                   <Label layoutX="14.0" layoutY="20.0" styleClass="infoLabel" text="NOMBRE COMPLETO" />
-                  <Label layoutX="261.0" layoutY="20.0" styleClass="infoLabel" text="TELEFONO" />
                </children>
             </AnchorPane>
          </items>
       </SplitPane>
-      <SplitPane dividerPositions="0.11313131313131312" layoutX="361.0" layoutY="402.0" opacity="0.8" orientation="VERTICAL" prefHeight="297.0" prefWidth="463.0" styleClass="splitPanel">
+      <SplitPane dividerPositions="0.13392857142857142" layoutX="361.0" layoutY="361.0" opacity="0.8" orientation="VERTICAL" prefHeight="338.0" prefWidth="463.0" styleClass="splitPanel">
          <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="47.0" prefWidth="461.0">
                <children>
-                  <Label layoutX="14.0" layoutY="5.0" prefHeight="26.0" prefWidth="312.0" text="DETALLES DEL SERVICIO PRIORITARIO">
+                  <Label layoutX="14.0" layoutY="9.0" prefHeight="26.0" prefWidth="312.0" text="DETALLES DEL SERVICIO PRIORITARIO">
                      <styleClass>
                         <String fx:value="infoLabel" />
                         <String fx:value="infoLabel-Rojo" />
@@ -99,14 +91,14 @@
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TextField layoutX="9.0" layoutY="120.0" prefHeight="42.0" prefWidth="442.0" promptText="1 Warriors Wy, San Francisco, CA 94158, Estados Unidos" />
+                  <TextField fx:id="txtDestinoBoleto" layoutX="9.0" layoutY="120.0" prefHeight="42.0" prefWidth="442.0" promptText="1 Warriors Wy, San Francisco, CA 94158, Estados Unidos" />
                   <Label layoutX="14.0" layoutY="94.0" styleClass="infoLabel" text="DIRECCION DE DESTINO" />
-                  <TextField layoutX="9.0" layoutY="40.0" prefHeight="42.0" prefWidth="442.0" promptText="New York, NY 10001, Estados Unidos" />
+                  <TextField fx:id="txtOrigenBoleto" layoutX="9.0" layoutY="40.0" prefHeight="42.0" prefWidth="442.0" promptText="New York, NY 10001, Estados Unidos" />
                   <Label layoutX="18.0" layoutY="14.0" styleClass="infoLabel" text="DIRECCION DE ORIGEN" />
                   <TextField editable="false" layoutX="328.0" layoutY="202.0" prefHeight="42.0" prefWidth="100.0" promptText="ALTA" styleClass="textfield-rojo" />
                   <Label layoutX="334.0" layoutY="177.0" styleClass="infoLabel" text="PRIORIDAD" />
                   <Label layoutX="18.0" layoutY="177.0" styleClass="infoLabel" text="MONTO A PAGAR" />
-                  <TextField editable="false" layoutX="17.0" layoutY="203.0" prefHeight="42.0" prefWidth="138.0" />
+                  <TextField fx:id="txtPago" editable="false" layoutX="17.0" layoutY="203.0" prefHeight="42.0" prefWidth="138.0" />
                </children>
             </AnchorPane>
          </items>
@@ -120,7 +112,7 @@
       </Pane>
          </children>
       </Pane>
-      <SplitPane dividerPositions="0.175" layoutX="26.0" layoutY="372.0" opacity="0.8" orientation="VERTICAL" prefHeight="282.0" prefWidth="324.0" styleClass="splitPanel">
+      <SplitPane dividerPositions="0.175" layoutX="26.0" layoutY="287.0" opacity="0.8" orientation="VERTICAL" prefHeight="367.0" prefWidth="324.0" styleClass="splitPanel">
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
@@ -132,7 +124,7 @@
       </SplitPane>
       <TextField fx:id="txtOrigen" layoutX="885.0" layoutY="586.0" prefHeight="37.0" prefWidth="243.0" promptText="Origen" styleClass="input-busqueda" />
  <TextField fx:id="txtDestino" layoutX="885.0" layoutY="635.0" prefHeight="37.0" prefWidth="243.0" promptText="Destino" styleClass="input-busqueda" />
- <Button layoutX="883.0" layoutY="709.0" onAction="#buscarDireccion" prefHeight="36.0" prefWidth="249.0" styleClass="btn-buscar" text="🔍 Buscar" />
+ <Button fx:id="doViaje" disable="true" layoutX="883.0" layoutY="709.0" onAction="#buscarDireccion" prefHeight="36.0" prefWidth="249.0" styleClass="btn-buscar" text="🔍 Buscar" />
       <Pane layoutX="26.0" layoutY="661.0" prefHeight="42.0" prefWidth="268.0" styleClass="infoPanel">
          <children>
             <Label layoutX="8.0" layoutY="9.0" styleClass="infoLabel" text="COLA ACTUAL:" />
