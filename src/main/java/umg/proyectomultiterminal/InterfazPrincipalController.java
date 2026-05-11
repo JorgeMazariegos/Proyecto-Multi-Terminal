@@ -1,5 +1,6 @@
 package umg.proyectomultiterminal;
 
+import estructuras.ArchivoTickets;
 import estructuras.Cola;
 import java.io.IOException;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ public class InterfazPrincipalController {
     private static InterfazPrincipalController instance;
     // ---------- Estructuras de datos para las colas ----------
     private final Cola colaGeneral = new Cola();
+    private final Cola colaTicketsFinalizados = new Cola();
     
     private Map<Ticket, Thread> contadores = new HashMap<>();
     PseudoClass on = PseudoClass.getPseudoClass("activo");
@@ -94,6 +96,19 @@ public class InterfazPrincipalController {
         ticket.setTipo("Normal");
         ticket.setEstado("Cola");
         agregarTicket(ticket);
+    }
+    
+    @FXML
+    private void guardarTickets(){
+        ArchivoTickets.guardar(colaTicketsFinalizados);
+    }
+    
+    @FXML
+    private void cargarTickets(){
+        Cola tickets = ArchivoTickets.cargar();
+        while(!tickets.isEmpty()){
+            System.out.println(tickets.dequeue().getNumTicket());
+        }
     }
     
     public void agregarTicket(Ticket ticket){
@@ -267,4 +282,9 @@ public class InterfazPrincipalController {
         int segundos = tiempo % 60;
         return String.format("%d:%02d", minutos, segundos);
     }
+    
+    public void guardarTicket(Ticket ticket){
+        colaTicketsFinalizados.enqueue(ticket);
+    }
+    
 }

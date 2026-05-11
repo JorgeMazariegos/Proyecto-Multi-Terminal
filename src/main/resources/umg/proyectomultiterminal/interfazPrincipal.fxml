@@ -227,6 +227,8 @@
                      </styleClass>
                   </VBox>
                   <Button layoutX="1040.0" layoutY="536.0" mnemonicParsing="false" onAction="#generarTicketNormal" text="Generar ticket de prueba" />
+                  <Button layoutX="1039.0" layoutY="611.0" mnemonicParsing="false" onAction="#cargarTickets" text="Cargar archivo de Tickets" />
+                  <Button layoutX="1040.0" layoutY="573.0" mnemonicParsing="false" onAction="#guardarTickets" text="Guardar todos los tickets" />
                </children>
             </Pane>
          </children>

@@ -145,6 +145,7 @@ public class InterfazGeneralController implements Initializable {
         ticketActual.setUsuarioQueAtendio("General");
         ticketActual.setEstado("Finalizado");
         detenerContador();
+        resetFields();
         sendTicket(ticketActual);
         solicitarTicket();
     }
@@ -225,6 +226,7 @@ public class InterfazGeneralController implements Initializable {
     private void solicitarTicket(){
         if(conectado) {
             Mensaje mensaje = new Mensaje("Request General");
+            mensaje.setStatus(true);
             sendMensaje(mensaje);
         }
     }
@@ -320,5 +322,12 @@ public class InterfazGeneralController implements Initializable {
         progressOrigen.setProgress(0);
         tiempoOrigen.setText("0.00 seg");
         tiempoDestino.setText("0.00 seg");
+        txtDPI.setText("");
+        txtNTicket.setText("");
+        txtNombre.setText("");
+        txtOrigen.setText("");
+        txtDestino.setText("");
+        txtPago.setText("");
     }
+
 }
