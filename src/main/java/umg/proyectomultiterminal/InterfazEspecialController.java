@@ -200,6 +200,8 @@ private void mostrarRuta(
 "iconSize: [32,32]" +
 "})" +
 "}).addTo(map);" +
+            
+            
 // ANIMACION
 "var lat = " + origenLat + ";" +
 "var lon = " + origenLon + ";" +

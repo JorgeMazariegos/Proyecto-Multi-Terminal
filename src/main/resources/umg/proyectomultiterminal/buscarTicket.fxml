@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="anchorPane" stylesheets="@../../styles/buscarticket.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="umg.proyectomultiterminal.BuscarTicketController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="anchorPane" stylesheets="@../../styles/buscarticket.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.proyectomultiterminal.BuscarTicketController">
    <children>
       <Label fx:id="title" layoutX="417.0" layoutY="147.0" text="Búsqueda de Ticket" />
       <ImageView fx:id="logo" disable="true" fitHeight="150.0" fitWidth="200.0" layoutX="501.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
@@ -39,7 +39,7 @@
             <VBox alignment="CENTER" layoutX="70.0" layoutY="103.0" prefHeight="119.0" prefWidth="310.0" styleClass="vbox">
                <children>
                   <Label styleClass="labelInfo" text="Elegir archivo" />
-                  <Button mnemonicParsing="false" styleClass="buttonCargar" text="SELECCIONAR ARCHIVO .DAT">
+                  <Button mnemonicParsing="false" onAction="#cargarArchivo" styleClass="buttonCargar" text="Cargar Archivo .DAT">
                      <graphic>
                         <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -190,7 +190,7 @@
                   </ImageView>
                </graphic>
             </Label>
-            <ListView prefHeight="530.0" prefWidth="246.0" styleClass="listaDPI" />
+            <ListView fx:id="listaViajes" prefHeight="530.0" prefWidth="246.0" styleClass="listaDPI" />
          </children>
       </VBox>
       <Button fx:id="logOff" layoutX="1050.0" layoutY="17.0" onAction="#switchToPrimary" text="➜] Regresar" />

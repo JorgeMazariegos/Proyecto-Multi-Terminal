@@ -49,4 +49,22 @@ public class ArchivoTickets {
         }
         return new Cola();
     }
+     public static Cola cargar(File archivo) {
+
+        if (archivo == null || !archivo.exists()) {
+            return new Cola();
+        }
+
+        try (ObjectInputStream in =
+                     new ObjectInputStream(
+                             new FileInputStream(archivo))) {
+
+            return (Cola) in.readObject();
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return new Cola();
+    }
 }
