@@ -6,16 +6,14 @@ package umg.proyectomultiterminal;
 
 import estructuras.ArchivoTickets;
 import estructuras.Cola;
-import java.io.File;
+import estructuras.TablaHash;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
-import javafx.stage.FileChooser;
 import modelos.Ticket;
-
 /**
  * FXML Controller class
  *
@@ -23,10 +21,10 @@ import modelos.Ticket;
  */
 public class BuscarTicketController implements Initializable {
 
+    TablaHash tabla = new TablaHash();
+    
     @FXML private ListView<String> listaViajes;
-    /**
-     * Initializes the controller class.
-     */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -37,46 +35,25 @@ public class BuscarTicketController implements Initializable {
         App.setRoot("IniciodeSesion");
     }
     
-   /*@FXML
-    private void cargarArchivo() {
-    Cola colaCargada = ArchivoTickets.cargar();
-    if (colaCargada != null) {
-        System.out.println("Archivo cargado correctamente");
-    } else {
-        System.out.println("No se pudo cargar el archivo");
-    }
-}*/
    @FXML
-private void cargarArchivo() {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Seleccionar archivo DAT");
-    fileChooser.getExtensionFilters().add(
-            new FileChooser.ExtensionFilter("Archivos DAT", "*.dat")
-    );
-    File archivo = fileChooser.showOpenDialog(null);
-    if (archivo != null) {
-        Cola colaCargada = ArchivoTickets.cargar(archivo);
+    private void cargarArchivo() {
+        Cola colaCargada = ArchivoTickets.cargar();
+        cargarDPIALista(colaCargada);
         if (colaCargada != null) {
-            // LIMPIAR LISTVIEW
-            listaViajes.getItems().clear();
-            // RECORRER COLA
-            while (!colaCargada.isEmpty()) {
-                Ticket ticket = colaCargada.dequeue();
-                String texto =
-                        ticket.getNombre()
-                        + " | "
-                        + ticket.getOrigen()
-                        + " → "
-                        + ticket.getDestino();
-                listaViajes.getItems().add(texto);
-            }
             System.out.println("Archivo cargado correctamente");
         } else {
             System.out.println("No se pudo cargar el archivo");
         }
-    } else {
-        System.out.println("No se seleccionó ningún archivo");
     }
+
+    private void cargarDPIALista(Cola cola){
+        while(!cola.isEmpty()){
+            Ticket ticket = cola.dequeue();
+            int dpi = ticket.getDPI();
+            listaViajes.getItems().add(String.valueOf(dpi));
+            tabla.add(dpi, ticket);
+        }
+    }
+    
 }
-    }
 

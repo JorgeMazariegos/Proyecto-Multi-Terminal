@@ -135,9 +135,10 @@ public class Server {
                                 username = texto.replace("Disponible ", "");
                                 clientes.put(username, this);
                                 System.out.println(username + " registrado");
-                                enviarListaClientes(this);
-                                Mensaje conexion = new Mensaje(username);
-                                conexion.setTipo("CONECTADO");      
+                                Mensaje conexion = new Mensaje();                                
+                                conexion.setTipo("CONECTADO");
+                                String[] nombres = clientes.keySet().toArray(new String[0]);
+                                conexion.setClientes(nombres);
                                 broadcast(conexion);
                             }
                         }                        
@@ -216,7 +217,7 @@ public class Server {
                         interfaz.usuarioStatus("Disponible " + cliente);
                     });
                     Ticket ticket = interfaz.enviarTicket(cliente);
-                    if(ticket == null){                            
+                    if(ticket == null){                      
                         return;
                     } 
                     enviarACliente(cliente,ticket);  
@@ -232,6 +233,9 @@ public class Server {
             ClientHandler cliente = clientes.get(username);
             if(cliente != null && cliente.disponible){
                 cliente.disponible = false;
+                Platform.runLater(() -> {
+                    interfaz.usuarioStatus("Procesando " + username);
+                });
                 cliente.sendObject(obj);
             }           
         }
@@ -274,14 +278,5 @@ public class Server {
         for(ClientHandler cliente : clientes.values()){
             cliente.sendObject(mensaje);
         }
-    }
-    
-    private void enviarListaClientes(ClientHandler clienteNuevo){
-        for(String nombre : clientes.keySet()){
-            Mensaje mensaje = new Mensaje(nombre);
-            mensaje.setTipo("CLIENTE_CONECTADO");
-            clienteNuevo.sendObject(mensaje);
-        }
-    }
-    
+    }    
 }

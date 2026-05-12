@@ -98,29 +98,11 @@ public class InterfazPrincipalController {
         detenerServidor.setDisable(true);
         serverStatus.pseudoClassStateChanged(on, false);
         serverStatus.setText("⬤ Apagado");
-    }
-    
-    @FXML
-    private void generarTicketNormal(){
-        Ticket ticket = new Ticket();
-        ticket.setNumTicket(123);
-        ticket.setDPI(3453456);
-        ticket.setTipo("Normal");
-        ticket.setEstado("Cola");
-        agregarTicket(ticket);
-    }
+    } 
     
     @FXML
     private void guardarTickets(){
         ArchivoTickets.guardar(colaTicketsFinalizados);
-    }
-    
-    @FXML
-    private void cargarTickets(){
-        Cola tickets = ArchivoTickets.cargar();
-        while(!tickets.isEmpty()){
-            System.out.println(tickets.dequeue().getNumTicket());
-        }
     }
     
     public synchronized void agregarTicket(Ticket ticket){

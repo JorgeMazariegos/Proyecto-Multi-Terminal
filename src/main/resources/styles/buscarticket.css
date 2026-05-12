@@ -167,6 +167,7 @@
 .listaDPI{
     -fx-background-color:#171d29;
     -fx-background-radius: 10;
+    -fx-text-fill: white;
 }
 
 .listaDPI .list-cell:even {

@@ -334,19 +334,6 @@ public class InterfazGeneralController implements Initializable {
         txtPago.setText("");
     }
 
-    private void procesarMensaje(Mensaje mensaje) {
-        if(mensaje.getTipo()!=null){
-            switch(mensaje.getTipo()){
-                case "CONECTADO":
-                    clienteConectado(mensaje.getMensaje());
-                    break;
-                case "Desconectado":
-                    clienteDesconectado(mensaje.getMensaje());
-                    break;
-            }
-        }
-    }
-
     private Label getLabel(String mensaje) {
         Label label = serverStatus;
         switch(mensaje){
@@ -366,16 +353,33 @@ public class InterfazGeneralController implements Initializable {
         return label;
     }
 
-    private void clienteConectado(String mensaje) {
-        Label label = getLabel(mensaje);
-        label.pseudoClassStateChanged(on, true);
-        label.setText("⬤ Disponible");
+    private void procesarMensaje(Mensaje mensaje) {
+        if(mensaje.getTipo()!=null){
+            switch(mensaje.getTipo()){
+                case "CONECTADO":
+                    clienteConectado(mensaje);
+                    break;
+                case "Desconectado":
+                    clienteDesconectado(mensaje);
+                    break;
+            }
+        }
+    }
+
+    private void clienteConectado(Mensaje mensaje) {
+        for(String cliente : mensaje.getClientes()){
+            Label label = getLabel(cliente);
+            label.pseudoClassStateChanged(on, true);
+            label.setText("⬤ Disponible");
+        } 
     }
     
-    private void clienteDesconectado(String mensaje) {
-        Label label = getLabel(mensaje);
-        label.pseudoClassStateChanged(on, false);
-        label.setText("⬤ Desconectado");
+    private void clienteDesconectado(Mensaje mensaje) {
+        for(String cliente : mensaje.getClientes()){
+            Label label = getLabel(cliente);
+            label.pseudoClassStateChanged(on, false);
+            label.setText("⬤ Desconectado");
+        }      
     }
     
     private void serverOff(){

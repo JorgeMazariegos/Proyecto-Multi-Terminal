@@ -451,6 +451,8 @@ Mensaje mensaje = new Mensaje("Desconectado Entrega");
         txtNombre.setText(ticket.getNombre() + " " + ticket.getApellido());
         txtOrigenBoleto.setText(ticket.getOrigen());
         txtDestinoBoleto.setText(ticket.getDestino());
+        txtOrigen.setText(ticket.getOrigen() + ", Guatemala");
+        txtDestino.setText(ticket.getDestino() + ",Guatemala");
         txtPago.setText(String.valueOf(ticket.getPrecio()));
         iniciarContador(ticketActual);
         doViaje.setDisable(false);
@@ -464,20 +466,9 @@ Mensaje mensaje = new Mensaje("Desconectado Entrega");
         txtNombre.setText("");
         txtOrigenBoleto.setText("");
         txtDestinoBoleto.setText("");
+        txtOrigen.setText("");
+        txtDestino.setText("");
         txtPago.setText("");
-    }
-    
-    private void procesarMensaje(Mensaje mensaje) {
-        if(mensaje.getTipo()!=null){
-            switch(mensaje.getTipo()){
-                case "CONECTADO":
-                    clienteConectado(mensaje.getMensaje());
-                    break;
-                case "Desconectado":
-                    clienteDesconectado(mensaje.getMensaje());
-                    break;
-            }
-        }
     }
 
     private Label getLabel(String mensaje) {
@@ -499,16 +490,33 @@ Mensaje mensaje = new Mensaje("Desconectado Entrega");
         return label;
     }
 
-    private void clienteConectado(String mensaje) {
-        Label label = getLabel(mensaje);
-        label.pseudoClassStateChanged(on, true);
-        label.setText("⬤ Disponible");
+    private void procesarMensaje(Mensaje mensaje) {
+        if(mensaje.getTipo()!=null){
+            switch(mensaje.getTipo()){
+                case "CONECTADO":
+                    clienteConectado(mensaje);
+                    break;
+                case "Desconectado":
+                    clienteDesconectado(mensaje);
+                    break;
+            }
+        }
+    }
+
+    private void clienteConectado(Mensaje mensaje) {
+        for(String cliente : mensaje.getClientes()){
+            Label label = getLabel(cliente);
+            label.pseudoClassStateChanged(on, true);
+            label.setText("⬤ Disponible");
+        } 
     }
     
-    private void clienteDesconectado(String mensaje) {
-        Label label = getLabel(mensaje);
-        label.pseudoClassStateChanged(on, false);
-        label.setText("⬤ Desconectado");
+    private void clienteDesconectado(Mensaje mensaje) {
+        for(String cliente : mensaje.getClientes()){
+            Label label = getLabel(cliente);
+            label.pseudoClassStateChanged(on, false);
+            label.setText("⬤ Desconectado");
+        }      
     }
     
     private void serverOff(){

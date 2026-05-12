@@ -296,19 +296,6 @@ public class RegistroTicketController {
         registroStatus.pseudoClassStateChanged(on, false);
         registroStatus.setText("⬤ Desconectado");
     }
-    
-    private void procesarMensaje(Mensaje mensaje) {
-        if(mensaje.getTipo()!=null){
-            switch(mensaje.getTipo()){
-                case "CONECTADO":
-                    clienteConectado(mensaje.getMensaje());
-                    break;
-                case "Desconectado":
-                    clienteDesconectado(mensaje.getMensaje());
-                    break;
-            }
-        }
-    }
 
     private Label getLabel(String mensaje) {
         Label label = serverStatus;
@@ -329,15 +316,32 @@ public class RegistroTicketController {
         return label;
     }
 
-    private void clienteConectado(String mensaje) {
-        Label label = getLabel(mensaje);
-        label.pseudoClassStateChanged(on, true);
-        label.setText("⬤ Disponible");
+    private void procesarMensaje(Mensaje mensaje) {
+        if(mensaje.getTipo()!=null){
+            switch(mensaje.getTipo()){
+                case "CONECTADO":
+                    clienteConectado(mensaje);
+                    break;
+                case "Desconectado":
+                    clienteDesconectado(mensaje);
+                    break;
+            }
+        }
+    }
+
+    private void clienteConectado(Mensaje mensaje) {
+        for(String cliente : mensaje.getClientes()){
+            Label label = getLabel(cliente);
+            label.pseudoClassStateChanged(on, true);
+            label.setText("⬤ Disponible");
+        } 
     }
     
-    private void clienteDesconectado(String mensaje) {
-        Label label = getLabel(mensaje);
-        label.pseudoClassStateChanged(on, false);
-        label.setText("⬤ Desconectado");
+    private void clienteDesconectado(Mensaje mensaje) {
+        for(String cliente : mensaje.getClientes()){
+            Label label = getLabel(cliente);
+            label.pseudoClassStateChanged(on, false);
+            label.setText("⬤ Desconectado");
+        }      
     }
 }

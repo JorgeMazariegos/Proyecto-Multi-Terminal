@@ -14,6 +14,7 @@ public class Mensaje implements Serializable {
     boolean status; //Nos sirve para saber si es un mensaje sobre el status de la conexion
     String mensaje;
     String tipo; //CONECTADO , DESCONECTADO.
+    String[] clientes;
 
     public Mensaje(String mensaje) {
         this.mensaje = mensaje;
@@ -45,5 +46,12 @@ public class Mensaje implements Serializable {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    
+
+    public String[] getClientes() {
+        return clientes;
+    }
+
+    public void setClientes(String[] clientes) {
+        this.clientes = clientes;
+    }
 }
