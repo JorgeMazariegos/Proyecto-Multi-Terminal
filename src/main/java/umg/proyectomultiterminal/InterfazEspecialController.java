@@ -389,6 +389,7 @@ Mensaje mensaje = new Mensaje("Desconectado Entrega");
             contador = null;
         }
     }
+    
     private void listenServer() {
         try {
             while (conectado) {
@@ -414,11 +415,14 @@ Mensaje mensaje = new Mensaje("Desconectado Entrega");
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Servidor desconectado");
             conectado = false;
-            conectToServer.setDisable(false);
-            desconectar.setDisable(true);
-            serverOff();
+            Platform.runLater(() -> {
+                conectToServer.setDisable(false);
+                desconectar.setDisable(true);
+                serverOff();
+            });
         }
     }
+    
     private void loadProperties(){
         InputStream input;
         

@@ -407,9 +407,11 @@ Mensaje mensaje = new Mensaje("Desconectado VIP");
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Servidor desconectado");
             conectado = false;
-            conectToServer.setDisable(false);
-            desconectar.setDisable(true);
-            serverOff();
+            Platform.runLater(() -> {
+                conectToServer.setDisable(false);
+                desconectar.setDisable(true);
+                serverOff();
+            });
         }
     }
     private void loadProperties(){

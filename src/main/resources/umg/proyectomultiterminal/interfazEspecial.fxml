@@ -112,7 +112,7 @@
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="148.0" prefWidth="461.0">
                <children>
-                  <TextField editable="false" layoutX="14.0" layoutY="55.0" prefHeight="42.0" prefWidth="442.0" />
+                  <TextField fx:id="txtNombre" editable="false" layoutX="14.0" layoutY="55.0" prefHeight="42.0" prefWidth="442.0" />
                   <Label layoutX="14.0" layoutY="20.0" styleClass="infoLabel" text="NOMBRE COMPLETO" />
                </children></AnchorPane>
         </items>
