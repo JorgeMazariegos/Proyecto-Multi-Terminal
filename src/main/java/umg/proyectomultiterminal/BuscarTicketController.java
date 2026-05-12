@@ -102,7 +102,7 @@ public class BuscarTicketController implements Initializable {
         );
 
         txtPrecio.setText(
-            "[" + ticket.getPrecio() + "]"
+            "[Q " + ticket.getPrecio() + "]"
         );
 
         txtTiempoCola.setText(
