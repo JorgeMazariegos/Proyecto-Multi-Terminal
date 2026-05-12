@@ -40,7 +40,7 @@ import org.json.JSONObject;
  * @author josef
  */
 public class InterfazPrioritariaController implements Initializable {
-PseudoClass on = PseudoClass.getPseudoClass("activo");
+    PseudoClass on = PseudoClass.getPseudoClass("activo");
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
@@ -54,7 +54,7 @@ PseudoClass on = PseudoClass.getPseudoClass("activo");
     @FXML private TextField txtDPI,txtNTicket, txtNombre, txtPago;
     @FXML private Button conectToServer, desconectar, doViaje, finishViaje;
     @FXML private Label serverStatus,entregasStatus,registroStatus,vipStatus, tiempoOrigen, tiempoDestino;
-    
+    String carPath;
     
     @FXML private TextField txtOrigen, txtOrigenBoleto;
     @FXML private TextField txtDestino, txtDestinoBoleto;
@@ -65,14 +65,11 @@ PseudoClass on = PseudoClass.getPseudoClass("activo");
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {        
-          webView.setZoom(1.15);
-
-    mostrarRuta(
-        14.6349, -90.5069, // origen
-        14.5892, -90.5518  // destino
-    );
-}
+    public void initialize(URL url, ResourceBundle rb) {
+        carPath =  getClass().getResource("/car.png").toExternalForm();
+        webView.setZoom(1.15);
+        cargarMapaVacio();
+    }
    
     @FXML
     private void switchToPrimary() throws IOException {
@@ -199,7 +196,7 @@ private void mostrarRuta(
 "var carro = L.marker([" + origenLat + "," + origenLon + "], {" +
 "icon: L.divIcon({" +
 "className: 'car-icon'," +
-"html: '<img src=\"file:///C:/Users/josef/OneDrive/Desktop/CARPETA%20FERCHO/Proyecto-Multi-Terminal/src/main/resources/car.png\" width=\"32\" height=\"32\">'," +
+"html: '<img src=\"" + carPath + "\" width=\"32\" height=\"32\">'," +
 "iconSize: [32,32]" +
 "})" +
 "}).addTo(map);" +
@@ -227,7 +224,6 @@ private void mostrarRuta(
         "</html>";
     
     webView.getEngine().loadContent(html);
-    webView.getEngine().loadContent(html);
     webView.getEngine().getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
         if (newState == javafx.concurrent.Worker.State.SUCCEEDED) {
 
@@ -237,6 +233,41 @@ private void mostrarRuta(
             window.setMember("javaApp", new JSBridge());
         }
     });
+}
+
+private void cargarMapaVacio() {
+
+    String html =
+        "<!DOCTYPE html>" +
+        "<html>" +
+        "<head>" +
+        "<meta charset='utf-8' />" +
+        "<link rel='stylesheet' href='https://unpkg.com/leaflet/dist/leaflet.css'/>" +
+        "<script src='https://unpkg.com/leaflet/dist/leaflet.js'></script>" +
+        "<style>" +
+        "html, body, #map {" +
+        "height:100%;" +
+        "margin:0;" +
+        "}" +
+        "</style>" +
+        "</head>" +
+        "<body>" +
+        "<div id='map'></div>" +
+        "<script>" +
+
+        // MAPA VACIO
+        "var map = L.map('map').setView([14.6349, -90.5069], 12);" +
+
+        // CAPA
+        "L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {" +
+        "attribution:'OpenStreetMap'" +
+        "}).addTo(map);" +
+
+        "</script>" +
+        "</body>" +
+        "</html>";
+
+    webView.getEngine().loadContent(html);
 }
 
 @FXML
@@ -288,8 +319,7 @@ Mensaje mensaje = new Mensaje("Desconectado VIP");
         detenerContador();
         conectToServer.setDisable(false);
         desconectar.setDisable(true);
-        serverStatus.pseudoClassStateChanged(on, false);
-        serverStatus.setText("⬤ Desconectado");
+        serverOff();
 }
 
     @FXML
@@ -362,8 +392,7 @@ Mensaje mensaje = new Mensaje("Desconectado VIP");
                     Mensaje mensaje = (Mensaje) obj;
 
                     Platform.runLater(() -> {
-                        System.out.println("Mensaje del servidor: "
-                                + mensaje.getMensaje());
+                        procesarMensaje(mensaje);
                     });
                 }
 
@@ -380,8 +409,7 @@ Mensaje mensaje = new Mensaje("Desconectado VIP");
             conectado = false;
             conectToServer.setDisable(false);
             desconectar.setDisable(true);
-            serverStatus.pseudoClassStateChanged(on, false);
-            serverStatus.setText("⬤ Desconectado");
+            serverOff();
         }
     }
     private void loadProperties(){
@@ -416,6 +444,7 @@ Mensaje mensaje = new Mensaje("Desconectado VIP");
         iniciarContador(ticketActual);
         doViaje.setDisable(false);
     }
+    
     private void resetFields(){
         doViaje.setDisable(true);
         finishViaje.setDisable(true);
@@ -433,5 +462,60 @@ Mensaje mensaje = new Mensaje("Desconectado VIP");
                 finishViaje.setDisable(false);
             });
         }
+    }
+    
+    private void serverOff(){
+        serverStatus.pseudoClassStateChanged(on, false);
+        serverStatus.setText("⬤ Desconectado");
+        vipStatus.pseudoClassStateChanged(on, false);
+        vipStatus.setText("⬤ Desconectado");
+        entregasStatus.pseudoClassStateChanged(on, false);
+        entregasStatus.setText("⬤ Desconectado");
+        registroStatus.pseudoClassStateChanged(on, false);
+        registroStatus.setText("⬤ Desconectado");
+    }
+    
+    private void procesarMensaje(Mensaje mensaje) {
+        if(mensaje.getTipo()!=null){
+            switch(mensaje.getTipo()){
+                case "CONECTADO":
+                    clienteConectado(mensaje.getMensaje());
+                    break;
+                case "Desconectado":
+                    clienteDesconectado(mensaje.getMensaje());
+                    break;
+            }
+        }
+    }
+
+    private Label getLabel(String mensaje) {
+        Label label = serverStatus;
+        switch(mensaje){
+            case "General":
+                label = serverStatus;
+                break;
+            case "VIP":
+                label = vipStatus;
+                break;
+            case "Entrega":
+                label = registroStatus;
+                break;
+            case "Registro":
+                label = registroStatus;
+                break;
+        }
+        return label;
+    }
+
+    private void clienteConectado(String mensaje) {
+        Label label = getLabel(mensaje);
+        label.pseudoClassStateChanged(on, true);
+        label.setText("⬤ Disponible");
+    }
+    
+    private void clienteDesconectado(String mensaje) {
+        Label label = getLabel(mensaje);
+        label.pseudoClassStateChanged(on, false);
+        label.setText("⬤ Desconectado");
     }
 }

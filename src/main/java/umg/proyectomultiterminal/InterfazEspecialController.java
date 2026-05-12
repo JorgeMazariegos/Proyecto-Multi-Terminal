@@ -51,24 +51,21 @@ PseudoClass on = PseudoClass.getPseudoClass("activo");
     private int port;
     private Ticket ticketActual;
     private Thread contador;
+    String carPath;
     
-    @FXML private ProgressBar progressOrigen, progressDestino;
     @FXML private TextField txtDPI,txtNTicket, txtNombre, txtPago;
     @FXML private Button conectToServer, desconectar, doViaje, finishViaje;
-    @FXML private Label serverStatus,entregasStatus,registroStatus,vipStatus, tiempoOrigen, tiempoDestino;
+    @FXML private Label serverStatus,entregasStatus,registroStatus,vipStatus, txtOrigenBoleto, txtDestinoBoleto;
     @FXML private TextField txtOrigen;
     @FXML private TextField txtDestino;
-    @FXML private Label     lblEstadoBusqueda;
+    @FXML private Label lblEstadoBusqueda;
     @FXML private WebView webView;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         webView.setZoom(1.15);
-
-    mostrarRuta(
-        14.6349, -90.5069, // origen
-        14.5892, -90.5518  // destino
-    );
+        carPath =  getClass().getResource("/car.png").toExternalForm();
+        cargarMapaVacio();
 }
     //-------------------------------------------------------------------------------------------------//
     @FXML
@@ -196,12 +193,10 @@ private void mostrarRuta(
 "var carro = L.marker([" + origenLat + "," + origenLon + "], {" +
 "icon: L.divIcon({" +
 "className: 'car-icon'," +
-"html: '<img src=\"file:///C:/Users/josef/OneDrive/Desktop/CARPETA%20FERCHO/Proyecto-Multi-Terminal/src/main/resources/car.png\" width=\"32\" height=\"32\">'," +
+"html: '<img src=\"" + carPath + "\" width=\"32\" height=\"32\">'," +
 "iconSize: [32,32]" +
 "})" +
 "}).addTo(map);" +
-            
-            
 // ANIMACION
 "var lat = " + origenLat + ";" +
 "var lon = " + origenLon + ";" +
@@ -214,8 +209,11 @@ private void mostrarRuta(
 "   lon += deltaLon;" +
 "   carro.setLatLng([lat, lon]);" +
 "   contador++;" +
-"   if(contador >= pasos) {" +
+"if(contador >= pasos) {" +
 "       clearInterval(animacion);" +
+"       if(window.javaApp) {" +
+"           window.javaApp.simulacionTerminada();" +
+"       }" +
 "   }" +
 "}, 100);" +
         "</script>" +
@@ -223,7 +221,60 @@ private void mostrarRuta(
         "</html>";
     
     webView.getEngine().loadContent(html);
+    webView.getEngine().getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+        if (newState == javafx.concurrent.Worker.State.SUCCEEDED) {
+
+            netscape.javascript.JSObject window =
+                (netscape.javascript.JSObject) webView.getEngine().executeScript("window");
+
+            window.setMember("javaApp", new JSBridge());
+        }
+    });
 }
+
+private void cargarMapaVacio() {
+
+    String html =
+        "<!DOCTYPE html>" +
+        "<html>" +
+        "<head>" +
+        "<meta charset='utf-8' />" +
+        "<link rel='stylesheet' href='https://unpkg.com/leaflet/dist/leaflet.css'/>" +
+        "<script src='https://unpkg.com/leaflet/dist/leaflet.js'></script>" +
+        "<style>" +
+        "html, body, #map {" +
+        "height:100%;" +
+        "margin:0;" +
+        "}" +
+        "</style>" +
+        "</head>" +
+        "<body>" +
+        "<div id='map'></div>" +
+        "<script>" +
+
+        // MAPA VACIO
+        "var map = L.map('map').setView([14.6349, -90.5069], 12);" +
+
+        // CAPA
+        "L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {" +
+        "attribution:'OpenStreetMap'" +
+        "}).addTo(map);" +
+
+        "</script>" +
+        "</body>" +
+        "</html>";
+
+    webView.getEngine().loadContent(html);
+}
+
+    public class JSBridge {
+        public void simulacionTerminada() {
+            Platform.runLater(() -> {
+                finishViaje.setDisable(false);
+            });
+        }
+    }
+
 //---------------------------------------------------------------------------------------------------------------------//
 
 @FXML
@@ -242,8 +293,8 @@ try{
             
             conectToServer.setDisable(true);
             desconectar.setDisable(false);
-            serverStatus.pseudoClassStateChanged(on, true);
-            serverStatus.setText("⬤ Disponible");
+            entregasStatus.pseudoClassStateChanged(on, true);
+            entregasStatus.setText("⬤ Disponible");
         }catch (IOException ex) {
             System.getLogger(InterfazEspecialController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
@@ -275,9 +326,21 @@ Mensaje mensaje = new Mensaje("Desconectado Entrega");
         detenerContador();
         conectToServer.setDisable(false);
         desconectar.setDisable(true);
-        serverStatus.pseudoClassStateChanged(on, false);
-        serverStatus.setText("⬤ Desconectado");
+        serverOff();
 }
+    
+    @FXML
+    private void finalizarViaje() {
+        ticketActual.setUsuarioQueAtendio("Entrega");
+        ticketActual.setEstado("Finalizado");
+        detenerContador();
+        if(ticketActual != null) {
+            sendTicket(ticketActual);
+        }
+        resetFields();
+        solicitarTicket();
+    }
+
     private void sendMensaje(Mensaje mensaje){
         if(!conectado){
             return;
@@ -290,6 +353,20 @@ Mensaje mensaje = new Mensaje("Desconectado Entrega");
             ex.printStackTrace();
         }
     }
+    
+    private void sendTicket(Ticket ticket){
+        if(!conectado){
+            return;
+        }
+        try{
+            out.writeObject(ticket);
+            out.flush();
+        }catch(IOException ex){
+            System.out.println("Error al enviar ticket");
+            ex.printStackTrace();
+        }
+    }
+    
     private void iniciarContador(Ticket ticket){
         contador = new Thread(() -> {
             try{
@@ -322,8 +399,7 @@ Mensaje mensaje = new Mensaje("Desconectado Entrega");
                     Mensaje mensaje = (Mensaje) obj;
 
                     Platform.runLater(() -> {
-                        System.out.println("Mensaje del servidor: "
-                                + mensaje.getMensaje());
+                        procesarMensaje(mensaje);
                     });
                 }
 
@@ -340,8 +416,7 @@ Mensaje mensaje = new Mensaje("Desconectado Entrega");
             conectado = false;
             conectToServer.setDisable(false);
             desconectar.setDisable(true);
-            serverStatus.pseudoClassStateChanged(on, false);
-            serverStatus.setText("⬤ Desconectado");
+            serverOff();
         }
     }
     private void loadProperties(){
@@ -370,27 +445,78 @@ Mensaje mensaje = new Mensaje("Desconectado Entrega");
         txtDPI.setText(String.valueOf(ticket.getDPI()));
         txtNTicket.setText("#"+String.valueOf(ticket.getNumTicket()));
         txtNombre.setText(ticket.getNombre() + " " + ticket.getApellido());
-        txtOrigen.setText(ticket.getOrigen());
-        txtDestino.setText(ticket.getDestino());
+        txtOrigenBoleto.setText(ticket.getOrigen());
+        txtDestinoBoleto.setText(ticket.getDestino());
         txtPago.setText(String.valueOf(ticket.getPrecio()));
         iniciarContador(ticketActual);
         doViaje.setDisable(false);
     }
+    
     private void resetFields(){
         doViaje.setDisable(true);
         finishViaje.setDisable(true);
-        progressDestino.setProgress(0);
-        progressOrigen.setProgress(0);
-        tiempoOrigen.setText("0.00 seg");
-        tiempoDestino.setText("0.00 seg");
         txtDPI.setText("");
         txtNTicket.setText("");
         txtNombre.setText("");
-        txtOrigen.setText("");
-        txtDestino.setText("");
+        txtOrigenBoleto.setText("");
+        txtDestinoBoleto.setText("");
         txtPago.setText("");
     }
     
-    }    
+    private void procesarMensaje(Mensaje mensaje) {
+        if(mensaje.getTipo()!=null){
+            switch(mensaje.getTipo()){
+                case "CONECTADO":
+                    clienteConectado(mensaje.getMensaje());
+                    break;
+                case "Desconectado":
+                    clienteDesconectado(mensaje.getMensaje());
+                    break;
+            }
+        }
+    }
+
+    private Label getLabel(String mensaje) {
+        Label label = serverStatus;
+        switch(mensaje){
+            case "General":
+                label = serverStatus;
+                break;
+            case "VIP":
+                label = vipStatus;
+                break;
+            case "Entrega":
+                label = registroStatus;
+                break;
+            case "Registro":
+                label = registroStatus;
+                break;
+        }
+        return label;
+    }
+
+    private void clienteConectado(String mensaje) {
+        Label label = getLabel(mensaje);
+        label.pseudoClassStateChanged(on, true);
+        label.setText("⬤ Disponible");
+    }
+    
+    private void clienteDesconectado(String mensaje) {
+        Label label = getLabel(mensaje);
+        label.pseudoClassStateChanged(on, false);
+        label.setText("⬤ Desconectado");
+    }
+    
+    private void serverOff(){
+        serverStatus.pseudoClassStateChanged(on, false);
+        serverStatus.setText("⬤ Desconectado");
+        vipStatus.pseudoClassStateChanged(on, false);
+        vipStatus.setText("⬤ Desconectado");
+        entregasStatus.pseudoClassStateChanged(on, false);
+        entregasStatus.setText("⬤ Desconectado");
+        registroStatus.pseudoClassStateChanged(on, false);
+        registroStatus.setText("⬤ Desconectado");
+    }
+}    
     
 

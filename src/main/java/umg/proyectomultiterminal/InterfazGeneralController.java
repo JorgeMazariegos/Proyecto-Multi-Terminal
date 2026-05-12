@@ -132,8 +132,7 @@ public class InterfazGeneralController implements Initializable {
         detenerContador();
         conectToServer.setDisable(false);
         desconectar.setDisable(true);
-        serverStatus.pseudoClassStateChanged(on, false);
-        serverStatus.setText("⬤ Desconectado");
+        serverOff();
     }
     
     @FXML
@@ -165,8 +164,7 @@ public class InterfazGeneralController implements Initializable {
                     Mensaje mensaje = (Mensaje) obj;
 
                     Platform.runLater(() -> {
-                        System.out.println("Mensaje del servidor: "
-                                + mensaje.getMensaje());
+                        procesarMensaje(mensaje);
                     });
                 }
 
@@ -183,8 +181,7 @@ public class InterfazGeneralController implements Initializable {
             conectado = false;
             conectToServer.setDisable(false);
             desconectar.setDisable(true);
-            serverStatus.pseudoClassStateChanged(on, false);
-            serverStatus.setText("⬤ Desconectado");
+            serverOff();
         }
     }
     
@@ -335,4 +332,58 @@ public class InterfazGeneralController implements Initializable {
         txtPago.setText("");
     }
 
+    private void procesarMensaje(Mensaje mensaje) {
+        if(mensaje.getTipo()!=null){
+            switch(mensaje.getTipo()){
+                case "CONECTADO":
+                    clienteConectado(mensaje.getMensaje());
+                    break;
+                case "Desconectado":
+                    clienteDesconectado(mensaje.getMensaje());
+                    break;
+            }
+        }
+    }
+
+    private Label getLabel(String mensaje) {
+        Label label = serverStatus;
+        switch(mensaje){
+            case "General":
+                label = serverStatus;
+                break;
+            case "VIP":
+                label = vipStatus;
+                break;
+            case "Entrega":
+                label = registroStatus;
+                break;
+            case "Registro":
+                label = registroStatus;
+                break;
+        }
+        return label;
+    }
+
+    private void clienteConectado(String mensaje) {
+        Label label = getLabel(mensaje);
+        label.pseudoClassStateChanged(on, true);
+        label.setText("⬤ Disponible");
+    }
+    
+    private void clienteDesconectado(String mensaje) {
+        Label label = getLabel(mensaje);
+        label.pseudoClassStateChanged(on, false);
+        label.setText("⬤ Desconectado");
+    }
+    
+    private void serverOff(){
+        serverStatus.pseudoClassStateChanged(on, false);
+        serverStatus.setText("⬤ Desconectado");
+        vipStatus.pseudoClassStateChanged(on, false);
+        vipStatus.setText("⬤ Desconectado");
+        entregasStatus.pseudoClassStateChanged(on, false);
+        entregasStatus.setText("⬤ Desconectado");
+        registroStatus.pseudoClassStateChanged(on, false);
+        registroStatus.setText("⬤ Desconectado");
+    }
 }

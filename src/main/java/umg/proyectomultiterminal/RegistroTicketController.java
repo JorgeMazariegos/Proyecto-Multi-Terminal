@@ -21,14 +21,13 @@ import modelos.Mensaje;
 import modelos.Ticket;
 
 public class RegistroTicketController {
-
     PseudoClass on = PseudoClass.getPseudoClass("activo");
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private boolean conectado; 
     private static final Random random = new Random();
-    private static Properties config = new Properties();
+    private static final Properties config = new Properties();
     private String ip;
     private int port;
     String[] zonas ={
@@ -54,16 +53,15 @@ public class RegistroTicketController {
         "Zona 24",
         "Zona 25"
     };
-    
-    
+     
     @FXML
-    private ComboBox<String> cbxTipo, cbxOrigen, cbxDestino, cbxFiltro;
+    private ComboBox<String> cbxTipo, cbxOrigen, cbxDestino;
 
     @FXML
-    private Button generateTicket, desconectar , conectToServer;
+    private Button desconectar , conectToServer;
     
     @FXML
-    private Label title, serverStatus;
+    private Label serverStatus,entregasStatus,registroStatus,vipStatus;
 
     @FXML
     private TextField txtApellido, txtDPI, txtNombre, txtPrecio;   
@@ -71,7 +69,6 @@ public class RegistroTicketController {
     @FXML
     private void initialize(){
         cbxTipo.getItems().addAll("Viaje", "Entrega");
-        cbxFiltro.getItems().addAll("Todos","Normal", "Prioridad", "Entrega");
         cbxOrigen.getItems().addAll(zonas);
         cbxDestino.getItems().addAll(zonas);
         setupDoubleFormatter();
@@ -127,8 +124,8 @@ public class RegistroTicketController {
             sendMensaje(mensaje);
             conectToServer.setDisable(true);
             desconectar.setDisable(false);
-            serverStatus.pseudoClassStateChanged(on, true);
-            serverStatus.setText("⬤ Disponible");
+            registroStatus.pseudoClassStateChanged(on, true);
+            registroStatus.setText("⬤ Disponible");
         }catch (IOException ex) {
             System.getLogger(RegistroTicketController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
@@ -159,8 +156,7 @@ public class RegistroTicketController {
         }
         conectToServer.setDisable(false);
         desconectar.setDisable(true);
-        serverStatus.pseudoClassStateChanged(on, false);
-        serverStatus.setText("⬤ Desconectado");
+        serverOff();
     }
     
     //FUNCIONES DE UTILIDAD
@@ -247,8 +243,7 @@ public class RegistroTicketController {
                     Mensaje mensaje = (Mensaje) obj;
 
                     Platform.runLater(() -> {
-                        System.out.println("Mensaje del servidor: "
-                                + mensaje.getMensaje());
+                        procesarMensaje(mensaje);
                     });
                 }
             }
@@ -258,8 +253,7 @@ public class RegistroTicketController {
             conectado = false;
             conectToServer.setDisable(false);
             desconectar.setDisable(true);
-            serverStatus.pseudoClassStateChanged(on, false);
-            serverStatus.setText("⬤ Desconectado");
+            serverOff();
         }
     }    
     
@@ -288,5 +282,60 @@ public class RegistroTicketController {
             return null;
         });
         txtPrecio.setTextFormatter(formatter);
+    }
+    
+    private void serverOff(){
+        serverStatus.pseudoClassStateChanged(on, false);
+        serverStatus.setText("⬤ Desconectado");
+        vipStatus.pseudoClassStateChanged(on, false);
+        vipStatus.setText("⬤ Desconectado");
+        entregasStatus.pseudoClassStateChanged(on, false);
+        entregasStatus.setText("⬤ Desconectado");
+        registroStatus.pseudoClassStateChanged(on, false);
+        registroStatus.setText("⬤ Desconectado");
+    }
+    
+    private void procesarMensaje(Mensaje mensaje) {
+        if(mensaje.getTipo()!=null){
+            switch(mensaje.getTipo()){
+                case "CONECTADO":
+                    clienteConectado(mensaje.getMensaje());
+                    break;
+                case "Desconectado":
+                    clienteDesconectado(mensaje.getMensaje());
+                    break;
+            }
+        }
+    }
+
+    private Label getLabel(String mensaje) {
+        Label label = serverStatus;
+        switch(mensaje){
+            case "General":
+                label = serverStatus;
+                break;
+            case "VIP":
+                label = vipStatus;
+                break;
+            case "Entrega":
+                label = registroStatus;
+                break;
+            case "Registro":
+                label = registroStatus;
+                break;
+        }
+        return label;
+    }
+
+    private void clienteConectado(String mensaje) {
+        Label label = getLabel(mensaje);
+        label.pseudoClassStateChanged(on, true);
+        label.setText("⬤ Disponible");
+    }
+    
+    private void clienteDesconectado(String mensaje) {
+        Label label = getLabel(mensaje);
+        label.pseudoClassStateChanged(on, false);
+        label.setText("⬤ Desconectado");
     }
 }

@@ -13,6 +13,7 @@ import java.io.Serializable;
 public class Mensaje implements Serializable {
     boolean status; //Nos sirve para saber si es un mensaje sobre el status de la conexion
     String mensaje;
+    String tipo; //CONECTADO , DESCONECTADO.
 
     public Mensaje(String mensaje) {
         this.mensaje = mensaje;
@@ -35,6 +36,14 @@ public class Mensaje implements Serializable {
 
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
     
 }

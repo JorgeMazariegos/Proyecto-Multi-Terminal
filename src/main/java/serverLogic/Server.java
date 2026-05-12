@@ -17,7 +17,6 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
 import javafx.application.Platform;
 import modelos.Mensaje;
 import modelos.Ticket;
@@ -130,6 +129,9 @@ public class Server {
                                 username = texto.replace("Disponible ", "");
                                 clientes.put(username, this);
                                 System.out.println(username + " registrado");
+                                Mensaje clientes = new Mensaje(username);
+                                clientes.setTipo("CONECTADO");
+                                broadcast(clientes);
                             }
                         }                        
                         procesarMensaje(mensaje);
@@ -248,7 +250,10 @@ public class Server {
         }
     }
     
-    private void broadcast(){
-        
+    private void broadcast(Mensaje mensaje){
+        for(ClientHandler cliente : clientes.values()){
+            cliente.sendObject(mensaje);          
+        }
     }
+    
 }
