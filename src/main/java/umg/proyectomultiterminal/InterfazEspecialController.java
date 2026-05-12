@@ -55,9 +55,9 @@ PseudoClass on = PseudoClass.getPseudoClass("activo");
     
     @FXML private TextField txtDPI,txtNTicket, txtNombre, txtPago;
     @FXML private Button conectToServer, desconectar, doViaje, finishViaje;
-    @FXML private Label serverStatus,entregasStatus,registroStatus,vipStatus, txtOrigenBoleto, txtDestinoBoleto;
-    @FXML private TextField txtOrigen;
-    @FXML private TextField txtDestino;
+    @FXML private Label serverStatus,entregasStatus,registroStatus,vipStatus;
+    @FXML private TextField txtOrigen, txtOrigenBoleto;
+    @FXML private TextField txtDestino, txtDestinoBoleto;
     @FXML private Label lblEstadoBusqueda;
     @FXML private WebView webView;
     

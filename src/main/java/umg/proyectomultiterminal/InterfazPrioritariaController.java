@@ -53,7 +53,7 @@ public class InterfazPrioritariaController implements Initializable {
     
     @FXML private TextField txtDPI,txtNTicket, txtNombre, txtPago;
     @FXML private Button conectToServer, desconectar, doViaje, finishViaje;
-    @FXML private Label serverStatus,entregasStatus,registroStatus,vipStatus, tiempoOrigen, tiempoDestino;
+    @FXML private Label serverStatus,entregasStatus,registroStatus,vipStatus;
     String carPath;
     
     @FXML private TextField txtOrigen, txtOrigenBoleto;
