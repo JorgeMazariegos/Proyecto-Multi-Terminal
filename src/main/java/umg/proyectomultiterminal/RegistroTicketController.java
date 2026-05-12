@@ -6,7 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.net.Socket;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Properties;
 import java.util.Random;
 import javafx.application.Platform;
@@ -105,7 +105,7 @@ public class RegistroTicketController {
         ticket.setOrigen(cbxOrigen.getValue());
         ticket.setDestino(cbxDestino.getValue());
         ticket.setEstado("Solicitado");
-        ticket.setFechaCreacion(LocalDate.now());
+        ticket.setFechaCreacion(LocalDateTime.now());
         
         sendTicket(ticket);
     }

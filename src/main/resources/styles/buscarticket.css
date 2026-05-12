@@ -96,6 +96,7 @@
 .textField{
     -fx-border-color:#3e454f;
     -fx-background-color:#1b212d;
+    -fx-text-fill:white;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
     -fx-font-size:16;
@@ -164,9 +165,12 @@
     -fx-padding: 5;
 }
 
-.listaDPI{
+/*.listaDPI{
     -fx-background-color:#171d29;
-    -fx-background-radius: 10;
+    -fx-background-radius: 10;  
+}
+
+.listaDPI .list-cell {
     -fx-text-fill: white;
 }
 
@@ -176,7 +180,82 @@
 
 .listaDPI .list-cell:odd {
     -fx-background-color: #2a323c;
+}*/
+
+.listaDPI {
+    -fx-background-color: #171d29;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+
+    -fx-padding: 6;
+    
+    /* Removes ugly default focus border */
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
+
+/* Removes default blue background inside */
+.listaDPI .viewport {
+    -fx-background-color: transparent;
+}
+
+/* General cells */
+.listaDPI .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+
+    -fx-padding: 12 16 12 16;
+    -fx-background-radius: 10;
+
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI";
+}
+
+/* Zebra effect */
+.listaDPI .list-cell:even {
+    -fx-background-color: #131c2b;
+}
+
+.listaDPI .list-cell:odd {
+    -fx-background-color: #1d2633;
+}
+
+/* Hover effect */
+.listaDPI .list-cell:hover {
+    -fx-background-color: #2a323c;
+    -fx-cursor: hand;
+}
+
+/* Selected cell */
+.listaDPI .list-cell:selected {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+
+    -fx-font-weight: bold;
+}
+
+/* Empty cells */
+.listaDPI .list-cell:empty {
+    -fx-background-color: transparent;
+}
+
+/* Scroll bar styling */
+.listaDPI .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.listaDPI .scroll-bar:vertical .thumb {
+    -fx-background-color: #2a323c;
+    -fx-background-radius: 10;
+}
+
+.listaDPI .scroll-bar .increment-button,
+.listaDPI .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
 
 #logOff {
     -fx-text-fill: #b3b2b4;

@@ -1,7 +1,7 @@
 package modelos;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 /**
  *
  * @author AMD 5600G
@@ -26,7 +26,7 @@ public class Ticket implements Serializable {
     private int duracionTotal;
     
     //Metadata        
-    private LocalDate fechaCreacion; //fecha en la que se pidio el viaje
+    private LocalDateTime fechaCreacion; //fecha en la que se pidio el viaje
     private String usuarioQueAtendio;
     private String estado; //Solicitado, Cola, Finalizado
 
@@ -118,11 +118,11 @@ public class Ticket implements Serializable {
         this.duracionTotal = duracionTotal;
     }
 
-    public LocalDate getFechaCreacion() {
+    public LocalDateTime getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(LocalDate fechaCreacion) {
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 

@@ -64,7 +64,7 @@
                </graphic>
             </Label>
             <Label layoutX="125.0" layoutY="64.0" styleClass="infoLabel" text="Búsqueda de Ticket por DPI" />
-            <TextField layoutX="74.0" layoutY="118.0" prefHeight="25.0" prefWidth="310.0" promptText="🔍 Ingresar DPI para buscar..." styleClass="textField" />
+            <TextField fx:id="buscarDPI" layoutX="74.0" layoutY="118.0" prefHeight="25.0" prefWidth="310.0" promptText="🔍 Ingresar DPI para buscar..." styleClass="textField" />
             <Button contentDisplay="RIGHT" layoutX="75.0" layoutY="167.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="310.0" styleClass="buttonBuscar" text="Buscar Ticket">
                <graphic>
                   <ImageView fitHeight="22.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
@@ -101,77 +101,77 @@
                   <VBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="115.0" styleClass="grid-cell">
                      <children>
                         <Label styleClass="infoLabel" text="DPI:" />
-                        <Label styleClass="labelInfo" text="[12346]" />
+                        <Label fx:id="txtDPI" styleClass="labelInfo" text="[12346]" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" styleClass="grid-cell" GridPane.columnIndex="1">
                      <children>
                         <Label styleClass="infoLabel" text="NOMBRE:" />
-                        <Label styleClass="labelInfo" text="[Cindy]" />
+                        <Label fx:id="txtNombre" styleClass="labelInfo" text="[Cindy]" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" styleClass="grid-cell" GridPane.columnIndex="2">
                      <children>
                         <Label styleClass="infoLabel" text="APELLIDO:" />
-                        <Label styleClass="labelInfo" text="[Martinez]" />
+                        <Label fx:id="txtApellido" styleClass="labelInfo" text="[Martinez]" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" styleClass="grid-cell" GridPane.columnIndex="3">
                      <children>
                         <Label styleClass="infoLabel" text="ORIGEN:" />
-                        <Label styleClass="labelInfo" text="[Zona 1]" />
+                        <Label fx:id="txtOrigen" styleClass="labelInfo" text="[Zona 1]" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" styleClass="grid-cell" GridPane.columnIndex="4">
                      <children>
                         <Label styleClass="infoLabel" text="DESTINO:" />
-                        <Label styleClass="labelInfo" text="[Zona 5]" />
+                        <Label fx:id="txtDestino" styleClass="labelInfo" text="[Zona 5]" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" styleClass="grid-cell" GridPane.columnIndex="5">
                      <children>
                         <Label styleClass="infoLabel" text="TIPO:" />
-                        <Label styleClass="labelInfo" text="[General]" />
+                        <Label fx:id="txtGeneral" styleClass="labelInfo" text="[General]" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" styleClass="grid-cell" GridPane.columnIndex="6">
                      <children>
                         <Label styleClass="infoLabel" text="PRECIO:" />
-                        <Label styleClass="labelInfo" text="[Q 25.00]" />
+                        <Label fx:id="txtPrecio" styleClass="labelInfo" text="[Q 25.00]" />
                      </children>
                   </VBox>
                </children>
             </GridPane>
             <HBox layoutX="10.0" layoutY="164.0" prefHeight="60.0" prefWidth="894.0">
                <children>
-                  <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="135.0" styleClass="grid-cell">
+                  <VBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="144.0" styleClass="grid-cell">
                      <children>
-                        <Label styleClass="infoLabel" text="Tiempo en Cola" />
-                        <Label styleClass="labelInfo" text="[45s]" />
+                        <Label styleClass="infoLabel" text="Tiempo en Cola:" />
+                        <Label fx:id="txtTiempoCola" styleClass="labelInfo" text="[45s]" />
                      </children>
                   </VBox>
                   <VBox prefHeight="60.0" prefWidth="166.0" styleClass="grid-cell">
                      <children>
                         <Label styleClass="infoLabel" text="Duración Atención:" />
-                        <Label styleClass="labelInfo" text="[26s]" />
+                        <Label fx:id="txtTiempoAtencion" styleClass="labelInfo" text="[26s]" />
                      </children>
                   </VBox>
                   <VBox prefHeight="60.0" prefWidth="143.0" styleClass="grid-cell">
                      <children>
                         <Label styleClass="infoLabel" text="Tiempo Total:" />
-                        <Label styleClass="labelInfo" text="[71s]" />
+                        <Label fx:id="txtTiempoTotal" styleClass="labelInfo" text="[71s]" />
                      </children>
                   </VBox>
                   <VBox prefHeight="60.0" prefWidth="188.0" styleClass="grid-cell">
                      <children>
                         <Label styleClass="infoLabel" text="Fecha Creación:" />
-                        <Label styleClass="labelInfo" text="[10-05-2026 09:12]" />
+                        <Label fx:id="txtFechaAtencion" styleClass="labelInfo" text="[10-05-2026 09:12]" />
                      </children>
                   </VBox>
                   <VBox prefHeight="60.0" prefWidth="176.0" styleClass="grid-cell">
                      <children>
                         <Label styleClass="infoLabel" text="Usuario que Atendió:" />
-                        <Label styleClass="labelInfo" text="[General]" />
+                        <Label fx:id="txtUsuarioAtendio" styleClass="labelInfo" text="[General]" />
                      </children>
                   </VBox>
                </children>

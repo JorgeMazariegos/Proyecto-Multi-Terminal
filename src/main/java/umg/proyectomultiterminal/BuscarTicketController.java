@@ -9,10 +9,13 @@ import estructuras.Cola;
 import estructuras.TablaHash;
 import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import modelos.Ticket;
 /**
  * FXML Controller class
@@ -24,7 +27,10 @@ public class BuscarTicketController implements Initializable {
     TablaHash tabla = new TablaHash();
     
     @FXML private ListView<String> listaViajes;
-
+    @FXML private TextField buscarDPI;
+    @FXML
+    private Label txtTiempoBusqueda , txtDPI, txtNombre, txtApellido, txtOrigen, txtDestino, txtGeneral, txtPrecio, txtTiempoCola, txtTiempoAtencion, txtTiempoTotal, txtFechaAtencion, txtUsuarioAtendio;    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -46,6 +52,18 @@ public class BuscarTicketController implements Initializable {
         }
     }
 
+    @FXML
+    private void buscarDPI(){
+        int dpi = Integer.parseInt(buscarDPI.getText());
+        long inicio = System.nanoTime();
+        Ticket ticket = tabla.get(dpi);
+        long fin = System.nanoTime();
+        long total = fin - inicio;
+        double totalMs = total / 1_000_000.0;
+        txtTiempoBusqueda.setText(totalMs + "ms");
+        mostrarDatosTicket(ticket);
+    }
+    
     private void cargarDPIALista(Cola cola){
         while(!cola.isEmpty()){
             Ticket ticket = cola.dequeue();
@@ -55,5 +73,57 @@ public class BuscarTicketController implements Initializable {
         }
     }
     
+    private void mostrarDatosTicket(Ticket ticket){
+        DateTimeFormatter formato =
+        DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+        txtDPI.setText(
+            "[" + ticket.getDPI() + "]"
+        );
+
+        txtNombre.setText(
+            "[" + ticket.getNombre() + "]"
+        );
+
+        txtApellido.setText(
+            "[" + ticket.getApellido() + "]"
+        );
+
+        txtOrigen.setText(
+            "[" + ticket.getOrigen() + "]"
+        );
+
+        txtDestino.setText(
+            "[" + ticket.getDestino() + "]"
+        );
+
+        txtGeneral.setText(
+            "[" + ticket.getTipo() + "]"
+        );
+
+        txtPrecio.setText(
+            "[" + ticket.getPrecio() + "]"
+        );
+
+        txtTiempoCola.setText(
+            "[" + ticket.getTiempoEnCola() + "s]"
+        );
+
+        txtTiempoAtencion.setText(
+            "[" + ticket.getDuracionAtencion() + "s]"
+        );
+
+        txtTiempoTotal.setText(
+            "[" + ticket.getDuracionTotal() + "s]"
+        );
+
+        txtFechaAtencion.setText(
+            "[" + ticket.getFechaCreacion().format(formato) + "]"
+        );
+
+        txtUsuarioAtendio.setText(
+            "[" + ticket.getUsuarioQueAtendio() + "]"
+        );
+    }
 }
 
