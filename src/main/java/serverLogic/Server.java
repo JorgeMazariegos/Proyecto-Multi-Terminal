@@ -76,7 +76,13 @@ public class Server {
     }
     
     public void stop() {
-        if (!running) return;
+        if (!running){
+            return;
+        }
+        for(ClientHandler cliente : clientes.values()){
+            cliente.disconnect();
+        }
+        clientes.clear();
         running = false;
         try {
             if (serverSocket != null && !serverSocket.isClosed()) {
@@ -129,9 +135,10 @@ public class Server {
                                 username = texto.replace("Disponible ", "");
                                 clientes.put(username, this);
                                 System.out.println(username + " registrado");
-                                Mensaje clientes = new Mensaje(username);
-                                clientes.setTipo("CONECTADO");
-                                broadcast(clientes);
+                                enviarListaClientes(this);
+                                Mensaje conexion = new Mensaje(username);
+                                conexion.setTipo("CONECTADO");      
+                                broadcast(conexion);
                             }
                         }                        
                         procesarMensaje(mensaje);
@@ -144,6 +151,9 @@ public class Server {
                 e.printStackTrace();
             } finally {
                 clientes.remove(username);
+                Mensaje desconexion = new Mensaje(username);
+                desconexion.setTipo("DESCONECTADO");
+                broadcast(desconexion);             
                 try {
                     socket.close(); 
                     in.close();
@@ -236,6 +246,16 @@ public class Server {
                 e.printStackTrace();
             }
         }
+        
+        public void disconnect() {
+            try {
+                if(socket != null && !socket.isClosed()){
+                    socket.close();
+                }
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     private void loadProperties(){
@@ -252,7 +272,15 @@ public class Server {
     
     private void broadcast(Mensaje mensaje){
         for(ClientHandler cliente : clientes.values()){
-            cliente.sendObject(mensaje);          
+            cliente.sendObject(mensaje);
+        }
+    }
+    
+    private void enviarListaClientes(ClientHandler clienteNuevo){
+        for(String nombre : clientes.keySet()){
+            Mensaje mensaje = new Mensaje(nombre);
+            mensaje.setTipo("CLIENTE_CONECTADO");
+            clienteNuevo.sendObject(mensaje);
         }
     }
     

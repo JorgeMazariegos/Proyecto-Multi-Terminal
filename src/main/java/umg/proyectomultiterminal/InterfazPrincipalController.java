@@ -33,17 +33,9 @@ public class InterfazPrincipalController {
     PseudoClass on = PseudoClass.getPseudoClass("activo");
     Server server = new Server();
        
-    @FXML
-    private Pane contentArea;
 
     @FXML
     private Button detenerServidor;
-
-    @FXML
-    private Pane lastTicket;
-
-    @FXML
-    private Button logOff;
 
     @FXML
     private Label serverStatus;
@@ -131,7 +123,7 @@ public class InterfazPrincipalController {
         }
     }
     
-    public void agregarTicket(Ticket ticket){
+    public synchronized void agregarTicket(Ticket ticket){
         String tickerNum = String.valueOf(ticket.getNumTicket());
         try {
             
@@ -249,7 +241,7 @@ public class InterfazPrincipalController {
         }
     }
     
-    public Ticket enviarTicket(String cola){
+    public synchronized Ticket enviarTicket(String cola){
         Ticket ticket = null;
         switch(cola){
             case "General":
