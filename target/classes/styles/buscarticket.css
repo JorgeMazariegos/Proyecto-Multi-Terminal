@@ -1,0 +1,308 @@
+.anchorPane{
+    -fx-background-color:#132235;
+}
+
+#title {
+    -fx-font-family: "Orbitron";
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    /* degradado dorado */
+    -fx-text-fill: #f5f7f3;
+    /* “3D” con sombras */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.9), 6, 0.6, 3, 3);
+}
+
+#logo{
+    -fx-scale-x: 3.5; 
+    -fx-scale-y: 3.5;
+}
+
+.infoLabel{
+    -fx-text-fill: #babfca;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+.pane{
+    -fx-background-color:#151c26;
+    -fx-border-color: gold;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.paneBuscar{
+    -fx-background-color:#151c26;
+    -fx-border-color: #7ccd4d;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.labelPanel{
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 1.5px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 4, 0.5, 2, 2);
+    -fx-text-fill: white;
+}
+
+.vbox{
+    -fx-background-color:#212832;
+    -fx-border-color:#3e454f;
+    -fx-border-style: dashed;
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+    -fx-background-radius: 10;
+    -fx-spacing: 10;
+}
+
+.labelInfo{
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+.buttonCargar{
+    -fx-background-color: #7ccd4d;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+.buttonCargar {
+    -fx-background-color: #7ccd4d;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+.buttonCargar:hover {
+    -fx-background-color: #92e05f;
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(124,205,77,0.4),
+        10,
+        0.3,
+        0,
+        2
+    );
+}
+.buttonCargar:pressed {
+    -fx-background-color: #5fa83a;
+
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+.textField{
+    -fx-border-color:#3e454f;
+    -fx-background-color:#1b212d;
+    -fx-text-fill:white;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-font-size:16;
+}
+
+.buttonBuscar{
+    -fx-background-color: #7ccd4d;
+    -fx-font-size:16;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+.buttonBuscar:hover {
+    -fx-background-color: #92e05f;
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(124,205,77,0.4),
+        10,
+        0.3,
+        0,
+        2
+    );
+}
+.buttonBuscar:pressed {
+    -fx-background-color: #5fa83a;
+
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+#txtTiempoBusqueda{
+    -fx-background-color: #1e2e2a;
+    -fx-border-color: transparent transparent transparent #7ccd4d;
+    -fx-border-width:6;
+    -fx-border-radius: 2;
+    -fx-text-fill: #8cc07d;
+    -fx-background-radius: 10;
+    -fx-padding: 0 0 0 5;
+}
+
+.labelTicketInfo{
+    -fx-background-color: #1e2e2a;
+    -fx-border-color: transparent transparent transparent #7ccd4d;
+    -fx-border-width:6;
+    -fx-border-radius: 2;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+}
+
+.gridPane{
+    -fx-vgap: 5;
+}
+
+.grid-cell {
+    -fx-border-color: transparent transparent transparent #7ccd4d;
+    -fx-border-width:5;
+    -fx-padding: 0 0 0 5;
+}
+
+.panelLista{
+    -fx-background-color:#171d29;
+    -fx-border-color:#6282b2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 5;
+}
+
+/*.listaDPI{
+    -fx-background-color:#171d29;
+    -fx-background-radius: 10;  
+}
+
+.listaDPI .list-cell {
+    -fx-text-fill: white;
+}
+
+.listaDPI .list-cell:even {
+    -fx-background-color: #131c2b;
+}
+
+.listaDPI .list-cell:odd {
+    -fx-background-color: #2a323c;
+}*/
+
+.listaDPI {
+    -fx-background-color: #171d29;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+
+    -fx-padding: 6;
+    
+    /* Removes ugly default focus border */
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* Removes default blue background inside */
+.listaDPI .viewport {
+    -fx-background-color: transparent;
+}
+
+/* General cells */
+.listaDPI .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+
+    -fx-padding: 12 16 12 16;
+    -fx-background-radius: 10;
+
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI";
+}
+
+/* Zebra effect */
+.listaDPI .list-cell:even {
+    -fx-background-color: #131c2b;
+}
+
+.listaDPI .list-cell:odd {
+    -fx-background-color: #1d2633;
+}
+
+/* Hover effect */
+.listaDPI .list-cell:hover {
+    -fx-background-color: #2a323c;
+    -fx-cursor: hand;
+}
+
+/* Selected cell */
+.listaDPI .list-cell:selected {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+
+    -fx-font-weight: bold;
+}
+
+/* Empty cells */
+.listaDPI .list-cell:empty {
+    -fx-background-color: transparent;
+}
+
+/* Scroll bar styling */
+.listaDPI .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.listaDPI .scroll-bar:vertical .thumb {
+    -fx-background-color: #2a323c;
+    -fx-background-radius: 10;
+}
+
+.listaDPI .scroll-bar .increment-button,
+.listaDPI .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+
+#logOff {
+    -fx-text-fill: #b3b2b4;
+    -fx-background-color: transparent;
+
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+
+    -fx-padding: 8 16;
+
+    -fx-cursor: hand;
+
+    -fx-transition: all 0.2s;
+}
+
+#logOff:hover {
+    -fx-text-fill: #ffffff;
+
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(255,255,255,0.15),
+        10,
+        0.2,
+        0,
+        2
+    );
+}
+
+#logOff:pressed {
+    -fx-text-fill: #d9d9d9;
+
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+
+    -fx-scale-x: 0.97;
+    -fx-scale-y: 0.97;
+
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(255,255,255,0.08),
+        5,
+        0.1,
+        0,
+        1
+    );
+}

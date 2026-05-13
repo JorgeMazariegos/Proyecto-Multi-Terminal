@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../../styles/interfazPrincipal.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.proyectomultiterminal.InterfazPrincipalController">
+   <children>
+      <Pane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: black;">
+         <children>
+              <Label fx:id="title" layoutX="14.0" layoutY="14.0" text="Servidor Principal">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../serverIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label fx:id="serverStatus" layoutX="341.0" layoutY="19.0" text="⬤ Apagado" />
+            <Button fx:id="startServer" layoutX="662.0" layoutY="18.0" mnemonicParsing="false" onAction="#startServer" prefHeight="43.0" prefWidth="178.0" text="▶ Iniciar Servidor" />
+            <Button fx:id="detenerServidor" disable="true" layoutX="853.0" layoutY="20.0" mnemonicParsing="false" onAction="#stopServer" text="■ Detener Servidor" />
+              <Button fx:id="logOff" layoutX="1042.0" layoutY="14.0" onAction="#switchToPrimary" text="➜] Regresar" />
+            <Pane fx:id="contentArea" layoutY="72.0" prefHeight="728.0" prefWidth="1200.0" styleClass="pane">
+               <children>
+                  <VBox fx:id="summary" alignment="TOP_CENTER" layoutX="12.0" layoutY="13.0" prefHeight="672.0" prefWidth="208.0">
+                     <children>
+                        <Label styleClass="yellowLabel" text="Resumen General" />
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="157.0">
+                           <styleClass>
+                              <String fx:value="infoPanel" />
+                              <String fx:value="totalViajes" />
+                           </styleClass>
+                           <children>
+                              <Label layoutX="21.0" layoutY="14.0" styleClass="infoLabel" text="Viajes atendidos" />
+                              <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="104.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../arrow.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="viajesAtendidos" layoutX="21.0" layoutY="37.0" prefHeight="45.0" prefWidth="6.0" text="0">
+                                 <styleClass>
+                                    <String fx:value="infoLabel" />
+                                    <String fx:value="totalViajesLabel" />
+                                 </styleClass>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Button fx:id="guardarTickets" mnemonicParsing="false" onAction="#guardarTickets" text="Guardar Viajes" />
+                        <Button mnemonicParsing="false" onAction="#switchToInterfazCargar" prefHeight="49.0" prefWidth="154.0" text="Buscar Viajes" />
+                     </children>
+                  </VBox>
+                  <SplitPane dividerPositions="0.13" layoutX="232.0" layoutY="14.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0" styleClass="splitPanel">
+                    <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="155.0" prefWidth="177.0">
+                           <children>
+                              <ImageView fitHeight="37.0" fitWidth="39.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../car.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="65.0" layoutY="20.0" style="-fx-text-fill: #658dd5;" styleClass="infoLabel" text="GENERAL" />
+                              <Label fx:id="lblColaGeneral" layoutX="200.0" layoutY="15.0" text="0">
+                                 <styleClass>
+                                    <String fx:value="numberInQueue" />
+                                    <String fx:value="normalInQueue" />
+                                 </styleClass>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="200.0" prefWidth="200.0">
+                           <content>
+                              <VBox fx:id="colaNormal" alignment="TOP_CENTER" prefHeight="423.0" prefWidth="248.0" styleClass="vbox" />
+                           </content>
+                        </ScrollPane>
+                    </items>
+                  </SplitPane>
+                  <SplitPane dividerPositions="0.13" layoutX="503.0" layoutY="14.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0">
+                     <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="28.0" prefWidth="158.0">
+                           <children>
+                              <ImageView fitHeight="37.0" fitWidth="39.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../star.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="61.0" layoutY="20.0" style="-fx-text-fill: #ddb959;" styleClass="infoLabel" text="VIP" />
+                              <Label fx:id="lblColaVip" layoutX="200.0" layoutY="15.0" text="0">
+                                 <styleClass>
+                                    <String fx:value="numberInQueue" />
+                                    <String fx:value="vipInQueue" />
+                                 </styleClass>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <ScrollPane fx:id="vipScrollPane" fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="200.0" prefWidth="200.0">
+                           <content>
+                              <VBox fx:id="colaVIP" alignment="TOP_CENTER" prefHeight="423.0" prefWidth="248.0" styleClass="vbox" />
+                           </content>
+                        </ScrollPane>
+                     </items>
+                     <styleClass>
+                        <String fx:value="splitPanel" />
+                        <String fx:value="vipQueue" />
+                     </styleClass>
+                  </SplitPane>
+                  <SplitPane dividerPositions="0.13" layoutX="774.0" layoutY="14.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0">
+                     <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="28.0" prefWidth="158.0">
+                           <children>
+                              <ImageView fitHeight="37.0" fitWidth="39.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../paquete.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="58.0" layoutY="20.0" style="-fx-text-fill: #a37ad5;" styleClass="infoLabel" text="ENTREGAS" />
+                              <Label fx:id="lblColaEsp" layoutX="200.0" layoutY="15.0" text="0">
+                                 <styleClass>
+                                    <String fx:value="numberInQueue" />
+                                    <String fx:value="espInQueue" />
+                                 </styleClass>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <ScrollPane fx:id="espScrollPane" fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="200.0" prefWidth="200.0">
+                           <content>
+                              <VBox fx:id="colaEsp" alignment="TOP_CENTER" prefHeight="423.0" prefWidth="248.0" styleClass="vbox" />
+                           </content>
+                        </ScrollPane>
+                     </items>
+                     <styleClass>
+                        <String fx:value="splitPanel" />
+                        <String fx:value="espQueue" />
+                     </styleClass>
+                  </SplitPane>
+                  <Pane fx:id="lastTicket" layoutX="232.0" layoutY="534.0" prefHeight="151.0" prefWidth="250.0" styleClass="normalInQueue">
+                     <children>
+                        <ImageView fx:id="imgGeneral" fitHeight="64.0" fitWidth="55.0" layoutX="14.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../wait.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="ticketCompletadoNormal" layoutX="85.0" layoutY="14.0" styleClass="infoLabel" text="Esperando..." />
+                        <Label fx:id="destinoNormal" layoutX="69.0" layoutY="39.0" prefHeight="35.0" prefWidth="178.0" styleClass="locationInfo" text="Destino:">
+                           <graphic>
+                              <ImageView fitHeight="35.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../location.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                        <Label fx:id="precioNormal" layoutX="74.0" layoutY="88.0" prefHeight="27.0" prefWidth="168.0" styleClass="locationInfo" text=" 💸 Tarifa:" />
+                     </children>
+                  </Pane>
+                  <VBox alignment="CENTER" layoutX="1035.0" layoutY="14.0" prefHeight="100.0" prefWidth="157.0" style="-fx-background-color: #17181c;" styleClass="infoPanel">
+                     <children>
+                        <Label style="-fx-text-fill: green;" styleClass="infoLabel" text="Registro - PC2">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="statusRegistro" prefHeight="30.0" prefWidth="142.0" style="-fx-text-fill: red;" text="⬤ Desconectado">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="1035.0" layoutY="131.0" prefHeight="100.0" prefWidth="157.0" style="-fx-background-color: #17181c; -fx-border-color: #3a3d42;" styleClass="infoPanel">
+                     <children>
+                        <Label style="-fx-text-fill: #658dd5;" styleClass="infoLabel" text="General - PC3">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="statusGeneral" style="-fx-text-fill: red;" text="⬤ Desconectado">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="1035.0" layoutY="250.0" prefHeight="100.0" prefWidth="157.0">
+                     <children>
+                        <Label style="-fx-text-fill: gold;" styleClass="infoLabel" text="VIP - PC4">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="statusVIP" style="-fx-text-fill: red;" text="⬤ Desconectado">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <styleClass>
+                        <String fx:value="infoPanel" />
+                        <String fx:value="vipQueue" />
+                     </styleClass>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="1035.0" layoutY="367.0" prefHeight="100.0" prefWidth="157.0">
+                     <children>
+                        <Label style="-fx-text-fill: #a37ad5;" styleClass="infoLabel" text="Entregas - PC5">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="statusEspecial" style="-fx-text-fill: red;" text="⬤ Desconectado">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <styleClass>
+                        <String fx:value="infoPanel" />
+                        <String fx:value="espQueue" />
+                     </styleClass>
+                  </VBox>
+                  <Pane fx:id="lastTicket1" layoutX="503.0" layoutY="534.0" prefHeight="151.0" prefWidth="250.0" style="-fx-border-radius: 10;" styleClass="vipQueue">
+                     <children>
+                        <ImageView fx:id="imgVIP" fitHeight="64.0" fitWidth="55.0" layoutX="14.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../wait.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="ticketCompletadoVIP" layoutX="85.0" layoutY="14.0" styleClass="infoLabel" text="Esperando..." />
+                        <Label fx:id="destinoVIP" layoutX="69.0" layoutY="39.0" prefHeight="35.0" prefWidth="178.0" styleClass="locationInfo" text="Destino:">
+                           <graphic>
+                              <ImageView fitHeight="35.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../location.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                        <Label fx:id="precioVIP" layoutX="74.0" layoutY="88.0" prefHeight="27.0" prefWidth="168.0" styleClass="locationInfo" text=" 💸 Tarifa:" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="lastTicket2" layoutX="774.0" layoutY="534.0" prefHeight="151.0" prefWidth="248.0" style="-fx-border-radius: 10;" styleClass="espQueue">
+                     <children>
+                        <ImageView fx:id="imgEntrega" fitHeight="64.0" fitWidth="55.0" layoutX="14.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../wait.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="ticketCompletadoEntrega" layoutX="85.0" layoutY="14.0" styleClass="infoLabel" text="Esperando..." />
+                        <Label fx:id="destinoEntregas" layoutX="69.0" layoutY="39.0" prefHeight="35.0" prefWidth="178.0" styleClass="locationInfo" text="Destino:">
+                           <graphic>
+                              <ImageView fitHeight="35.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../location.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                        <Label fx:id="precioEntregas" layoutX="74.0" layoutY="88.0" prefHeight="27.0" prefWidth="168.0" styleClass="locationInfo" text=" 💸 Tarifa:" />
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

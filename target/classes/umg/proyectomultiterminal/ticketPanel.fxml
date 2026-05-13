@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="200.0" styleClass="anchorPane" stylesheets="@../../styles/ticketpanel.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="umg.proyectomultiterminal.TicketPanelController">
+   <children>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="200.0" styleClass="pane">
+         <children>
+            <ImageView fx:id="imageView" fitHeight="46.0" fitWidth="43.0" layoutX="14.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../car.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="numTicket" layoutX="69.0" layoutY="17.0" text="Ticket #" />
+            <Label fx:id="espera" layoutX="72.0" layoutY="44.0" text="Espera:" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

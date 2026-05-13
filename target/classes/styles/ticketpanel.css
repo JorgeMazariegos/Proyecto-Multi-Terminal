@@ -1,0 +1,22 @@
+.anchorPane{
+    -fx-background-color: transparent;
+}
+
+.pane {
+-fx-background-color: #191a1c;
+-fx-border-color: #303133;
+-fx-background-radius: 10px;
+-fx-border-radius: 10px;
+-fx-border-width: 1 1 1 1px;
+}
+
+#numTicket{
+    -fx-font-size: 18;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+#espera{
+    -fx-font-size: 14;
+    -fx-text-fill: white;
+}

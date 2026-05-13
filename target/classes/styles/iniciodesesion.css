@@ -1,0 +1,177 @@
+.pane{
+    -fx-background-color:   linear-gradient(to bottom, #16253a, #050912); 
+}
+
+.splitPanel{
+    -fx-background-color: linear-gradient(to top, #091427, #151c26) ; 
+    -fx-background-radius: 8px;           /* rounded corners for background */
+    -fx-border-radius: 8px;       /* match background radius */
+    -fx-border-width: 2;
+    -fx-spacing: 10;
+    -fx-pref-width:225;
+    -fx-pref-height:380;
+}
+.splitPanel .split-pane-divider {
+    -fx-background-color: #2a2d32;        /* divider color, slightly lighter than background */
+    -fx-padding: 0 1px 0 1px;        /* thin divider width */
+}
+
+.split-verde {
+    -fx-border-color: #373b46 #373b46 #7bd947 #373b46;
+}
+.split-amarillo {
+    -fx-border-color: #373b46 #373b46 #e8d23d #373b46;
+}
+.split-morado {
+    -fx-border-color: #373b46 #373b46 #9058F7 #373b46;
+}
+.split-celeste {
+    -fx-border-color: #373b46 #373b46 #4c93fe #373b46;
+}
+
+.hbox{
+    -fx-spacing: 10;
+}
+
+.vbox{
+    -fx-spacing: 20;
+}
+
+.separator{
+    -fx-pref-width:40;
+    -fx-background-radius: 4px; 
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.separator-yellow .line {
+    -fx-background-color: #e8d23d;
+    -fx-background-radius: 4px;
+    -fx-pref-height: 4px;
+    -fx-border-color: transparent;
+}
+
+.separator-yellow{
+    -fx-background-color:#e8d23d;
+}
+
+.separator-green .line {
+    -fx-background-color: #9ae96b;
+    -fx-background-radius: 4px;
+    -fx-pref-height: 4px;
+    -fx-border-color: transparent;
+}
+
+.separator-green{
+    -fx-background-color:#9ae96b;
+}
+
+.separator-celeste .line {
+    -fx-background-color: #4c93fe;
+    -fx-background-radius: 4px;
+    -fx-pref-height: 4px;
+    -fx-border-color: transparent;
+}
+
+.separator-celeste{
+    -fx-background-color:#4c93fe;
+}
+
+.separator-morado .line {
+    -fx-background-color: #9058F7;
+    -fx-background-radius: 4px;
+    -fx-pref-height: 4px;
+    -fx-border-color: transparent;
+}
+
+.separator-morado{
+    -fx-background-color:#9058F7;
+}
+
+/*botones*/
+.button {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-width: 1.5;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-content-display: right;
+}
+.button-verde {
+    -fx-background-color:#121923;
+    -fx-text-fill: #9ae96b;
+}
+.button-verde:hover {
+    -fx-background-color: rgba(0,255,136,0.30);
+}
+.button-verde:pressed {
+    -fx-background-color: rgba(0,255,136,0.55);
+}
+/*---------*/
+.button-amarillo {
+    -fx-background-color:#151922;
+    -fx-text-fill: #e8d23d;
+    
+}
+.button-amarillo:hover {
+    -fx-background-color: rgba(255,215,0,0.30);
+}
+.button-amarillo:pressed {
+    -fx-background-color: rgba(255,215,0,0.55);
+}
+/*------*/
+.button-morado {
+    -fx-background-color:#151922;
+    -fx-text-fill: #9058F7;
+}
+.button-morado:hover {
+    -fx-background-color: rgba(168,85,247,0.30);
+}
+.button-morado:pressed {
+    -fx-background-color: rgba(168,85,247,0.55);
+}
+/*------*/
+.button-celeste {
+    -fx-background-color:#121923;
+    -fx-text-fill: #4c93fe;
+}
+
+.button-celeste:hover {
+    -fx-background-color: rgba(56,189,248,0.30);
+}
+
+.button-celeste:pressed {
+    -fx-background-color: rgba(56,189,248,0.55);
+}
+
+#title {
+    -fx-font-family: "Orbitron";
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    /* degradado dorado */
+    -fx-text-fill: #f5f7f3;
+    /* “3D” con sombras */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.9), 6, 0.6, 3, 3);
+}
+
+.infoLabel{
+    -fx-text-fill: #babfca;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+
+.label-panel {
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 1.5px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 4, 0.5, 2, 2);
+    -fx-text-fill: white;
+}
+
+#logo{
+    -fx-scale-x: 3.5; 
+    -fx-scale-y: 3.5;
+}
