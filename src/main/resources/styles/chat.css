@@ -1,0 +1,79 @@
+.chat-scroll {
+    -fx-background: #171d29;
+    -fx-background-color: #171d29;
+    -fx-border-color: #2b2d31;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-padding: 10;
+}
+
+.chatArea {
+    -fx-background-color: #171d29;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+
+    -fx-text-fill: white;
+    -fx-highlight-fill: #3b82f6;
+    -fx-highlight-text-fill: white;
+
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI";
+
+    /* remove ugly focus glow */
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* inner text area (important for JavaFX TextArea) */
+.chatArea .content {
+    -fx-background-color: #171d29;
+    -fx-background-radius: 16;
+}
+
+/* placeholder text */
+.chatArea .text {
+    -fx-fill: white;
+}
+
+/* scroll pane inside textarea */
+.chatArea .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.chatArea .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* scroll bars */
+.chatArea .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.chatArea .scroll-bar:vertical .thumb {
+    -fx-background-color: #2a323c;
+    -fx-background-radius: 10;
+}
+
+.chatArea .scroll-bar .increment-button,
+.chatArea .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.chatInput {
+    -fx-background-color: #131c2b;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: #2d3748;
+    -fx-border-width: 1;
+
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #7a8596;
+
+    -fx-font-size: 14px;
+    -fx-padding: 10 14 10 14;
+
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}

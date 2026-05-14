@@ -1,0 +1,14 @@
+.custom-alert {
+    -fx-background-color: #1e1f22;
+}
+
+.custom-alert .label {
+    -fx-text-fill: white;
+}
+
+.custom-alert .button {
+    -fx-background-color: #658dd5;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+}
+

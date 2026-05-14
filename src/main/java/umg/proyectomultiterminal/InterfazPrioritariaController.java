@@ -7,12 +7,10 @@ package umg.proyectomultiterminal;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.concurrent.Task;
 import javafx.application.Platform;
-
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 import java.io.BufferedReader;
@@ -23,10 +21,18 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.scene.web.WebView;
 import modelos.Mensaje;
 import modelos.Ticket;
@@ -51,10 +57,13 @@ public class InterfazPrioritariaController implements Initializable {
     private Ticket ticketActual;
     private Thread contador;
     
-    @FXML private TextField txtDPI,txtNTicket, txtNombre, txtPago;
+    @FXML private TextField txtDPI,txtNTicket, txtNombre, txtPago, sendMessage;
     @FXML private Button conectToServer, desconectar, doViaje, finishViaje;
     @FXML private Label serverStatus,entregasStatus,registroStatus,vipStatus;
     String carPath;
+    
+    @FXML private TextFlow chatArea;
+    @FXML private ScrollPane chatScroll;
     
     @FXML private TextField txtOrigen, txtOrigenBoleto;
     @FXML private TextField txtDestino, txtDestinoBoleto;
@@ -114,6 +123,16 @@ private void buscarDireccion() {
     );
     new Thread(task).start();
 }
+
+    @FXML
+    private void enviarMensaje(KeyEvent event) {
+        Mensaje mensaje = new Mensaje(sendMessage.getText());        
+        mensaje.setCliente("VIP");
+        if (event.getCode() == KeyCode.ENTER) {
+            sendMensaje(mensaje);
+            sendMessage.setText("");
+        }
+    }
 
 private double[] geocodificar(String lugar) throws Exception {
     String encoded = URLEncoder.encode(lugar, StandardCharsets.UTF_8);
@@ -491,7 +510,7 @@ Mensaje mensaje = new Mensaje("Desconectado VIP");
                 label = vipStatus;
                 break;
             case "Entrega":
-                label = registroStatus;
+                label = entregasStatus;
                 break;
             case "Registro":
                 label = registroStatus;
@@ -506,10 +525,12 @@ Mensaje mensaje = new Mensaje("Desconectado VIP");
                 case "CONECTADO":
                     clienteConectado(mensaje);
                     break;
-                case "Desconectado":
+                case "DESCONECTADO":
                     clienteDesconectado(mensaje);
                     break;
             }
+        }else{
+            agregarMensaje(mensaje.getCliente(), mensaje.getMensaje());
         }
     }
 
@@ -522,10 +543,46 @@ Mensaje mensaje = new Mensaje("Desconectado VIP");
     }
     
     private void clienteDesconectado(Mensaje mensaje) {
-        for(String cliente : mensaje.getClientes()){
-            Label label = getLabel(cliente);
-            label.pseudoClassStateChanged(on, false);
-            label.setText("⬤ Desconectado");
-        }      
+        Label label = getLabel(mensaje.getMensaje());
+        label.pseudoClassStateChanged(on, false);
+        label.setText("⬤ Desconectado");     
+    }
+    
+    private void agregarMensaje(String usuario, String mensaje) {
+        String color = obtenerColorUsuario(usuario);
+        String hora = LocalTime.now()
+                .format(DateTimeFormatter.ofPattern("HH:mm"));
+        Text timestamp = new Text("[" + hora + "] ");
+        timestamp.setFill(Color.GRAY);
+        Text username = new Text(usuario + ": ");
+        username.setFill(Color.web(color));
+        username.setStyle("-fx-font-weight: bold;");
+        Text contenido = new Text(mensaje + "\n");
+        contenido.setFill(Color.WHITE);
+        chatArea.getChildren().addAll(
+                timestamp,
+                username,
+                contenido
+        );
+        Platform.runLater(() -> {
+            chatScroll.setVvalue(1.0);
+        });
+    }
+    
+    private String obtenerColorUsuario(String usuario){
+        switch(usuario){
+            case "Registro":
+                return "#9ae96b";
+            case "General":
+                return "#658dd5";
+            case "VIP":
+                return "#FFD700";
+            case "Entrega":
+                return "#a37ad5";
+            case "Server":
+                return "#4ec9b0";
+            default:
+                return "#FFFFFF";
+        }
     }
 }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -12,9 +14,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #070b0e;" stylesheets="@../../styles/interfazprioritaria.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.proyectomultiterminal.InterfazPrioritariaController">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #070b0e;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umg.proyectomultiterminal.InterfazPrioritariaController">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true">
          <image>
@@ -23,8 +26,8 @@
       <Button fx:id="finishViaje" disable="true" layoutX="362.0" layoutY="705.0" mnemonicParsing="false" onAction="#finalizarViaje" prefHeight="44.0" prefWidth="463.0" text="Finalizar Atencion Prioritaria" />
       <Pane layoutX="26.0" layoutY="14.0" prefHeight="59.0" prefWidth="524.0" styleClass="infoPanel">
          <children>
-            <Button fx:id="conectToServer" layoutX="138.0" layoutY="15.0" mnemonicParsing="false" onAction="#connect" prefHeight="31.0" prefWidth="160.0" text="▶ Conectar al Servidor" />
-            <Button fx:id="desconectar" disable="true" layoutX="309.0" layoutY="17.0" mnemonicParsing="false" onAction="#disconnect" text="■ Desconectar" />
+            <Button fx:id="conectToServer" layoutX="129.0" layoutY="15.0" mnemonicParsing="false" onAction="#connect" prefHeight="31.0" prefWidth="160.0" text="▶ Conectar al Servidor" />
+            <Button fx:id="desconectar" disable="true" layoutX="298.0" layoutY="15.0" mnemonicParsing="false" onAction="#disconnect" text="■ Desconectar" />
             <ImageView fitHeight="170.0" fitWidth="254.0" layoutX="-66.0" layoutY="-55.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../ChatGPT%20Image%204%20may%202026,%2009_33_58%20a.m..png" />
@@ -112,20 +115,10 @@
       </Pane>
          </children>
       </Pane>
-      <SplitPane dividerPositions="0.175" layoutX="26.0" layoutY="287.0" opacity="0.8" orientation="VERTICAL" prefHeight="367.0" prefWidth="324.0" styleClass="splitPanel">
-         <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <Label layoutX="14.0" layoutY="11.0" styleClass="infoLabel" text="ESTADO DE ATENCION" />
-               </children>
-            </AnchorPane>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="411.0" prefWidth="468.0" />
-         </items>
-      </SplitPane>
       <TextField fx:id="txtOrigen" layoutX="885.0" layoutY="586.0" prefHeight="37.0" prefWidth="243.0" promptText="Origen" styleClass="input-busqueda" />
  <TextField fx:id="txtDestino" layoutX="885.0" layoutY="635.0" prefHeight="37.0" prefWidth="243.0" promptText="Destino" styleClass="input-busqueda" />
  <Button fx:id="doViaje" disable="true" layoutX="883.0" layoutY="709.0" onAction="#buscarDireccion" prefHeight="36.0" prefWidth="249.0" styleClass="btn-buscar" text="🔍 Buscar" />
-      <Pane layoutX="26.0" layoutY="661.0" prefHeight="42.0" prefWidth="268.0" styleClass="infoPanel">
+      <Pane layoutX="26.0" layoutY="661.0" prefHeight="42.0" prefWidth="324.0" styleClass="infoPanel">
          <children>
             <Label layoutX="8.0" layoutY="9.0" styleClass="infoLabel" text="COLA ACTUAL:" />
             <Label layoutX="135.0" layoutY="9.0" prefHeight="8.0" prefWidth="120.0" text="PRIORITARIA">
@@ -176,5 +169,15 @@
             <String fx:value="vbox" />
          </styleClass>
       </VBox>
+      <TextField fx:id="sendMessage" layoutX="26.0" layoutY="614.0" onKeyPressed="#enviarMensaje" prefHeight="42.0" prefWidth="324.0" promptText="Enviar mensaje..." styleClass="chatInput" />
+      <ScrollPane fx:id="chatScroll" fitToHeight="true" fitToWidth="true" layoutX="26.0" layoutY="300.0" prefHeight="299.0" prefWidth="324.0" styleClass="chat-scroll">
+        <content>
+            <TextFlow fx:id="chatArea" prefHeight="200.0" prefWidth="200.0" styleClass="chatArea" />
+        </content>
+      </ScrollPane>
    </children>
+   <stylesheets>
+      <URL value="@../../styles/interfazprioritaria.css" />
+      <URL value="@../../styles/chat.css" />
+   </stylesheets>
 </AnchorPane>

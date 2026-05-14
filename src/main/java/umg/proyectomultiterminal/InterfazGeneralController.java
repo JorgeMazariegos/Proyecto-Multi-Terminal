@@ -10,6 +10,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.URL;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -23,8 +25,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 import modelos.Mensaje;
 import modelos.Ticket;
@@ -60,6 +68,10 @@ public class InterfazGeneralController implements Initializable {
     
     @FXML
     private TextField txtDPI, txtDestino, txtNTicket, txtNombre, txtOrigen, txtPago;
+    
+    @FXML private TextFlow chatArea;
+    @FXML private ScrollPane chatScroll;
+    @FXML private TextField sendMessage;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -184,6 +196,16 @@ public class InterfazGeneralController implements Initializable {
                 desconectar.setDisable(true);
                 serverOff();
             });
+        }
+    }
+    
+    @FXML
+    private void enviarMensaje(KeyEvent event) {
+        Mensaje mensaje = new Mensaje(sendMessage.getText());       
+        mensaje.setCliente("General");
+        if (event.getCode() == KeyCode.ENTER) {
+            sendMensaje(mensaje);
+            sendMessage.setText("");
         }
     }
     
@@ -344,7 +366,7 @@ public class InterfazGeneralController implements Initializable {
                 label = vipStatus;
                 break;
             case "Entrega":
-                label = registroStatus;
+                label = entregasStatus;
                 break;
             case "Registro":
                 label = registroStatus;
@@ -363,6 +385,8 @@ public class InterfazGeneralController implements Initializable {
                     clienteDesconectado(mensaje);
                     break;
             }
+        }else{
+            agregarMensaje(mensaje.getCliente(), mensaje.getMensaje());
         }
     }
 
@@ -375,11 +399,9 @@ public class InterfazGeneralController implements Initializable {
     }
     
     private void clienteDesconectado(Mensaje mensaje) {
-        for(String cliente : mensaje.getClientes()){
-            Label label = getLabel(cliente);
-            label.pseudoClassStateChanged(on, false);
-            label.setText("⬤ Desconectado");
-        }      
+        Label label = getLabel(mensaje.getMensaje());
+        label.pseudoClassStateChanged(on, false);
+        label.setText("⬤ Desconectado");     
     }
     
     private void serverOff(){
@@ -391,5 +413,43 @@ public class InterfazGeneralController implements Initializable {
         entregasStatus.setText("⬤ Desconectado");
         registroStatus.pseudoClassStateChanged(on, false);
         registroStatus.setText("⬤ Desconectado");
+    }
+    
+    private void agregarMensaje(String usuario, String mensaje) {
+        String color = obtenerColorUsuario(usuario);
+        String hora = LocalTime.now()
+                .format(DateTimeFormatter.ofPattern("HH:mm"));
+        Text timestamp = new Text("[" + hora + "] ");
+        timestamp.setFill(Color.GRAY);
+        Text username = new Text(usuario + ": ");
+        username.setFill(Color.web(color));
+        username.setStyle("-fx-font-weight: bold;");
+        Text contenido = new Text(mensaje + "\n");
+        contenido.setFill(Color.WHITE);
+        chatArea.getChildren().addAll(
+                timestamp,
+                username,
+                contenido
+        );
+        Platform.runLater(() -> {
+            chatScroll.setVvalue(1.0);
+        });
+    }
+    
+    private String obtenerColorUsuario(String usuario){
+        switch(usuario){
+            case "Registro":
+                return "#9ae96b";
+            case "General":
+                return "#658dd5";
+            case "VIP":
+                return "#FFD700";
+            case "Entrega":
+                return "#a37ad5";
+            case "Server":
+                return "#4ec9b0";
+            default:
+                return "#FFFFFF";
+        }
     }
 }

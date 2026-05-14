@@ -328,12 +328,12 @@
 }
 
 .input-busqueda {
-    -fx-background-color: #ffd54a;
+    
     -fx-border-color: #1E3A5F;
     -fx-border-radius: 8;
     -fx-background-radius: 8;
     -fx-text-fill: #E8F4FD;
-    -fx-prompt-text-fill: #3A6080;
+    -fx-prompt-text-fill: white;
     -fx-padding: 8 12 8 12;
     -fx-font-size: 13px;
 }

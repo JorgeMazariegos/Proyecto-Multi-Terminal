@@ -4,6 +4,8 @@ import estructuras.ArchivoTickets;
 import estructuras.Cola;
 import estructuras.ColaPrioritaria;
 import java.io.IOException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.application.Platform;
@@ -12,11 +14,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
+import modelos.Mensaje;
 import modelos.Ticket;
 import serverLogic.Server;
 
@@ -44,9 +53,6 @@ public class InterfazPrincipalController {
     private Button startServer;
 
     @FXML
-    private VBox summary;
-
-    @FXML
     private Label viajesAtendidos;
     
     @FXML
@@ -66,10 +72,14 @@ public class InterfazPrincipalController {
     
     @FXML
     private ImageView imgEntrega, imgGeneral, imgVIP;
+    
+    @FXML private TextFlow chatArea;
+    @FXML private ScrollPane chatScroll;
+    @FXML private TextField sendMessage;
 
     @FXML
     public void initialize(){
-        instance = this;
+        instance = this;        
     }
     
     @FXML
@@ -103,6 +113,17 @@ public class InterfazPrincipalController {
     @FXML
     private void guardarTickets(){
         ArchivoTickets.guardar(colaTicketsFinalizados);
+    }
+    
+    @FXML
+    private void enviarMensaje(KeyEvent event) {
+        Mensaje mensaje = new Mensaje(sendMessage.getText());
+        mensaje.setCliente("Server");
+        if (event.getCode() == KeyCode.ENTER) {
+            sendMensaje(mensaje);
+            agregarMensaje(mensaje.getCliente(), mensaje.getMensaje());
+            sendMessage.setText("");
+        }
     }
     
     public synchronized void agregarTicket(Ticket ticket){
@@ -366,5 +387,46 @@ public class InterfazPrincipalController {
             }
         }
     }
+
+    private void sendMensaje(Mensaje mensaje) {
+        server.broadcast(mensaje);
+    }
     
+    public void agregarMensaje(String usuario, String mensaje) {
+        String color = obtenerColorUsuario(usuario);
+        String hora = LocalTime.now()
+                .format(DateTimeFormatter.ofPattern("HH:mm"));
+        Text timestamp = new Text("[" + hora + "] ");
+        timestamp.setFill(Color.GRAY);
+        Text username = new Text(usuario + ": ");
+        username.setFill(Color.web(color));
+        username.setStyle("-fx-font-weight: bold;");
+        Text contenido = new Text(mensaje + "\n");
+        contenido.setFill(Color.WHITE);
+        chatArea.getChildren().addAll(
+                timestamp,
+                username,
+                contenido
+        );
+        Platform.runLater(() -> {
+            chatScroll.setVvalue(1.0);
+        });
+    }
+    
+    private String obtenerColorUsuario(String usuario){
+        switch(usuario){
+            case "Registro":
+                return "#9ae96b";
+            case "General":
+                return "#658dd5";
+            case "VIP":
+                return "#FFD700";
+            case "Entrega":
+                return "#a37ad5";
+            case "Server":
+                return "#4ec9b0";
+            default:
+                return "#FFFFFF";
+        }
+    }
 }

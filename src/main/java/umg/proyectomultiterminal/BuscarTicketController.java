@@ -13,6 +13,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -58,6 +60,21 @@ public class BuscarTicketController implements Initializable {
         long inicio = System.nanoTime();
         Ticket ticket = tabla.get(dpi);
         long fin = System.nanoTime();
+        if(ticket == null){
+            if (ticket == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("No se encontró un ticket con ese DPI.");
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStylesheets().add(
+                    getClass().getResource("/styles/alert.css").toExternalForm()
+                );
+                dialogPane.getStyleClass().add("custom-alert");
+                alert.showAndWait();
+                return;
+            }
+        }
+        
         long total = fin - inicio;
         double totalMs = total / 1_000_000.0;
         txtTiempoBusqueda.setText(totalMs + "ms");

@@ -45,7 +45,11 @@ public class Server {
         running = true;
 
         loadProperties();
-        clientThreadPool = Executors.newFixedThreadPool(4);
+        clientThreadPool = Executors.newFixedThreadPool(4, runnable -> {
+            Thread t = new Thread(runnable);
+            t.setDaemon(true);
+            return t;
+        });
 
         acceptThread = new Thread(() -> {
             try {
@@ -226,6 +230,11 @@ public class Server {
                         interfaz.usuarioStatus(mensaje.getMensaje());
                     });
                 }        
+            }else{
+                broadcast(mensaje);
+                Platform.runLater(()->{
+                    interfaz.agregarMensaje(mensaje.getCliente(), mensaje.getMensaje());
+                });
             }
         }
         
@@ -256,6 +265,12 @@ public class Server {
                 if(socket != null && !socket.isClosed()){
                     socket.close();
                 }
+                if(in != null){
+                    in.close();
+                }
+                if(out != null){
+                    out.close();
+                }
             }catch(IOException e){
                 e.printStackTrace();
             }
@@ -274,7 +289,7 @@ public class Server {
         }
     }
     
-    private void broadcast(Mensaje mensaje){
+    public void broadcast(Mensaje mensaje){
         for(ClientHandler cliente : clientes.values()){
             cliente.sendObject(mensaje);
         }

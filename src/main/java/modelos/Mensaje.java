@@ -12,6 +12,7 @@ import java.io.Serializable;
  */
 public class Mensaje implements Serializable {
     boolean status; //Nos sirve para saber si es un mensaje sobre el status de la conexion
+    String cliente;
     String mensaje;
     String tipo; //CONECTADO , DESCONECTADO.
     String[] clientes;
@@ -53,5 +54,13 @@ public class Mensaje implements Serializable {
 
     public void setClientes(String[] clientes) {
         this.clientes = clientes;
+    }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
     }
 }
